@@ -10,42 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
-
-int	mess_error(char *str)
-{
-	if (errno)
-		perror("ERROR");
-	else
-		ft_putendl_fd(str, 2);
-	exit(1);
-	return (1);
-}
-
-int	check_arg(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str) - 1;
-	while (str[len])
-	{
-		if (str[len] == 't' && str[len - 1] == 'r' && str[len - 2] == '.')
-			return (1);
-		break ;
-	}
-	return (0);
-}
+#include "../inc/cub3d.h"
 
 int	main(int ac, char **av)
 {
-	int	fd;
+	t_data	data;
 
 	if (ac != 2 || (ac == 2 && !av[1]))
-		return (mess_error("Wrong args format.\nExample: ./miniRT file.rt"));
+		return (mess_error("Wrong args format.\nExample: ./cub3D filename.cub"));
 	if (!check_arg(av[1]))
-		return (mess_error("Wrong file format\nExample: ./miniRT file.rt"));
-	fd = open (av[1], O_RDONLY);
-	if (fd < 0)
-		return(close(fd), mess_error(NULL);
+		return (mess_error("Wrong file format\nExample: ./cub3D filename.cub"));
+	data.fd = open(av[1], O_RDONLY);
+	if (data.fd < 0)
+		return(mess_error(NULL));
+	if (parse_data(&data))
+		return (mess_error("Parsing error: check your map."));
 	return (0);
 }

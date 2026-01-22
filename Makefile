@@ -10,13 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = miniRT
+NAME = cub3D
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
-SRCS = srcs/main.c
+SRCS = srcs/main.c \
+	srcs/utils/errors.c \
+	srcs/utils/gnl.c \
+	srcs/parsing/parse_data.c \
+	srcs/parsing/parse_elements.c
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
-INC = miniRT.h
+INC = inc/cub3d.h
 
 all: $(NAME)
 
@@ -29,6 +33,7 @@ $(NAME) : $(OBJS) $(INC)
 
 clean:
 	rm -rf $(OBJS)
+	make clean -C libft
 
 fclean: clean
 	rm -rf $(NAME)
