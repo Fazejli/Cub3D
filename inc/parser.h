@@ -16,13 +16,14 @@ char	*extract_path(char *line, int offset);
 int		check_texture_exists(char *path);
 int		assign_texture(t_data *data, char *path, int type);
 int		parse_single_texture(t_data *data, char *line, int type);
+int	    check_duplicate_texture(t_data *data, int type);
 
 /* Colors */
 int		parse_color(t_data *data, char *line, char type);
 int		create_rgb(int r, int g, int b);
 int		ft_atoi_rgb(const char *str, int *error);
-int		parse_rgb_values(char **rgb, int *r, int *g, int *b);
-int		extract_and_parse_color(t_data *data, char *line, char type);
+int		parse_rgb(char **rgb, int *r, int *g, int *b);
+int		extract_color(t_data *data, char *line, char type);
 
 /* Map */
 int		parse_map(t_data *data, char *first_line);

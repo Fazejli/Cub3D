@@ -21,36 +21,40 @@ int elements_section(char *line)
     return (0);
 }
 
+int handle_element(t_data *data, char *line, int *count)\
+{
+    int type;
+
+    type = elements_section(line);
+    if (type > 0)
+    {
+        if (parse_textures(data, line, type))
+            return (1);
+        (*count)++;
+        return (0);
+    }
+    return (-1);
+}
+
 int parse_file(t_data *data)
 {
     char *line;
     int   compt = 0;
-    int     type;
 
     while (compt < 6)
     {
         line = gnl(data->fd);
         if (!line)
             return (1);
-        if (ft_is_empty(line))
+        if (!ft_is_empty(line))
         {
-            free(line);
-            continue;
+            if (handle_element(data, line, &count) == -1)
+				return (free(line), mess_error("Invalid element"));
         }
-        type = elements_section(line);
-        if (type > 0)
-        {
-            if (parse_textures(data, line, type))
-                return(free(line), 1);
-            compt++;
-        }
-        else
-        {
-            if (parse_map(data, line))
-                return (1);
-        }
+        free(line);
     }
-    free(line);
+    if (!check_all_elements(data))
+        return (mess_error("Missing elements."));
     return (0);
 }
 
@@ -70,8 +74,26 @@ void    init_data(t_data *data)
 
 int    parse_data(t_data *data)
 {
+    char *line;
+
     init_data(data);
     if (parse_file(data))
+        return (1);
+    while (1)
+    {
+        line = gnl(data->fd)
+        if (!line)
+            return(mess_error("No map found"));
+        if (!ft_is_empty(line))
+        {
+            if (parse_map(data, line))
+                return (free(line), 1);
+            free(line);
+            break ;
+        }
+        free(line);
+    }
+    if (valid_map(data))
         return (1);
     return (0);
 }
