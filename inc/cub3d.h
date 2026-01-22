@@ -23,6 +23,7 @@
 # include "../minilibx_linux/mlx.h"
 # include "../libft/libft.h"
 # include "gnl.h"
+# include "parser.h"
 
 typedef struct s_pos
 {
@@ -46,12 +47,6 @@ typedef struct s_data
     t_pos *player_pos;
     int fd;
 } t_data;
-
-/*  Parsing */
-int     parse_data(t_data *data);
-void    init_data(t_data *data);
-int     parse_file(t_data *data);
-int     elements_section(char *line);
 
 /*  Utils   */
 int	check_arg(char *filename);

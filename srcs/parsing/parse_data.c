@@ -48,12 +48,11 @@ int parse_file(t_data *data)
         {
             if (parse_map(data, line))
                 return (1);
-            compt++
         }
     }
     free(line);
     return (0);
-}    
+}
 
 void    init_data(t_data *data)
 {
@@ -62,8 +61,8 @@ void    init_data(t_data *data)
     data->t_west = NULL;
     data->t_east = NULL;
 
-    data->floor_color = 0;
-    data->ceiling_color = 0;
+    data->floor_color = -1;
+    data->ceiling_color = -1;
     data->map = NULL;
     data->player_pos = NULL;
     data->fd = 0;
