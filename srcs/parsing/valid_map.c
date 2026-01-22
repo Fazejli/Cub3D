@@ -9,11 +9,11 @@ char	get_map_char(char **map, int x, int y)
 	return (map[y][x]);
 }
 
-int	flood_fill_check(char **map, int x, int y, int w, int h)
+int	flood_fill_check(char **map, int x, int y, int width, int height)
 {
 	char	c;
 
-	if (y < 0 || y >= h || x < 0)
+	if (y < 0 || y >= height || x < 0)
 		return (0);
 	c = get_map_char(map, x, y);
 	if (c == ' ' || c == '\n' || c == '\0')
@@ -21,66 +21,64 @@ int	flood_fill_check(char **map, int x, int y, int w, int h)
 	if (c == '1' || c == 'V')
 		return (1);
 	map[y][x] = 'V';
-	if (!flood_fill_check(map, x + 1, y, w, h))
+	if (!flood_fill_check(map, x + 1, y, width, height))
 		return (0);
-	if (!flood_fill_check(map, x - 1, y, w, h))
+	if (!flood_fill_check(map, x - 1, y, width, height))
 		return (0);
-	if (!flood_fill_check(map, x, y + 1, w, h))
+	if (!flood_fill_check(map, x, y + 1, width, height))
 		return (0);
-	if (!flood_fill_check(map, x, y - 1, w, h))
+	if (!flood_fill_check(map, x, y - 1, width, height))
 		return (0);
 	return (1);
 }
 
-int	find_player_and_validate(t_data *data, char **map_copy)
+int	find_player(t_pos *player_pos, char **map)
 {
 	int	i;
 	int	j;
-	int	w;
-	int	h;
+	int	width;
+	int	height;
 
-	w = get_map_width(data->map);
-	h = get_map_height(data->map);
-	i = -1;
-	while (map_copy[++i])
+	i = 0;
+	while (map[i])
 	{
-		j = -1;
-		while (map_copy[i][++j])
+		j = 0;
+		while (map[i][j])
 		{
-			if (map_copy[i][j] == data->player_pos->pos)
+			if (map[i][j] == player_pos->pos)
 			{
-				data->player_pos->x = j;
-				data->player_pos->y = i;
-				if (!flood_fill_check(map_copy, j, i, w, h))
+				player_pos->x = j;
+				player_pos->y = i;
+				if (!flood_fill_check(map, j, i, width, height))
 					return (mess_error("Map not closed"));
 				return (0);
 			}
+			j++;
 		}
+		i++;
 	}
 	return (mess_error("Player not found"));
 }
 
-int	check_all_elements_present(t_data *data)
+int	valid_map(t_data *data)
 {
-	if (!data->t_north || !data->t_south
-		|| !data->t_west || !data->t_east)
-		return (0);
-	if (data->floor_color == -1 || data->ceiling_color == -1)
-		return (0);
-	return (1);
-}
+	int i;
+	int height;
+	int status;
+	char **map_cpy;
 
-int	validate_map(t_data *data)
-{
-	char	**map_copy;
-	int		result;
-
-	if (!data->player_pos)
-		return (mess_error("No player position"));
-	map_copy = copy_map(data->map);
-	if (!map_copy)
+	height = get_height(data->map);
+	i = 0;
+	while (i < height)
+	{
+		if (!data->map[i])
+			return (free_data(data), 1);
+		i++;
+	}
+	map_cpy = copy_map(data->map);
+	if (!map_cpy)
 		return (mess_error("Malloc failed"));
-	result = find_player_and_validate(data, map_copy);
-	free_map(map_copy);
-	return (result);
+	status = find_player(data->player_pos, map_cpy);
+	free_map(map_cpy);
+	return (status);
 }

@@ -53,4 +53,10 @@ int	check_arg(char *filename);
 int	mess_error(char *msg);
 char *gnl(int fd);
 
+/* Cleanup  */
+void	free_data(t_data *data);
+void	free_map_and_player(t_data *data);
+void	free_map(char **map);
+void	free_split(char **split);
+
 #endif

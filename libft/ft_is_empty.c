@@ -6,7 +6,6 @@ int	ft_is_empty(char *line)
 
 	if (!line)
 		return (1);
-
 	i = 0;
 	while (line[i])
 	{

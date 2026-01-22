@@ -1,12 +1,12 @@
 #include "../../inc/cub3d.h"
 
-int	is_valid_map_char(char c)
+int	is_valid_char(char c)
 {
 	return (c == '0' || c == '1' || c == ' '
 		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-int	check_player_char(char c, t_data *data)
+int	check_player_pos(t_data *data, char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
@@ -18,22 +18,6 @@ int	check_player_char(char c, t_data *data)
 		data->player_pos->pos = c;
 		data->player_pos->x = 0;
 		data->player_pos->y = 0;
-	}
-	return (0);
-}
-
-int	check_map_line(char *line, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] != '\n')
-	{
-		if (!is_valid_map_char(line[i]))
-			return (mess_error("Invalid map char"));
-		if (check_player_char(line[i], data))
-			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -53,7 +37,7 @@ int	store_map_lines(t_data *data, char *first_line)
 	while (1)
 	{
 		line = gnl(data->fd);
-		if (!line || is_empty_or_whitespace(line))
+		if (!line || ft_is_empty(line))
 		{
 			if (line && !check_empty_lines_after(data->fd))
 				return (free(line), free_map(temp), 1);
@@ -64,6 +48,22 @@ int	store_map_lines(t_data *data, char *first_line)
 	temp[i] = NULL;
 	data->map = temp;
 	return (free(line), 0);
+}
+
+int	check_map_line(char *line, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		if (!is_valid_char(line[i]))
+			return (mess_error("Invalid map char"));
+		if (check_player_pos(data, line[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	parse_map(t_data *data, char *first_line)

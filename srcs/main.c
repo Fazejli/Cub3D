@@ -24,10 +24,7 @@ int	main(int ac, char **av)
 	if (data.fd < 0)
 		return(mess_error(NULL));
 	if (parse_data(&data))
-	{
-		free_data(&data);
-		return (1);
-	}
+		return (free_data(&data), 1);
 	printf("✓ Parsing successful!\n");
 	printf("Player: (%d,%d) facing %c\n",
 		data.player_pos->x, data.player_pos->y, data.player_pos->pos);

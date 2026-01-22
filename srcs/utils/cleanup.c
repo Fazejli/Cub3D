@@ -1,5 +1,49 @@
 #include "../../inc/cub3d.h"
 
+void	free_split(char **split)
+{
+	int	i;
+
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
+void	free_map_and_player(t_data *data)
+{
+	if (data->map)
+	{
+		free_map(data->map);
+		data->map = NULL;
+	}
+	if (data->player_pos)
+	{
+		free(data->player_pos);
+		data->player_pos = NULL;
+	}
+}
+
 void	free_textures(t_data *data)
 {
 	if (data->t_north)
@@ -24,20 +68,6 @@ void	free_textures(t_data *data)
 	}
 }
 
-void	free_map_and_player(t_data *data)
-{
-	if (data->map)
-	{
-		free_map(data->map);
-		data->map = NULL;
-	}
-	if (data->player_pos)
-	{
-		free(data->player_pos);
-		data->player_pos = NULL;
-	}
-}
-
 void	free_data(t_data *data)
 {
 	free_textures(data);
@@ -47,19 +77,4 @@ void	free_data(t_data *data)
 		close(data->fd);
 		data->fd = 0;
 	}
-}
-
-void	free_split(char **split)
-{
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
 }

@@ -1,6 +1,6 @@
 #include "../../inc/cub3d.h"
 
-int elements_section(char *line)
+int find_type(char *line)
 {
     int i = 0;
 
@@ -21,11 +21,11 @@ int elements_section(char *line)
     return (0);
 }
 
-int handle_element(t_data *data, char *line, int *count)\
+int handle_element(t_data *data, char *line, int *count)
 {
     int type;
 
-    type = elements_section(line);
+    type = find_type(line);
     if (type > 0)
     {
         if (parse_textures(data, line, type))
@@ -36,7 +36,8 @@ int handle_element(t_data *data, char *line, int *count)\
     return (-1);
 }
 
-int parse_file(t_data *data)
+//compt 5 ou 6?
+int parse_sections(t_data *data)
 {
     char *line;
     int   compt = 0;
@@ -48,7 +49,7 @@ int parse_file(t_data *data)
             return (1);
         if (!ft_is_empty(line))
         {
-            if (handle_element(data, line, &count) == -1)
+            if (handle_element(data, line, &compt) == -1)
 				return (free(line), mess_error("Invalid element"));
         }
         free(line);
@@ -64,7 +65,6 @@ void    init_data(t_data *data)
     data->t_south = NULL;
     data->t_west = NULL;
     data->t_east = NULL;
-
     data->floor_color = -1;
     data->ceiling_color = -1;
     data->map = NULL;
@@ -77,11 +77,11 @@ int    parse_data(t_data *data)
     char *line;
 
     init_data(data);
-    if (parse_file(data))
+    if (parse_sections(data))
         return (1);
     while (1)
     {
-        line = gnl(data->fd)
+        line = gnl(data->fd);
         if (!line)
             return(mess_error("No map found"));
         if (!ft_is_empty(line))

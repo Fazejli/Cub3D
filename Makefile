@@ -17,14 +17,12 @@ SRCS = srcs/main.c \
 	srcs/utils/errors.c \
 	srcs/utils/gnl.c \
 	srcs/utils/cleanup.c \
-	srcs/utils/string_utils.c \
 	srcs/parsing/parse_data.c \
 	srcs/parsing/parse_texture.c \
-	srcs/parsing/textures_utils.c \
 	srcc/parsing/parse_colors.c
 	srcs/parsing/parse_map.c \
 	srcs/parsing/valid_map.c \
-	srcs/parsing/map_utils.c
+	srcs/parsing/parse_utils.c
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
 INC = inc/cub3d.h

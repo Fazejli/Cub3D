@@ -1,6 +1,5 @@
 #include "../../inc/cub3d.h"
 
-//A modifier
 int		create_rgb(int r, int g, int b)
 {
     return ((r << 16) | (g << 8) | b);
@@ -11,25 +10,28 @@ int	ft_atoi_rgb(const char *str, int *error)
 	int	result;
 	int	i;
 
-	i = skip_whitespace((char *)str, 0);
+	while (str[i] && ft_isspace(str[i]))
+        i++;
 	result = 0;
-	*error = 0;
+	*error = 1;
 	if (!ft_isdigit(str[i]))
-		return (*error = 1, 0);
+		return (0);
 	while (str[i] && ft_isdigit(str[i]))
 	{
 		result = result * 10 + (str[i] - '0');
 		if (result > 255)
-			return (*error = 1, 0);
+			return (0);
 		i++;
 	}
-	i = skip_whitespace((char *)str, i);
+    *error = 0;
+	while (str[i] && ft_isspace(str[i]))
+        i++;
 	if (str[i] && str[i] != ',' && str[i] != '\n')
 		*error = 1;
 	return (result);
 }
 
-int		parse_rgb(char **rgb, int *r, int *g, int *b);
+int		parse_rgb(char **rgb, int *r, int *g, int *b)
 {
     int error;
 
