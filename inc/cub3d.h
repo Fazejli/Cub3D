@@ -23,6 +23,8 @@
 # include "../libft/libft.h"
 # include "gnl.h"
 # include "parser.h"
+# include "game.h"
+# include "../mlx/mlx.h"
 
 typedef struct s_pos
 {

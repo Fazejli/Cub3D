@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/23 02:17:23 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/01/23 02:47:15 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
+	t_game game;
 
 	if (ac != 2 || (ac == 2 && !av[1]))
 		return (mess_error("Wrong args format.\nExample: ./cub3D filename.cub"));
@@ -26,8 +27,13 @@ int	main(int ac, char **av)
 	if (parse_data(&data))
 		return (free_data(&data), 1);
 	printf("✓ Parsing successful!\n");
-	printf("Player: (%d,%d) facing %c\n",
-		data.player_pos->x, data.player_pos->y, data.player_pos->pos);
+	if (init_game(&game, &data))
+		return (free_data(&data), 1);
+	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
+	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
+	mlx_hook(game.win, 17, 0, handle_close, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_loop(game.mlx);
 	free_data(&data);
 	close(data.fd);
 	return (0);

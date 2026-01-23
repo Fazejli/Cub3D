@@ -1,0 +1,13 @@
+NO ./textures/wood_north.xpm
+SO ./textures/wood_south.xpm
+WE ./textures/brick_west.xpm
+EA ./textures/stone_east.xpm
+
+F 50,50,50
+C 135,206,235
+
+111111
+100001
+100N01
+100001
+111111
