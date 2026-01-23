@@ -35,7 +35,7 @@ int handle_element(t_data *data, char *line, int *count)
     }
     return (-1);
 }
-/*
+
 int parse_sections(t_data *data)
 {
     char *line;
@@ -56,7 +56,7 @@ int parse_sections(t_data *data)
     if (!check_all_elements(data))
         return (mess_error("Missing elements."));
     return (0);
-}*/
+}
 
 void    init_data(t_data *data)
 {
@@ -68,9 +68,8 @@ void    init_data(t_data *data)
     data->ceiling_color = -1;
     data->map = NULL;
     data->player_pos = NULL;
-    data->fd = 0;
 }
-/*
+
 int    parse_data(t_data *data)
 {
     char *line;
@@ -92,86 +91,6 @@ int    parse_data(t_data *data)
         }
         free(line);
     }
-    if (valid_map(data))
-        return (1);
-    return (0);
-}*/
-
-// Dans parse_data.c, ajoutez des traces :
-
-int parse_sections(t_data *data)
-{
-    char *line;
-    int   compt = 0;
-
-    printf("DEBUG: Starting parse_sections\n");
-    while (compt < 6)
-    {
-        printf("DEBUG: Reading element %d/6\n", compt + 1);
-        line = gnl(data->fd);
-        if (!line)
-        {
-            printf("DEBUG: gnl returned NULL at element %d\n", compt);
-            return (1);
-        }
-        printf("DEBUG: Read line: [%s]\n", line);
-        if (!ft_is_empty(line))
-        {
-            if (handle_element(data, line, &compt) == -1)
-            {
-                printf("DEBUG: Invalid element\n");
-                return (free(line), mess_error("Invalid element"));
-            }
-            printf("DEBUG: Element %d parsed successfully\n", compt);
-        }
-        else
-            printf("DEBUG: Empty line skipped\n");
-        free(line);
-    }
-    printf("DEBUG: parse_sections completed\n");
-    if (!check_all_elements(data))
-        return (mess_error("Missing elements."));
-    return (0);
-}
-
-int parse_data(t_data *data)
-{
-    char *line;
-    int line_count = 0;
-
-    printf("DEBUG: Starting parse_data\n");
-    init_data(data);
-    if (parse_sections(data))
-        return (1);
-    
-    printf("DEBUG: Looking for map...\n");
-    while (1)
-    {
-        line_count++;
-        printf("DEBUG: Reading line %d for map\n", line_count);
-        line = gnl(data->fd);
-        if (!line)
-        {
-            printf("DEBUG: gnl returned NULL, no map found\n");
-            return(mess_error("No map found"));
-        }
-        printf("DEBUG: Read: [%s]\n", line);
-        if (!ft_is_empty(line))
-        {
-            printf("DEBUG: Found map start\n");
-            if (parse_map(data, line))
-                return (free(line), 1);
-            free(line);
-            break ;
-        }
-        free(line);
-        if (line_count > 100)
-        {
-            printf("DEBUG: Too many lines, stopping\n");
-            return (mess_error("Infinite loop detected"));
-        }
-    }
-    printf("DEBUG: Validating map\n");
     if (valid_map(data))
         return (1);
     return (0);
