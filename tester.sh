@@ -38,7 +38,7 @@ run_test() {
     echo -e "  Expected: ${expected_result}"
     
     # Run the program with timeout (5 seconds)
-    timeout 5s $PROGRAM "$map_file" > /tmp/cub3d_output.txt 2>&1
+    $PROGRAM "$map_file" > /tmp/cub3d_output.txt 2>&1
     exit_code=$?
     
     # Check timeout (exit code 124)

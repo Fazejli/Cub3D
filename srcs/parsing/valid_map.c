@@ -26,10 +26,12 @@ int	flood_fill_check(char **map, int x, int y, int width, int height)
 	if (y < 0 || y >= height || x < 0)
 		return (0);
 	c = get_map_char(map, x, y);
-	if (c == ' ' || c == '\n' || c == '\0')
+	if (c == '\n' || c == '\0')
 		return (0);
 	if (c == '1' || c == 'V')
 		return (1);
+	if (!is_valid_char(c))
+		return (0);
 	map[y][x] = 'V';
 	if (!flood_fill_check(map, x + 1, y, width, height))
 		return (0);
