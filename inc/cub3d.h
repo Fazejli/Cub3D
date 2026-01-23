@@ -32,7 +32,6 @@ typedef struct s_pos
     char pos;
 } t_pos;
 
-
 typedef struct s_data
 {
     char *t_north;

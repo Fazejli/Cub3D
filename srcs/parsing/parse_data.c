@@ -36,7 +36,6 @@ int handle_element(t_data *data, char *line, int *count)
     return (-1);
 }
 
-//compt 5 ou 6?
 int parse_sections(t_data *data)
 {
     char *line;

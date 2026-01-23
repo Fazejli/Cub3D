@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/21 19:36:07 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/01/23 00:46:20 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	main(int ac, char **av)
 	printf("Player: (%d,%d) facing %c\n",
 		data.player_pos->x, data.player_pos->y, data.player_pos->pos);
 	free_data(&data);
+	close(data.fd);
 	return (0);
 }

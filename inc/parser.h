@@ -3,6 +3,8 @@
 
 #include "cub3d.h"
 
+typedef struct s_data t_data;
+
 /*  Parsing */
 int     parse_data(t_data *data);
 void    init_data(t_data *data);

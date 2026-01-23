@@ -10,6 +10,7 @@ int	ft_atoi_rgb(const char *str, int *error)
 	int	result;
 	int	i;
 
+    i = 0;
 	while (str[i] && ft_isspace(str[i]))
         i++;
 	result = 0;

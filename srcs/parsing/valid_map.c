@@ -40,6 +40,8 @@ int	find_player(t_pos *player_pos, char **map)
 	int	height;
 
 	i = 0;
+	width = get_width(map);
+	height = get_height(map);
 	while (map[i])
 	{
 		j = 0;

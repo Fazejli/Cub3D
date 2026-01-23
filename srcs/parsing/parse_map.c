@@ -27,7 +27,6 @@ int	store_map_lines(t_data *data, char *first_line)
 	char	*line;
 	char	**temp;
 	int		i;
-	int		size;
 
 	temp = malloc(sizeof(char *) * 1000);
 	if (!temp)
