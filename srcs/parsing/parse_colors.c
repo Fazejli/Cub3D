@@ -5,33 +5,6 @@ int		create_rgb(int r, int g, int b)
     return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_atoi_rgb(const char *str, int *error)
-{
-	int	result;
-	int	i;
-
-    i = 0;
-	while (str[i] && ft_isspace(str[i]))
-        i++;
-	result = 0;
-	*error = 1;
-	if (!ft_isdigit(str[i]))
-		return (0);
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		result = result * 10 + (str[i] - '0');
-		if (result > 255)
-			return (0);
-		i++;
-	}
-    *error = 0;
-	while (str[i] && ft_isspace(str[i]))
-        i++;
-	if (str[i] && str[i] != ',' && str[i] != '\n')
-		*error = 1;
-	return (result);
-}
-
 int		parse_rgb(char **rgb, int *r, int *g, int *b)
 {
     int error;
@@ -61,8 +34,10 @@ int		extract_color(t_data *data, char *line, char type)
     while (ft_isspace(line[i]))
         i++;
     color = ft_split(&line[i], ',');
-    if (!color || !color[0] || !color[1] || !color[2] || !color[3])
+    if (!color || !color[0] || !color[1] || !color[2])
         return (free_split(color), mess_error("Invalid RGB format"));
+    if (color[3])
+		return (free_split(color), mess_error("Too many RGB values"));
     if (parse_rgb(color, &r, &g, &b))
         return (free_split(color), 1);
     free_split(color);
@@ -77,7 +52,7 @@ int parse_color(t_data *data, char *line, char type)
 {
     if (type == 'F' && data->floor_color != -1)
         return (mess_error("Duplicate floor color"));
-    if (type == 'C' && data->floor_color != -1)
+    if (type == 'C' && data->ceiling_color != -1)
         return (mess_error("Duplicate ceiling color"));
     return (extract_color(data, line, type));
 }

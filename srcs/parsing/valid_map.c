@@ -1,5 +1,15 @@
 #include "../../inc/cub3d.h"
 
+int	check_all_elements(t_data *data)
+{
+	if (!data->t_north || !data->t_south
+		|| !data->t_west || !data->t_east)
+		return (0);
+	if (data->floor_color == -1 || data->ceiling_color == -1)
+		return (0);
+	return (1);
+}
+
 char	get_map_char(char **map, int x, int y)
 {
 	if (y < 0 || !map[y])

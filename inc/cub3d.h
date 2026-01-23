@@ -20,7 +20,6 @@
 # include <errno.h>
 # include <math.h>
 # include <sys/time.h>
-# include "../minilibx_linux/mlx.h"
 # include "../libft/libft.h"
 # include "gnl.h"
 # include "parser.h"

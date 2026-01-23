@@ -6,13 +6,13 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/01/23 01:06:02 by fadwa            ###   ########.fr        #
+#    Updated: 2026/01/23 01:46:21 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 SRCS = srcs/main.c \
 	srcs/utils/errors.c \
 	srcs/utils/gnl.c \
@@ -22,7 +22,8 @@ SRCS = srcs/main.c \
 	srcs/parsing/parse_colors.c \
 	srcs/parsing/parse_map.c \
 	srcs/parsing/valid_map.c \
-	srcs/parsing/parse_utils.c
+	srcs/parsing/parse_utils.c \
+	srcs/debug/parsing_debug.c
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
 INC = inc/cub3d.h

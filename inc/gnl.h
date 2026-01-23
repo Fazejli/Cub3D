@@ -2,7 +2,7 @@
 # define GNL_H
 
 #ifndef BS
-# define BS 42
+# define BS 10000
 #endif
 
 #include "../libft/libft.h"

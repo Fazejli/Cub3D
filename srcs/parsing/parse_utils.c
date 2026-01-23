@@ -1,5 +1,32 @@
 #include "../../inc/cub3d.h"
 
+int	ft_atoi_rgb(const char *str, int *error)
+{
+	int	result;
+	int	i;
+
+    i = 0;
+	while (str[i] && ft_isspace(str[i]))
+        i++;
+	result = 0;
+	*error = 1;
+	if (!ft_isdigit(str[i]))
+		return (0);
+	while (str[i] && ft_isdigit(str[i]))
+	{
+		result = result * 10 + (str[i] - '0');
+		if (result > 255)
+			return (0);
+		i++;
+	}
+    *error = 0;
+	while (str[i] && ft_isspace(str[i]))
+        i++;
+	if (str[i] && str[i] != ',' && str[i] != '\n')
+		*error = 1;
+	return (result);
+}
+
 int	get_width(char **map)
 {
 	int	max_width;
@@ -26,16 +53,6 @@ int	get_height(char **map)
 	while (map[i])
 		i++;
 	return (i);
-}
-
-int	check_all_elements(t_data *data)
-{
-	if (!data->t_north || !data->t_south
-		|| !data->t_west || !data->t_east)
-		return (0);
-	if (data->floor_color == -1 || data->ceiling_color == -1)
-		return (0);
-	return (1);
 }
 
 int	check_empty_lines_after(int fd)
