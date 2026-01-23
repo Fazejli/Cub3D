@@ -155,37 +155,39 @@ C 225,30,0
 cub3D/
 ├── Makefile
 ├── README.md
-├── includes/
-│   └── cub3d.h           # Header principal
+├── inc/
+│   ├── cub3d.h           # Header principal
+│   ├── parser.h
+│   ├── gnl.h
+│   └── game.h
 ├── srcs/
 │   ├── main.c            # Point d'entrée
-│   ├── parsing/          # Lecture et validation fichier .cub
-│   │   ├── parser.c
-│   │   ├── map_validator.c
-│   │   └── texture_loader.c
-│   ├── raycasting/       # Algorithme de raycasting
-│   │   ├── raycaster.c
-│   │   ├── dda.c
-│   │   └── wall_rendering.c
-│   ├── player/           # Gestion du joueur
-│   │   ├── movement.c
-│   │   └── rotation.c
-│   ├── rendering/        # Rendu graphique
-│   │   ├── render.c
-│   │   └── textures.c
-│   └── utils/            # Fonctions utilitaires
-│       ├── colors.c
-│       ├── math.c
-│       └── errors.c
+│   ├── parsing/          # Lecture et validation 
+│   │   ├── parse_color.c
+|   |   ├── parse_data.c
+|   |   ├── parse_map.c
+|   |   ├── parse_textures.c
+|   |   └── parse_utils.c
+│   ├── game/       # Algorithme de raycasting
+|   |   ├── events.c
+|   |   ├── init_game.c
+|   |   ├── movements.c
+│   │   ├── raycasting.c
+│   │   ├── rendering.c
+│   │   └── utils.c
+│   ├── utils/           # Gestion du joueur
+│   │   ├── cleanup.c
+|   |   ├── gnl.c
+│   │   └── errors.c
 ├── maps/                 # Fichiers .cub de test
 │   ├── basic.cub
 │   ├── complex.cub
 │   └── invalid.cub
 ├── textures/             # Fichiers .xpm
-│   ├── north.xpm
-│   ├── south.xpm
-│   ├── east.xpm
-│   └── west.xpm
+│   ├── xxxx_north.xpm
+│   ├── xxxx_south.xpm
+│   ├── xxxx_east.xpm
+│   └── xxxx_west.xpm
 └── libft/                # Libft (si nécessaire)
 ```
 
@@ -198,8 +200,7 @@ cub3D/
   - MiniLibX
   - libft (personnelle)
   - math library (-lm)
-  - open, close, read, write, malloc, free, perror, strerror, exit
-- **Fonctions interdites** : printf (utiliser ft_printf ou write)
+  - open, close, read, write, malloc, free, perror, strerror, exit, printf
 - **Variables globales** : Une seule autorisée (généralement pour MLX)
 
 ## Gestion des Erreurs

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
+#    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/01/23 02:51:48 by fadwa            ###   ########.fr        #
+#    Updated: 2026/01/23 12:23:01 by fadzejli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ ifeq ($(UNAME), Linux)
 	MLX_LIB = $(MLX_DIR)/libmlx.a
 	MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 else
-	MLX_DIR = mlx
+	MLX_DIR = mlx_opengl
 	MLX_LIB = $(MLX_DIR)/libmlx.a
 	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
@@ -71,4 +71,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re%  

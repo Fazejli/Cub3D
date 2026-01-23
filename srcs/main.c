@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/23 02:47:15 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/01/23 12:24:10 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 		return (mess_error("Wrong file format\nExample: ./cub3D filename.cub"));
 	data.fd = open(av[1], O_RDONLY);
 	if (data.fd < 0)
-		return(mess_error(NULL));
+		return (mess_error(NULL));
 	if (parse_data(&data))
 		return (free_data(&data), 1);
 	printf("✓ Parsing successful!\n");
