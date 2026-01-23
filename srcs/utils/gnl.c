@@ -19,7 +19,11 @@ static int	read_buffer(int fd, char *buf, int *pos, int *bytes)
 	*bytes = read(fd, buf, BS);
 	*pos = 0;
 	if (*bytes <= 0)
+	{
+		*bytes = 0;
+		*pos = 0;
 		return (0);
+	}
 	buf[*bytes] = '\0';
 	return (1);
 }
