@@ -46,6 +46,11 @@ typedef struct s_data
     int fd;
 } t_data;
 
+typedef struct s_game
+{
+    t_data *data;
+} t_game;
+
 /*  Utils   */
 int	check_arg(char *filename);
 int	mess_error(char *msg);

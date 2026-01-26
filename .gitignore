@@ -28,6 +28,7 @@ vgcore.*
 
 # Test files
 test
+tester.sh
 *.cub.bak
 screenshots/
 
