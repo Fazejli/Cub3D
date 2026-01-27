@@ -1,0 +1,74 @@
+# =====================
+# Binaries / Executables
+# =====================
+cub3D
+cub3d
+a.out
+
+# =====================
+# Object files
+# =====================
+*.o
+*.obj
+
+# =====================
+# Libraries
+# =====================
+*.a
+*.so
+*.dylib
+
+# =====================
+# MiniLibX
+# =====================
+mlx/
+minilibx/
+minilibx-linux/
+mlx_linux/
+
+# =====================
+# Build folders
+# =====================
+build/
+bin/
+
+# =====================
+# Debug / temporary files
+# =====================
+*.log
+*.tmp
+*.swp
+*.swo
+*.out
+
+# =====================
+# macOS
+# =====================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =====================
+# IDE / Editors
+# =====================
+.vscode/
+.idea/
+*.code-workspace
+
+# =====================
+# CMake
+# =====================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# =====================
+# Valgrind
+# =====================
+vgcore.*
+
+# =====================
+# 42 specific
+# =====================
+*.smlx

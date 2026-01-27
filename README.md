@@ -1,5 +1,9 @@
 # Cub3D
 
+## Auteurs
+
+*Projet réalisé par fadzejli dans le cadre du cursus 42.*
+
 ## Description
 
 Cub3D est un projet de raycasting inspiré du célèbre jeu Wolfenstein 3D, développé dans le cadre du cursus 42. Le programme crée une vue 3D subjective à l'intérieur d'un labyrinthe à partir d'une carte 2D.
@@ -155,6 +159,7 @@ C 225,30,0
 cub3D/
 ├── Makefile
 ├── README.md
+<<<<<<< HEAD
 ├── inc/
 │   ├── cub3d.h           # Header principal
 │   ├── parser.h
@@ -180,14 +185,55 @@ cub3D/
 |   |   ├── gnl.c
 │   │   └── errors.c
 ├── maps/                 # Fichiers .cub de test
+=======
+├── QUICK_START.md
+├── inc/
+│   ├── cub3d.h          # Header principal
+│   ├── debug.h
+│   ├── game.h
+│   ├── gnl.h
+│   └── parser.h
+├── srcs/
+│   ├── main.c
+│   ├── game/
+│   │   ├── events.c
+│   │   ├── init_game.c
+│   │   ├── movements.c
+│   │   ├── raycasting.c
+│   │   ├── rendering.c
+│   │   └── utils.c
+│   ├── parsing/
+│   │   ├── parse_colors.c
+│   │   ├── parse_data.c
+│   │   ├── parse_map.c
+│   │   ├── parse_textures.c
+│   │   ├── parse_utils.c
+│   │   └── valid_map.c
+│   ├── utils/
+│   |   ├── cleanup.c
+│   |   ├── errors.c
+│   |   └── gnl.c
+│   └──debug/
+│       ├── parsing_debug.c
+│       └── execution_debug.c
+├── maps/                 # Fichiers .cub de scenes
+>>>>>>> 079f17c (Update project files)
 │   ├── basic.cub
 │   ├── complex.cub
 │   └── invalid.cub
 ├── textures/             # Fichiers .xpm
+<<<<<<< HEAD
 │   ├── xxxx_north.xpm
 │   ├── xxxx_south.xpm
 │   ├── xxxx_east.xpm
 │   └── xxxx_west.xpm
+=======
+│   ├── north.xpm
+│   ├── south.xpm
+│   ├── east.xpm
+│   └── west.xpm
+├── printf/               # Printf (si nécessaire)
+>>>>>>> 079f17c (Update project files)
 └── libft/                # Libft (si nécessaire)
 ```
 
@@ -281,10 +327,8 @@ L'algorithme DDA permet de parcourir la grille case par case jusqu'à trouver un
 - [Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D) - Inspiration originale
 - Tutoriels sur l'algorithme DDA
 
-## Auteurs
-
-*Projet réalisé par fadzejli dans le cadre du cursus 42.*
 
 ---
+
 
 **Ce projet a été réalisé à des fins pédagogiques. Toute copie est interdite et constitue une violation de la charte de 42.**
