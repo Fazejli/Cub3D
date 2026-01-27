@@ -20,9 +20,13 @@
 # include <errno.h>
 # include <math.h>
 # include <sys/time.h>
+# include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "gnl.h"
 # include "parser.h"
+# include "game.h"
+
+//#include "debug.h"
 
 typedef struct s_pos
 {
@@ -45,11 +49,6 @@ typedef struct s_data
     t_pos *player_pos;
     int fd;
 } t_data;
-
-typedef struct s_game
-{
-    t_data *data;
-} t_game;
 
 /*  Utils   */
 int	check_arg(char *filename);

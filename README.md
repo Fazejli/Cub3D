@@ -155,29 +155,30 @@ C 225,30,0
 cub3D/
 ├── Makefile
 ├── README.md
-├── includes/
-│   └── cub3d.h           # Header principal
+├── inc/
+│   ├── cub3d.h           # Header principal
+│   ├── debug.h
+│   ├── game.h
+│   ├── gnl.h
+│   └── parser.h
 ├── srcs/
-│   ├── main.c            # Point d'entrée
-│   ├── parsing/          # Lecture et validation fichier .cub
-│   │   ├── parser.c
-│   │   ├── map_validator.c
-│   │   └── texture_loader.c
-│   ├── raycasting/       # Algorithme de raycasting
-│   │   ├── raycaster.c
-│   │   ├── dda.c
-│   │   └── wall_rendering.c
-│   ├── player/           # Gestion du joueur
-│   │   ├── movement.c
-│   │   └── rotation.c
-│   ├── rendering/        # Rendu graphique
-│   │   ├── render.c
-│   │   └── textures.c
-│   └── utils/            # Fonctions utilitaires
-│       ├── colors.c
-│       ├── math.c
-│       └── errors.c
-├── maps/                 # Fichiers .cub de test
+│   ├── main.c
+│   ├── parsing/
+│   │   ├── parse_colors.c
+│   │   ├── parse_data.c
+│   │   ├── parse_map.c
+│   │   ├── parse_textures.c
+│   │   ├── parse_utils.c
+│   │   └── valid_map.c
+│   ├── utils/
+│   |   ├── cleanup.c
+│   |   ├── errors.c
+│   |   ├── gnl.c
+│   |   └── string_utils.c
+│   └── debug/
+│       ├── parsing_debug.c
+│       └── execution_debug.c
+├── maps/                 # Fichiers .cub de scenes
 │   ├── basic.cub
 │   ├── complex.cub
 │   └── invalid.cub
@@ -186,7 +187,9 @@ cub3D/
 │   ├── south.xpm
 │   ├── east.xpm
 │   └── west.xpm
-└── libft/                # Libft (si nécessaire)
+├── libft/                # Libft (si nécessaire)
+└── printf/               # Printf (si nécessaire)
+
 ```
 
 ## Normes et Contraintes
