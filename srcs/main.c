@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/23 02:17:23 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/01/28 14:33:15 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	main(int ac, char **av)
 	if (parse_data(&data))
 		return (free_data(&data), 1);
 	printf("✓ Parsing successful!\n");
-	printf("Player: (%d,%d) facing %c\n",
-		data.player_pos->x, data.player_pos->y, data.player_pos->pos);
 	free_data(&data);
 	close(data.fd);
 	return (0);

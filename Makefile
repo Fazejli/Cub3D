@@ -6,13 +6,13 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/01/23 01:46:21 by fadwa            ###   ########.fr        #
+#    Updated: 2026/01/28 14:32:12 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -Lmlx -lmlx -framework OpenGL -framework AppKit 
 SRCS = srcs/main.c \
 	srcs/utils/errors.c \
 	srcs/utils/gnl.c \
