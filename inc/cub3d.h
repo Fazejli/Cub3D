@@ -24,7 +24,7 @@
 # include "gnl.h"
 # include "parser.h"
 # include "game.h"
-# include "../mlx/mlx.h"
+# include "../mlx_opengl/mlx.h"
 
 typedef struct s_pos
 {

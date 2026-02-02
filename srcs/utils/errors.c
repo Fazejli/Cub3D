@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/23 02:19:27 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/02 03:57:46 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int	mess_error(char *msg)
 {
+	
 	if (msg)
 	{
-		ft_putstr_fd("ERROR: ", 2);
+		ft_putstr_fd("ERROR\n", 2);
 		ft_putendl_fd(msg, 2);
 	}
 	else
-		perror("ERROR");
+		perror("ERROR\n");
 	exit(1);
 	return (1);
 }

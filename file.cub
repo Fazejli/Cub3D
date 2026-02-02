@@ -1,10 +1,14 @@
-NO ./textures/wood_north.xpm
-SO ./textures/wood_south.xpm
-WE ./textures/brick_west.xpm
-EA ./textures/stone_east.xpm
+WE ./textures/west.xpm
+SO ./textures/south.xpm
+EA ./textures/east.xpm
 
-F 220,100,0
-C 225,30,0
+
+NO ./textures/north.xpm
+
+C 200, 220, 235  
+F 70, 110, 80
+
+
 
         1111111111111111111111111
         1000000000110000000000001
