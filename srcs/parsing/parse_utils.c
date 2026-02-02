@@ -6,10 +6,10 @@ int	ft_atoi_rgb(const char *str, int *error)
 	int	i;
 
     i = 0;
-	while (str[i] && ft_isspace(str[i]))
-        i++;
 	result = 0;
 	*error = 1;
+	while (str[i] && ft_isspace(str[i]))
+        i++;
 	if (!ft_isdigit(str[i]))
 		return (0);
 	while (str[i] && ft_isdigit(str[i]))
@@ -19,7 +19,7 @@ int	ft_atoi_rgb(const char *str, int *error)
 			return (0);
 		i++;
 	}
-    *error = 0;
+	error = 0;
 	while (str[i] && ft_isspace(str[i]))
         i++;
 	if (str[i] && str[i] != ',' && str[i] != '\n')
@@ -63,7 +63,7 @@ int	check_empty_lines_after(int fd)
 	{
 		line = gnl(fd);
 		if (!line)
-			return (1);
+			return (0);
 		if (!ft_is_empty(line))
 		{
 			free(line);
@@ -71,7 +71,7 @@ int	check_empty_lines_after(int fd)
 		}
 		free(line);
 	}
-	return (1);
+	return (0);
 }
 
 char	**copy_map(char **map)

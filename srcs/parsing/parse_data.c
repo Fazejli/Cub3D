@@ -18,6 +18,8 @@ int find_type(char *line)
         return (5);
     if (ft_strncmp(&line[i], "C ", 2) == 0)
         return (6);
+    if (i == 0)
+        return (7);
     return (0);
 }
 
@@ -26,14 +28,11 @@ int handle_element(t_data *data, char *line, int *count)
     int type;
 
     type = find_type(line);
-    if (type > 0)
-    {
-        if (parse_textures(data, line, type))
-            return (1);
+    if (type == 0 || parse_textures(data, line, type))
+        return (-1);
+    else if (type > 0 && type < 7)
         (*count)++;
-        return (0);
-    }
-    return (-1);
+    return (0);
 }
 
 int parse_sections(t_data *data)
@@ -49,7 +48,10 @@ int parse_sections(t_data *data)
         if (!ft_is_empty(line))
         {
             if (handle_element(data, line, &compt) == -1)
-				return (free(line), mess_error("Invalid element"));
+            {
+				free(line);
+                return (mess_error("Invalid element"));
+            }
         }
         free(line);
     }

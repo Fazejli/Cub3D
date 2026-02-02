@@ -6,13 +6,16 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/01/28 14:32:12 by fadwa            ###   ########.fr        #
+#    Updated: 2026/01/28 14:41:27 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g -Lmlx -lmlx -framework OpenGL -framework AppKit 
+CFLAGS = -Wall -Wextra -Werror -g
+MLX_DIR = mlx
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 SRCS = srcs/main.c \
 	srcs/utils/errors.c \
 	srcs/utils/gnl.c \
@@ -33,10 +36,15 @@ all: $(NAME)
 %.o : %.c
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-$(NAME) : $(OBJS) $(INC)
+$(MLX_LIB):
+	@echo "Compiling MiniLibX..."
+	@make -C $(MLX_DIR) 2>/dev/null || echo "MLX already compiled"
+
+$(NAME) : $(MLX_LIB) $(OBJS) $(INC)
+	@echo "Compiling Cub3D..."
 	make -C libft
 	make clean -C libft
-	$(CC) $(CFLAGS) $(LIBFT) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFT) $(OBJS) $(MLX_DIR) -o $(NAME)
 	
 clean:
 	rm -rf $(OBJS)

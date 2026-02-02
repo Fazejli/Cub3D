@@ -53,7 +53,7 @@ int		parse_single_texture(t_data *data, char *line, int type)
     if (check_duplicate_texture(data, type))
 		return (mess_error("Duplicate texture"));
     path = extract_path(line);
-    if (!path)
+    if (!path || !*path)
         return (mess_error("Path extraction failed"));
     fd = open(path, O_RDONLY);
     if (fd < 0)
@@ -63,6 +63,7 @@ int		parse_single_texture(t_data *data, char *line, int type)
     }
     close(fd);
     assign_texture(data, path, type);
+    free(path);
     return (0);
 }
 
@@ -74,5 +75,7 @@ int		parse_textures(t_data *data, char *line, int type)
         return (parse_color(data, line, 'F'));
     else if (type == 6)
         return (parse_color(data, line, 'C'));
+    else if (type == 7)
+        return (0);
     return (mess_error("Invalid element's identifier"));
 }

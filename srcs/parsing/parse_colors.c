@@ -27,11 +27,10 @@ int		extract_color(t_data *data, char *line, char type)
     int r;
     int g;
     int b;
-    int i = 0;
+    int i;
 
-    while (line[i] && line[i] == type)
-        i++;
-    while (ft_isspace(line[i]))
+    i = 0;
+    while (line[i] == type || ft_isspace(line[i]))
         i++;
     color = ft_split(&line[i], ',');
     if (!color || !color[0] || !color[1] || !color[2])

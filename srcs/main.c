@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/28 14:33:15 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/02 02:58:40 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	main(int ac, char **av)
 	if (data.fd < 0)
 		return(mess_error(NULL));
 	if (parse_data(&data))
+	{
+		close(data.fd);
 		return (free_data(&data), 1);
+	}
 	printf("✓ Parsing successful!\n");
 	free_data(&data);
 	close(data.fd);

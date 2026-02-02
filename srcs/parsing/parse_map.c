@@ -38,15 +38,17 @@ int	store_map_lines(t_data *data, char *first_line)
 		line = gnl(data->fd);
 		if (!line || ft_is_empty(line))
 		{
-			if (line && !check_empty_lines_after(data->fd))
+
+			if (check_empty_lines_after(data->fd))
 				return (free(line), free_map(temp), 1);
 			break ;
 		}
 		temp[i++] = line;
+		free(line);
 	}
 	temp[i] = NULL;
 	data->map = temp;
-	return (free(line), 0);
+	return (0);
 }
 
 int	check_map_line(char *line, t_data *data)
