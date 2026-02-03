@@ -19,7 +19,7 @@ int	ft_atoi_rgb(const char *str, int *error)
 			return (0);
 		i++;
 	}
-	error = 0;
+	*error = 0;
 	while (str[i] && ft_isspace(str[i]))
         i++;
 	if (str[i] && str[i] != ',' && str[i] != '\n')
