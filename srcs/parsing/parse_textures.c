@@ -63,7 +63,7 @@ int		parse_single_texture(t_data *data, char *line, int type)
     }
     close(fd);
     assign_texture(data, path, type);
-    free(path);
+    //free(path);
     return (0);
 }
 
