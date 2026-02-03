@@ -32,19 +32,24 @@ int	store_map_lines(t_data *data, char *first_line)
 	if (!temp)
 		return (mess_error("Malloc failed"));
 	temp[0] = ft_strdup(first_line);
+	if (!temp[0])
+		return (free(temp), mess_error("Malloc failed"));
 	i = 1;
 	while (1)
 	{
 		line = gnl(data->fd);
 		if (!line || ft_is_empty(line))
 		{
-
-			if (check_empty_lines_after(data->fd))
+			if (line && check_empty_lines_after(data->fd))
 				return (free(line), free_map(temp), 1);
+			free(line);
 			break ;
 		}
-		temp[i++] = line;
+		temp[i] = ft_strdup(line);
+		if (!temp[i])
+			return (free(line), free_map(temp), mess_error("Malloc failed"));
 		free(line);
+		i++;
 	}
 	temp[i] = NULL;
 	data->map = temp;
