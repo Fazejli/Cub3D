@@ -6,23 +6,25 @@
 #    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/12 12:13:07 by fadzejli         ###   ########.fr        #
+#    Updated: 2026/02/12 14:23:13 by fadzejli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror -g
+MLXFLAGS = -Lmlx_linux -lmlx -lXext -lX11 -lm
 SRCS = srcs/main.c \
 	srcs/utils/errors.c \
-	srcs/utils/cleanup.c \
+	srcs/parsing/parsing_cleanup.c \
 	srcs/parsing/parse_data.c \
 	srcs/parsing/parse_textures.c \
 	srcs/parsing/parse_colors.c \
 	srcs/parsing/parse_map.c \
 	srcs/parsing/valid_map.c \
 	srcs/parsing/parse_utils.c \
-	srcs/debug/parsing_debug.c
+	srcs/raycasting/init_game.c \
+	srcs/utils/debug/parsing_debug.c
 OBJS = $(SRCS:.c=.o)
 INC = inc/cub3d.h
 LIBFT = libft/libft.a
@@ -32,11 +34,11 @@ all: $(NAME)
 %.o : %.c
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-$(NAME) : $(OBJS) $(INC)
+$(NAME) : $(OBJS) $(INC) $(MLX)
 	@echo "Compiling Cub3D..."
 	make -C libft
 	make clean -C libft
-	$(CC) $(CFLAGS) $(OBJS) ${LIBFT} -o $@
+	$(CC) $(CFLAGS) $(OBJS) ${LIBFT} $(MLXFLAGS) -o $@
 	
 clean:
 	rm -rf $(OBJS)

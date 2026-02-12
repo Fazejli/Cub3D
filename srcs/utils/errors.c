@@ -6,13 +6,13 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 13:37:19 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/12 14:06:12 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	mess_error(char *msg)
+int	mess_error(char *msg)
 {
 	if (msg)
 	{
@@ -21,7 +21,7 @@ void	mess_error(char *msg)
 	}
 	else
 		perror("Error");
-	exit(1);
+	return (1);
 }
 
 int	check_arg(char *filename)

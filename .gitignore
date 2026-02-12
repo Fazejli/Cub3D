@@ -1,0 +1,38 @@
+# Binaries
+cub3d
+*.o
+*.a
+*.out
+
+# Libraries
+libmlx.a
+libft.a
+
+# MacOS
+.DS_Store
+*.dSYM/
+
+# Linux
+*.so
+
+# Editors
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Debug
+vgcore.*
+*.log
+
+# Test files
+test
+tester.sh
+*.cub.bak
+screenshots/
+
+# Compilation
+*.d
+.cache/
+compile_commands.json

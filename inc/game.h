@@ -7,11 +7,10 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	//void	img;
+	void		*img;
 	t_data		*data;
-	//void	player;
 }	t_game;
 
-
+void init_game(t_game *game, t_data *data);
 
 #endif
