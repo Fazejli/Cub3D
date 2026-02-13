@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 13:34:26 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:12:28 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ static void	free_temp_map(char **temp, int count)
 	}
 	free(temp);
 }
+
+/*void	clear_line(char *str)
+{
+	int len = ft_strlen(str);
+	int i = 0;
+	char dst[len];
+	while (str[i] && i < len)
+	{
+		while (ft_isspace(str[i]))
+			i++;
+		if (!ft_isspace(str[i]))
+			dst[i] = str[i];
+		i++;
+	}
+	dst[i] = '\0';
+	str = dst;
+}*/
 
 int	store_map_lines(t_data *data, char *first_line)
 {

@@ -6,11 +6,9 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:57:03 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 12:57:04 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:02:06 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef DEBUG_H
 # define DEBUG_H

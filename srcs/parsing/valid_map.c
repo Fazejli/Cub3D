@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 13:31:37 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/13 10:26:46 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	flood_fill_check(char **map, int x, int y, int width, int height)
 	c = get_map_char(map, x, y);
 	if (c == '\n' || c == '\0')
 		return (0);
-	if (c == '1' || c == 'V')
+	if (c == '1' || c == ' ' || c == 'V')
 		return (1);
 	if (!is_valid_char(c))
 		return (0);

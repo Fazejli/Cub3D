@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 14:35:12 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:41:17 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ int	main(int ac, char **av)
 	if (parse_data(&data))
 		return (free_data(&data), 1);
 	printf("=> Parsing successful!\n");
-	init_game(&game, &data);
-	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, 1024, 1024, "Cub3D");
-	game.img = mlx_new_image(game.mlx, get_width(data.map), get_height(data.map));
+	if (init_game(&game, &data))
+		return (mess_error("Game init failed"));
 	mlx_loop(game.mlx);
 	free_data(&data);
 	return (0);
