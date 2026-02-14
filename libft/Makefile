@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
+#    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 14:41:02 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/12 11:56:06 by fadzejli         ###   ########.fr        #
+#    Updated: 2026/02/14 15:25:14 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CC = cc -Wall -Wextra -Werror -g
+CC = cc -Wall -Wextra -Werror -g -MMD -MP
 SRCS = ft_isalpha.c \
 	ft_strlcat.c \
 	ft_isalnum.c \
@@ -50,6 +50,7 @@ SRCS = ft_isalpha.c \
 	ft_isspace.c \
 	gnl.c
 OBJS = $(SRCS:.c=.o)
+DEPS = $(OBJS:.o=.d)
 INC = libft.h
 
 all : $(NAME)
@@ -62,6 +63,7 @@ $(NAME): $(OBJS) $(INC)
 
 clean :
 	rm -rf $(OBJS)
+	rm -rf $(DEPS)
 
 fclean : clean
 	rm -rf $(NAME)
@@ -69,3 +71,5 @@ fclean : clean
 re : clean fclean all
 
 .PHONY: clean fclean re
+
+ -include $(DEPS)

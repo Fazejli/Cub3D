@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_debug.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:29:47 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 14:24:03 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/14 16:37:22 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/cub3d.h"
+#include "cub3d.h"
+
+void	debug_vec(char *name, t_vec v)
+{
+	printf("%s:\n", name);
+	printf("  x = %.6f\n", v.x);
+	printf("  y = %.6f\n", v.y);
+}
 
 void	print_separator(char *title)
 {
@@ -53,13 +60,14 @@ void	debug_colors(t_data *data)
 		printf("Ceiling: NOT SET\n");
 }
 
-void	debug_player(t_data *data)
+void	debug_player(t_player *p)
 {
 	print_separator("PLAYER");
-	if (data->player_pos)
+	if (p)
 	{
-		printf("Position: (%d, %d)\n", data->player_pos->x, data->player_pos->y);
-		printf("Direction: %c\n", data->player_pos->pos);
+		debug_vec("Position", p->pos);
+		debug_vec("Direction", p->dir);
+		debug_vec("Camera Plane", p->cam);
 	}
 	else
 		printf("Player: NOT FOUND\n");
@@ -91,12 +99,12 @@ void	debug_map(t_data *data)
 	}
 }
 
-void	debug_full(t_data *data)
+void	debug_full(t_data *data, t_game *game)
 {
 	print_separator("CUB3D DEBUG REPORT");
 	debug_textures(data);
 	debug_colors(data);
-	debug_player(data);
+	debug_player(&game->player);
 	debug_map(data);
 	print_separator("END OF REPORT");
 }
