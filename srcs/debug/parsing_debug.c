@@ -6,13 +6,13 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:29:47 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/14 16:37:22 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 03:42:22 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_vec(char *name, t_vec v)
+void	debug_vec(char *name, t_vector v)
 {
 	printf("%s:\n", name);
 	printf("  x = %.6f\n", v.x);
@@ -67,7 +67,7 @@ void	debug_player(t_player *p)
 	{
 		debug_vec("Position", p->pos);
 		debug_vec("Direction", p->dir);
-		debug_vec("Camera Plane", p->cam);
+		debug_vec("Camera Plane", p->plane);
 	}
 	else
 		printf("Player: NOT FOUND\n");

@@ -6,27 +6,35 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/14 16:36:15 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/15 03:47:58 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror -g -MMD -MP
-SRCS = srcs/main.c \
-	srcs/utils/errors.c \
-	srcs/parsing/parsing_cleanup.c \
-	srcs/parsing/parse_data.c \
-	srcs/parsing/parse_textures.c \
-	srcs/parsing/parse_colors.c \
-	srcs/parsing/parse_map.c \
-	srcs/parsing/valid_map.c \
-	srcs/parsing/parse_utils.c \
-	srcs/raycasting/init_game.c \
-	srcs/raycasting/raycasting_utils.c \
-	srcs/debug/parsing_debug.c
-OBJS = $(SRCS:.c=.o)
-DEPS = $(OBJS:.o=.d)
+
+SRCS_DIR = srcs
+OBJ_DIR = obj
+DEP_DIR = dep
+
+SRCS = $(SRCS_DIR)/main.c \
+	$(SRCS_DIR)/utils/errors.c \
+	$(SRCS_DIR)/parsing/parsing_cleanup.c \
+	$(SRCS_DIR)/parsing/parse_data.c \
+	$(SRCS_DIR)/parsing/parse_textures.c \
+	$(SRCS_DIR)/parsing/parse_colors.c \
+	$(SRCS_DIR)/parsing/parse_map.c \
+	$(SRCS_DIR)/parsing/valid_map.c \
+	$(SRCS_DIR)/parsing/parse_utils.c \
+	$(SRCS_DIR)/raycasting/init_game.c \
+	$(SRCS_DIR)/raycasting/raycasting.c \
+	$(SRCS_DIR)/raycasting/raycasting_utils.c \
+	$(SRCS_DIR)/raycasting/cleanup.c \
+	$(SRCS_DIR)/debug/parsing_debug.c
+
+OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
+DEPS = $(SRCS:$(SRCS_DIR)/%.c=$(DEP_DIR)/%.d)
 INC = inc/cub3d.h
 LIBFT = libft/libft.a
 
@@ -43,20 +51,27 @@ endif
 
 all: $(NAME)
 
-%.o : %.c
-	$(CC) $(CFLAGS) -Iinc -I$(MLX_DIR) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c
+	mkdir -p $(dir $@)
+	mkdir -p $(dir $(DEP_DIR)/$*.d)
+	$(CC) $(CFLAGS) -Iinc -I$(MLX_DIR) -c $< -o $@ -MF $(DEP_DIR)/$*.d
 
-$(NAME) : $(OBJS) $(INC) $(MLX)
-	@echo "Compiling Cub3D..."
+$(LIBFT):
+	@echo "Compiling Libft..."
 	make -C libft
-	make clean -C libft
-	$(CC) $(CFLAGS) $(OBJS) ${LIBFT} $(MLX_FLAGS) -o $@
+
+$(NAME) : $(LIBFT) $(OBJS)
+	@echo "Compiling Cub3D..."
+	$(CC) $(CFLAGS) $(OBJS) ${LIBFT} $(MLX_FLAGS) -o $@ 
 	
 clean:
-	rm -rf $(OBJS)
-	rm -rf $(DEPS)
+	@echo "Cleaning objects..."
+	rm -rf $(OBJ_DIR)
+	rm -rf $(DEP_DIR)
+	@make clean -C libft
 
 fclean: clean
+	@echo "Cleaning all..."
 	rm -rf $(NAME)
 	rm -rf ${LIBFT}
 
