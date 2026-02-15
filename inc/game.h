@@ -6,36 +6,36 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 18:31:29 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 20:03:24 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
-#define GAME_H
+# define GAME_H
 
-#include "cub3d.h"
+# include "cub3d.h"
 
-#define WIDTH 680
-#define HEIGHT 680
+# define WIDTH 680
+# define HEIGHT 680
 
-#define KEY_PRESS 2
-#define KEY_RELEASE 3
-#define DESTROY_NOTIFY 17
+# define KEY_PRESS 2
+# define KEY_RELEASE 3
+# define DESTROY_NOTIFY 17
 
-typedef struct s_vector 
+typedef struct s_vector
 {
-	double x;
-	double y;
+	double	x;
+	double	y;
 }	t_vector;
 
 typedef struct s_algo
 {
-	double delta_x;
-	double delta_y;
-	double side_x;
-	double side_y;
-	int step_x;
-	int step_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+	int		step_x;
+	int		step_y;
 }	t_algo;
 
 typedef struct s_ray
@@ -47,9 +47,9 @@ typedef struct s_ray
 	int			line_height;
 	int			side;
 	t_algo		dda;
-    int			start;
-    int			end;
-} t_ray;
+	int			start;
+	int			end;
+}	t_ray;
 
 typedef struct s_player
 {
@@ -60,14 +60,14 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-    void    *img;
-    char    *addr;
-    int     width;
-	int     height;
-    int     bpp;
-    int     size_len;
-    int		endian;
-}   t_texture;
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_len;
+	int		endian;
+}	t_texture;
 
 typedef struct s_game
 {

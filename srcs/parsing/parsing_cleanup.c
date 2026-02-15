@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   parsing_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:28:35 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 12:28:41 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/15 19:03:37 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	free_split(char **split)
+void	free_temp_map(char **temp, int count)
 {
 	int	i;
 
-	if (!split)
+	if (!temp)
 		return ;
 	i = 0;
-	while (split[i])
+	while (i < count)
 	{
-		free(split[i]);
+		if (temp[i])
+			free(temp[i]);
 		i++;
 	}
-	free(split);
+	free(temp);
 }
 
 void	free_map(char **map)

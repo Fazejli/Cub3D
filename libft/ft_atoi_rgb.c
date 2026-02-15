@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_rgb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:10:21 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:57:01 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 19:57:10 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi_rgb(const char *str, int *error)
 {
+	int	result;
 	int	i;
-	int	res;
-	int	sig;
 
-	res = 0;
-	sig = 1;
 	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	result = 0;
+	*error = 1;
+	while (str[i] && ft_isspace(str[i]))
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (!ft_isdigit(str[i]))
+		return (0);
+	while (str[i] && ft_isdigit(str[i]))
 	{
-		if (str[i] == '-')
-			sig = -1;
+		result = result * 10 + (str[i] - '0');
+		if (result > 255)
+			return (0);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + str[i] - '0';
+	*error = 0;
+	while (str[i] && ft_isspace(str[i]))
 		i++;
-	}
-	return (res * sig);
+	if (str[i] && str[i] != ',' && str[i] != '\n')
+		*error = 1;
+	return (result);
 }
-/*
-#include <stdio.h>
-int	main()
-{
-	const char str[] = "2147483647";
-	printf("%d\n", ft_atoi(str));
-	return (0);
-}*/

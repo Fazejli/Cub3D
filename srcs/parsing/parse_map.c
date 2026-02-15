@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 18:38:57 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 19:37:40 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,55 +34,10 @@ int	check_player_pos(t_data *data, char c)
 	return (0);
 }
 
-static void	free_temp_map(char **temp, int count)
-{
-	int	i;
-
-	if (!temp)
-		return ;
-	i = 0;
-	while (i < count)
-	{
-		if (temp[i])
-			free(temp[i]);
-		i++;
-	}
-	free(temp);
-}
-
-/*void	clear_line(char *str)
-{
-	int len = ft_strlen(str);
-	int i = 0;
-	char dst[len];
-	while (str[i] && i < len)
-	{
-		while (ft_isspace(str[i]))
-			i++;
-		if (!ft_isspace(str[i]))
-			dst[i] = str[i];
-		i++;
-	}
-	dst[i] = '\0';
-	str = dst;
-}*/
-
-int	store_map_lines(t_data *data, char *first_line)
+int	store_map_lines(t_data *data, char **temp, int i)
 {
 	char	*line;
-	char	**temp;
-	int		i;
 
-	temp = malloc(sizeof(char *) * 1000);
-	if (!temp)
-		return (mess_error("Malloc failed"));
-	temp[0] = ft_strdup(first_line);
-	if (!temp[0])
-	{
-		free(temp);
-		return (mess_error("Malloc failed"));
-	}
-	i = 1;
 	while (1)
 	{
 		line = gnl(data->fd);
@@ -91,24 +46,18 @@ int	store_map_lines(t_data *data, char *first_line)
 			if (line && check_empty_lines_after(data->fd))
 			{
 				free(line);
-				free_temp_map(temp, i);
-				return (1);
+				return (free_temp_map(temp, i), 1);
 			}
 			free(line);
 			break ;
 		}
 		temp[i] = ft_strdup(line);
 		if (!temp[i])
-		{
-			free(line);
-			free_temp_map(temp, i);
-			return (mess_error("Malloc failed"));
-		}
+			return (free(line), free_temp_map(temp, i), 1);
 		free(line);
 		i++;
 	}
 	temp[i] = NULL;
-	data->map = temp;
 	return (0);
 }
 
@@ -130,12 +79,20 @@ int	check_map_line(char *line, t_data *data)
 
 int	parse_map(t_data *data, char *first_line)
 {
-	int	i;
+	char	**temp;
+	int		i;
 
 	if (check_map_line(first_line, data))
 		return (1);
-	if (store_map_lines(data, first_line))
+	temp = malloc(sizeof(char *) * 10000);
+	if (!temp)
+		return (mess_error("Malloc failed"));
+	temp[0] = ft_strdup(first_line);
+	if (!temp[0])
+		return (free(temp), mess_error("Malloc failed"));
+	if (store_map_lines(data, temp, 1))
 		return (1);
+	data->map = temp;
 	i = 0;
 	while (data->map[i])
 	{

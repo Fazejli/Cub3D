@@ -3,40 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:25:46 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/13 11:20:18 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/15 19:01:08 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	ft_atoi_rgb(const char *str, int *error)
+int	find_type(char *line)
 {
-	int	result;
 	int	i;
 
 	i = 0;
-	result = 0;
-	*error = 1;
-	while (str[i] && ft_isspace(str[i]))
+	while (line[i] && ft_isspace(line[i]))
 		i++;
-	if (!ft_isdigit(str[i]))
-		return (0);
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		result = result * 10 + (str[i] - '0');
-		if (result > 255)
-			return (0);
-		i++;
-	}
-	*error = 0;
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	if (str[i] && str[i] != ',' && str[i] != '\n')
-		*error = 1;
-	return (result);
+	if (ft_strncmp(&line[i], "NO ", 3) == 0)
+		return (1);
+	if (ft_strncmp(&line[i], "SO ", 3) == 0)
+		return (2);
+	if (ft_strncmp(&line[i], "WE ", 3) == 0)
+		return (3);
+	if (ft_strncmp(&line[i], "EA ", 3) == 0)
+		return (4);
+	if (ft_strncmp(&line[i], "F ", 2) == 0)
+		return (5);
+	if (ft_strncmp(&line[i], "C ", 2) == 0)
+		return (6);
+	return (0);
 }
 
 int	get_width(char **map)

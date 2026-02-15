@@ -6,33 +6,11 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:21:50 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 16:27:06 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 19:01:05 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-int	find_type(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	if (ft_strncmp(&line[i], "NO ", 3) == 0)
-		return (1);
-	if (ft_strncmp(&line[i], "SO ", 3) == 0)
-		return (2);
-	if (ft_strncmp(&line[i], "WE ", 3) == 0)
-		return (3);
-	if (ft_strncmp(&line[i], "EA ", 3) == 0)
-		return (4);
-	if (ft_strncmp(&line[i], "F ", 2) == 0)
-		return (5);
-	if (ft_strncmp(&line[i], "C ", 2) == 0)
-		return (6);
-	return (0);
-}
 
 int	handle_element(t_data *data, char *line, int *count)
 {
@@ -84,9 +62,9 @@ void	init_data(t_data *data)
 	data->player_pos = NULL;
 }
 
-static int check_file(t_data *data, char *filename)
+static int	check_file(t_data *data, char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)

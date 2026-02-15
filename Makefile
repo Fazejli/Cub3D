@@ -6,7 +6,7 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/15 18:48:07 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/15 19:27:11 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/parsing/parse_colors.c \
 	$(SRCS_DIR)/parsing/parse_map.c \
 	$(SRCS_DIR)/parsing/valid_map.c \
+	$(SRCS_DIR)/parsing/valid_map_utils.c \
 	$(SRCS_DIR)/parsing/parse_utils.c \
 	$(SRCS_DIR)/raycasting/init_game.c \
 	$(SRCS_DIR)/raycasting/raycasting.c \

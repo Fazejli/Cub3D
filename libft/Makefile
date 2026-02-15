@@ -6,7 +6,7 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 14:41:02 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/14 15:25:14 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/15 19:02:54 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRCS = ft_isalpha.c \
 	ft_strnstr.c \
 	ft_is_empty.c \
 	ft_isspace.c \
-	gnl.c
+	gnl.c	\
+	ft_atoi_rgb.c \
+	ft_free_split.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 INC = libft.h

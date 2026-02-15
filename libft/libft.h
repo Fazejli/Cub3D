@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 12:02:09 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/15 19:02:45 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ int		ft_is_empty(char *line);
 int		ft_isspace(char c);
 char	*gnl(int fd);
 void	clear_gnl(void);
+int		ft_atoi_rgb(const char *str, int *error);
+void	free_split(char **split);
 
 #endif

@@ -1,46 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:10:21 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:57:01 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 19:56:45 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	free_split(char **split)
 {
 	int	i;
-	int	res;
-	int	sig;
 
-	res = 0;
-	sig = 1;
+	if (!split)
+		return ;
 	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (split[i])
 	{
-		if (str[i] == '-')
-			sig = -1;
+		free(split[i]);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + str[i] - '0';
-		i++;
-	}
-	return (res * sig);
+	free(split);
 }
-/*
-#include <stdio.h>
-int	main()
-{
-	const char str[] = "2147483647";
-	printf("%d\n", ft_atoi(str));
-	return (0);
-}*/

@@ -6,81 +6,39 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 16:47:39 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 19:26:32 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	check_all_elements(t_data *data)
+int	flood_fill(t_pos *player_pos, char **map, int i, int j)
 {
-	if (!data->t_north || !data->t_south || !data->t_west || !data->t_east)
-		return (0);
-	if (data->floor_color == -1 || data->ceiling_color == -1)
-		return (0);
-	return (1);
-}
-
-char	get_map_char(char **map, int x, int y)
-{
-	if (y < 0 || !map[y])
-		return (' ');
-	if (x < 0 || x >= (int)ft_strlen(map[y]))
-		return (' ');
-	return (map[y][x]);
-}
-
-//IL faut modifier pour avoir 4 arg (respect de la norme)
-int	flood_fill_check(char **map, int x, int y, int width, int height)
-{
-	char	c;
-
-	if (y < 0 || y >= height || x < 0)
-		return (0);
-	c = get_map_char(map, x, y);
-	if (c == '\n' || c == '\0')
-		return (0);
-	if (c == '1' || c == ' ' || c == 'V')
-		return (1);
-	if (!is_valid_char(c))
-		return (0);
-	map[y][x] = 'V';
-	if (!flood_fill_check(map, x + 1, y, width, height))
-		return (0);
-	if (!flood_fill_check(map, x - 1, y, width, height))
-		return (0);
-	if (!flood_fill_check(map, x, y + 1, width, height))
-		return (0);
-	if (!flood_fill_check(map, x, y - 1, width, height))
-		return (0);
-	return (1);
+	if (map[i][j] == player_pos->dir)
+	{
+		player_pos->x = j;
+		player_pos->y = i;
+		if (!flood_fill_check(map, j, i))
+			return (mess_error("Map not closed"));
+	}
+	return (0);
 }
 
 int	find_player(t_pos *player_pos, char **map)
 {
 	int	i;
 	int	j;
-	int	width;
-	int	height;
 
-	i = 0;
 	if (!player_pos || !player_pos->dir)
 		return (mess_error("Player not found"));
-	width = get_width(map);
-	height = get_height(map);
+	i = 0;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == player_pos->dir)
-			{
-				player_pos->x = j;
-				player_pos->y = i;
-				if (!flood_fill_check(map, j, i, width, height))
-					return (mess_error("Map not closed"));
-				return (0);
-			}
+			if (flood_fill(player_pos, map, i, j))
+				return (1);
 			j++;
 		}
 		i++;
