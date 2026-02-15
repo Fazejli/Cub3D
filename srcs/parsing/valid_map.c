@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/13 10:26:46 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:47:39 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	find_player(t_pos *player_pos, char **map)
 	int	height;
 
 	i = 0;
-	if (!player_pos || !player_pos->pos)
+	if (!player_pos || !player_pos->dir)
 		return (mess_error("Player not found"));
 	width = get_width(map);
 	height = get_height(map);
@@ -73,7 +73,7 @@ int	find_player(t_pos *player_pos, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == player_pos->pos)
+			if (map[i][j] == player_pos->dir)
 			{
 				player_pos->x = j;
 				player_pos->y = i;
@@ -96,7 +96,7 @@ int	valid_map(t_data *data)
 	char	**map_cpy;
 
 	i = 0;
-	if (!data->player_pos || !data->player_pos->pos)
+	if (!data->player_pos || !data->player_pos->dir)
 		return (mess_error("No player in map"));
 	height = get_height(data->map);
 	while (i < height)

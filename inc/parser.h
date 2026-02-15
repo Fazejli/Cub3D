@@ -7,7 +7,7 @@ typedef struct s_data t_data;
 typedef struct s_pos t_pos;
 
 /*  Parsing */
-int     parse_data(t_data *data);
+int     parse_data(t_data *data, char *filename);
 void    init_data(t_data *data);
 int     parse_sections(t_data *data);
 int     find_type(char *line);

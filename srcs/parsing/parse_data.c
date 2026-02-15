@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:21:50 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 13:35:12 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:27:06 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,23 @@ void	init_data(t_data *data)
 	data->player_pos = NULL;
 }
 
-int	parse_data(t_data *data)
+static int check_file(t_data *data, char *filename)
+{
+	int fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (mess_error(NULL));
+	data->fd = fd;
+	return (0);
+}
+
+int	parse_data(t_data *data, char *filename)
 {
 	char	*line;
 
+	if (check_file(data, filename))
+		return (1);
 	init_data(data);
 	if (parse_sections(data))
 		return (1);

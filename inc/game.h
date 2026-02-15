@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 03:53:08 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 18:31:29 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ typedef struct s_algo
 typedef struct s_ray
 {
 	t_vector	dir;
-	int		pos_x;
-	int		pos_y;
-	double	dist;
-	int		line_height;
-	int		side;
-	t_algo	dda;
-    int		start;
-    int		end;
+	int			pos_x;
+	int			pos_y;
+	double		dist;
+	int			line_height;
+	int			side;
+	t_algo		dda;
+    int			start;
+    int			end;
 } t_ray;
 
 typedef struct s_player
@@ -87,6 +87,7 @@ int		init_game(t_game *game, t_data *data);
 int		load_texture(t_game *game, t_texture *tex, char *path);
 void	raycast(t_game *game);
 void	calculate_distances(t_ray *ray);
+void	print_ray(t_ray *ray, t_game *game, int col);
 
 int		quit_game(t_game *game);
 int		key_press(int key_code, t_game *game);

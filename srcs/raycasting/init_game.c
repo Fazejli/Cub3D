@@ -9,22 +9,22 @@ static void init_vector(t_vector *vector, double x_nbr, double y_nbr)
 static void init_player(t_player *player, t_pos *pos)
 {
 	init_vector(&player->pos, pos->x + 0.5, pos->y + 0.5);
-	if (pos->pos == 'N')
+	if (pos->dir == 'N')
     {
         init_vector(&player->dir, 0, -1);
 		init_vector(&player->plane, 0.66, 0);
 	}
-	else if (pos->pos == 'S')
+	else if (pos->dir == 'S')
     {
         init_vector(&player->dir, 0, 1);
 		init_vector(&player->plane, -0.66, 0);
 	}
-	else if (pos->pos == 'W')
+	else if (pos->dir == 'W')
     {
         init_vector(&player->dir, -1, 0);
 		init_vector(&player->plane, 0, 0.66);
 	}
-	else if (pos->pos == 'E')
+	else if (pos->dir == 'E')
     {
         init_vector(&player->dir, 1, 0);
 		init_vector(&player->plane, 0, -0.66);

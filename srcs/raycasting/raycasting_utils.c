@@ -1,5 +1,23 @@
 #include "cub3d.h"
 
+t_texture *get_texture(t_ray *ray, t_game *game)
+{
+    if (ray->side == 0)
+    {
+        if (ray->dir.x > 0)
+            return (&game->textures[3]);
+        else
+            return (&game->textures[2]);
+    }
+    else
+    {
+     if (ray->dir.y > 0)
+            return (&game->textures[1]);
+        else
+            return (&game->textures[0]);
+    }
+}
+
 int load_texture(t_game *game, t_texture *tex, char *path)
 {
     tex->img = mlx_xpm_file_to_image(game->mlx, path, &tex->width, &tex->height);

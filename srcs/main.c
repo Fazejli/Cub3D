@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 03:57:11 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 17:19:04 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ int	main(int ac, char **av)
 		return (mess_error("Wrong args format.\nExample: ./cub3D filename.cub"));
 	if (!check_arg(av[1]))
 		return (mess_error("Wrong file format\nExample: ./cub3D filename.cub"));
-	data.fd = open(av[1], O_RDONLY);
-	if (data.fd < 0)
-		return (mess_error(NULL));
-	if (parse_data(&data))
+	if (parse_data(&data, av[1]))
 		return (free_data(&data), 1);
-	printf("=> Parsing successful!\n");
+	//printf("=> Parsing successful!\n");
 	if (init_game(&game, &data))
 		return (mess_error("Game init failed"));
 	mlx_loop(game.mlx);
-	if (&data)
-		free_data(&data);
+	free_data(&data);
 	return (0);
 }

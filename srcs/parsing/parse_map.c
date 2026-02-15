@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/13 11:12:28 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/15 18:38:57 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	check_player_pos(t_data *data, char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		if (data->player_pos != NULL)
+		if (data->player_pos && data->player_pos->dir)
 			return (mess_error("Multiple players"));
 		data->player_pos = malloc(sizeof(t_pos));
 		if (!data->player_pos)
 			return (mess_error("Malloc failed"));
-		data->player_pos->pos = c;
+		data->player_pos->dir = c;
 		data->player_pos->x = 0;
 		data->player_pos->y = 0;
 	}

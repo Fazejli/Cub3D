@@ -31,7 +31,7 @@ typedef struct s_pos
 {
     float x;
     float y;
-    char pos;
+    char dir;
 } t_pos;
 
 typedef struct s_data

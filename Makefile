@@ -6,13 +6,13 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/15 03:47:58 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/15 18:48:07 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g -MMD -MP
+CC = clang 
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 
 SRCS_DIR = srcs
 OBJ_DIR = obj
@@ -30,8 +30,8 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/raycasting/init_game.c \
 	$(SRCS_DIR)/raycasting/raycasting.c \
 	$(SRCS_DIR)/raycasting/raycasting_utils.c \
-	$(SRCS_DIR)/raycasting/cleanup.c \
-	$(SRCS_DIR)/debug/parsing_debug.c
+	$(SRCS_DIR)/raycasting/printing.c \
+	$(SRCS_DIR)/raycasting/cleanup.c
 
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEPS = $(SRCS:$(SRCS_DIR)/%.c=$(DEP_DIR)/%.d)
