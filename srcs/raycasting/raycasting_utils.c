@@ -12,12 +12,12 @@ int load_texture(t_game *game, t_texture *tex, char *path)
 static void calculate_wall_height(t_ray *ray)
 {
     ray->line_height = HEIGHT / ray->dist;
-    ray->draw_start = (HEIGHT - ray->line_height) / 2;
-    if (ray->draw_start < 0)
-        ray->draw_start = 0;
-    ray->draw_end = ray->draw_start + ray->line_height;
-    if (ray->draw_end >= HEIGHT)
-        ray->draw_end = HEIGHT - 1;
+    ray->start = (HEIGHT - ray->line_height) / 2;
+    if (ray->start < 0)
+        ray->start = 0;
+    ray->end = ray->start + ray->line_height;
+    if (ray->end >= HEIGHT)
+        ray->end = HEIGHT - 1;
 }
 
 void calculate_distances(t_ray *ray)

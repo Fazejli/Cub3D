@@ -87,6 +87,7 @@ void raycast(t_game *game)
 		init_ray(&ray, &game->player, x);
         init_algo(&ray, &game->player);
         find_wall(&ray, game->data->map);
+        //Afficher les rayons
         x++;
 	}
 }

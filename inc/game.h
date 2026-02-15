@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 03:49:16 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/15 03:53:08 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_ray
 	int		line_height;
 	int		side;
 	t_algo	dda;
-    int		draw_start;    // Début de la ligne
-    int		draw_end;		// Fin de la ligne
+    int		start;
+    int		end;
 } t_ray;
 
 typedef struct s_player
@@ -92,6 +92,3 @@ int		quit_game(t_game *game);
 int		key_press(int key_code, t_game *game);
 
 #endif
-
-//Pour chaque rayon : direction, distance au mur, coordonnées de collision
-//Pour le dessin : hauteur du mur à l'écran, position de la texture
