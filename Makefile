@@ -6,7 +6,7 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/15 19:27:11 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/16 12:28:10 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS = $(SRCS_DIR)/main.c \
 	$(SRCS_DIR)/raycasting/raycasting.c \
 	$(SRCS_DIR)/raycasting/raycasting_utils.c \
 	$(SRCS_DIR)/raycasting/printing.c \
+	$(SRCS_DIR)/raycasting/print_textures.c \
 	$(SRCS_DIR)/raycasting/cleanup.c
 
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)

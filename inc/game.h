@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 20:03:24 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/16 12:08:25 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 
 # define WIDTH 680
 # define HEIGHT 680
+# define WEST 0
+# define EAST 0
+# define NORTH 1
+# define SOUTH 1
 
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
@@ -83,13 +87,13 @@ typedef struct s_game
 	t_player	player;
 }	t_game;
 
-int		init_game(t_game *game, t_data *data);
-int		load_texture(t_game *game, t_texture *tex, char *path);
-void	raycast(t_game *game);
-void	calculate_distances(t_ray *ray);
-void	print_ray(t_ray *ray, t_game *game, int col);
-
-int		quit_game(t_game *game);
-int		key_press(int key_code, t_game *game);
+int			init_game(t_game *game, t_data *data);
+int			load_texture(t_game *game, t_texture *tex, char *path);
+void		raycast(t_game *game);
+void		calculate_distances(t_ray *ray);
+void		print_ray(t_ray *ray, t_game *game, int col);
+t_texture	*get_texture(t_ray *ray, t_game *game);
+int			quit_game(t_game *game);
+int			key_press(int key_code, t_game *game);
 
 #endif

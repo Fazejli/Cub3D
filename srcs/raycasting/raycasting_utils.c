@@ -6,29 +6,11 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:44:56 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/16 12:28:55 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_texture	*get_texture(t_ray *ray, t_game *game)
-{
-	if (ray->side == 0)
-	{
-		if (ray->dir.x > 0)
-			return (&game->textures[3]);
-		else
-			return (&game->textures[2]);
-	}
-	else
-	{
-		if (ray->dir.y > 0)
-			return (&game->textures[1]);
-		else
-			return (&game->textures[0]);
-	}
-}
 
 int	load_texture(t_game *game, t_texture *tex, char *path)
 {
@@ -54,7 +36,7 @@ static void	calculate_wall_height(t_ray *ray)
 
 void	calculate_distances(t_ray *ray)
 {
-	if (ray->side == 0)
+	if (ray->side == WEST || ray->side == EAST)
 		ray->dist = ray->dda.side_x - ray->dda.delta_x;
 	else
 		ray->dist = ray->dda.side_y - ray->dda.delta_y;
