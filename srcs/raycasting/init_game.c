@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:47:10 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/16 13:26:03 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	init_game(t_game *game, t_data *data)
 		return (free_data(data), 1);
 	game->addr = mlx_get_data_addr(game->img, &game->bpp,
 			&game->size_len, &game->endian);
+	if (!game->addr)
+		return (free_data(data), 1);
 	init_player(&game->player, data->player_pos);
 	raycast(game);
 	mlx_hook(game->win, DESTROY_NOTIFY, 0, quit_game, game);

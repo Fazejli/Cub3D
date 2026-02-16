@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/16 12:08:25 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/16 13:21:06 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_texture
 	int		bpp;
 	int		size_len;
 	int		endian;
+	int		tex_x;
+	int		tex_y;
 }	t_texture;
 
 typedef struct s_game
@@ -93,6 +95,10 @@ void		raycast(t_game *game);
 void		calculate_distances(t_ray *ray);
 void		print_ray(t_ray *ray, t_game *game, int col);
 t_texture	*get_texture(t_ray *ray, t_game *game);
+double		find_intersection(t_ray *ray, t_player player);
+int			check_pos(int pos, t_texture *tex);
+int			get_color(t_texture *tex);
+
 int			quit_game(t_game *game);
 int			key_press(int key_code, t_game *game);
 
