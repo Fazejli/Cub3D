@@ -1,16 +1,17 @@
 #include "cub3d.h"
 
-int		get_color(t_texture *tex)
+int get_color(t_texture *tex)
 {
 	int offset;
 	int color;
 
-	offset = tex->tex_y * tex->size_len + tex->tex_x * (tex->bpp / 8);
+	offset = tex->y * tex->size_len + tex->x * (tex->bpp /8);
 	color = *(int *)(tex->addr + offset);
 	return (color);
 }
 
-int		check_pos(int pos, t_texture *tex)
+
+int	check_pos(double pos, t_texture *tex)
 {
 	if (pos < 0)
 		return (0);

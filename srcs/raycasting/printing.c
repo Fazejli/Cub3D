@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/16 13:31:42 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/16 14:53:19 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,24 @@ void	print_floor(t_ray *ray, t_game *game, int col)
 void	print_texture(t_ray *ray, t_game *game, int col)
 {
 	t_texture	*tex;
-	int			color;
 	int			i;
-	double		pos;
 	double		step;
-	double		wall;
+	double		tex_pos;
+	int			color;
 
-	tex = get_texture(ray, game);
 	i = ray->start;
+	tex = get_texture(ray, game);
 	step = (double)tex->height / (double)ray->line_height;
-	pos = (ray->start - HEIGHT / 2 + ray->line_height / 2) * step;
+	tex_pos = (ray->start - HEIGHT / 2 + ray->line_height / 2) * step;
 	while (i <= ray->end)
 	{
-		if (i >= WIDTH)
+		if (i >= HEIGHT)
 			break ;
-		wall = find_intersection(ray, game->player);
-		tex->tex_x = (int)(wall * tex->width);
-		tex->tex_y = check_pos(pos, tex);
+		tex->x = find_intersection(ray, game->player) * tex->width;
+		tex->y = check_pos(tex_pos, tex);
 		color = get_color(tex);
 		mlx_pixel_put(game->mlx, game->win, col, i, color);
-		tex->tex_y += pos;
+		tex_pos += step;
 		i++;
 	}
 }
