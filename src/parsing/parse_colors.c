@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 14:24:26 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:38:36 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	create_rgb(int r, int g, int b)
 {

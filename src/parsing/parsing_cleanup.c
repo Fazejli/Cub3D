@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cleanup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:28:35 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:03:37 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 15:38:31 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../include/cub3d.h"
 
 void	free_temp_map(char **temp, int count)
 {

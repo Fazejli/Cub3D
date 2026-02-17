@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 18:56:56 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 15:37:41 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../include/cub3d.h"
 
 int	main(int ac, char **av)
 {

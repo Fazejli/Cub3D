@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 14:06:12 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:39:05 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../..//include/cub3d.h"
 
 int	mess_error(char *msg)
 {

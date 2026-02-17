@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:37:40 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 15:38:11 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	is_valid_char(char c)
 {

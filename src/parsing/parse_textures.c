@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:24:31 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/12 12:35:01 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:39:15 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../..//include/cub3d.h"
 
 void	assign_texture(t_data *data, char *path, int type)
 {
