@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/16 13:26:03 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 15:43:51 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ static void	init_vector(t_vector *vector, double x_nbr, double y_nbr)
 static void	init_player(t_player *player, t_pos *pos)
 {
 	init_vector(&player->pos, pos->x + 0.5, pos->y + 0.5);
+	// todo check proper orientation
 	if (pos->dir == 'N')
 	{
+
 		init_vector(&player->dir, 0, -1);
 		init_vector(&player->plane, 0.66, 0);
 	}
@@ -45,13 +47,10 @@ static void	init_player(t_player *player, t_pos *pos)
 
 static int	load_textures(t_game *game, t_data *data)
 {
-	if (load_texture(game, &game->textures[0], data->t_north))
-		return (free_data(data), 1);
-	if (load_texture(game, &game->textures[1], data->t_south))
-		return (free_data(data), 1);
-	if (load_texture(game, &game->textures[2], data->t_west))
-		return (free_data(data), 1);
-	if (load_texture(game, &game->textures[3], data->t_east))
+	if (load_texture(game, &game->textures[0], data->t_north)
+		|| load_texture(game, &game->textures[1], data->t_south)
+		|| load_texture(game, &game->textures[2], data->t_west)
+		|| load_texture(game, &game->textures[3], data->t_east))
 		return (free_data(data), 1);
 	return (0);
 }

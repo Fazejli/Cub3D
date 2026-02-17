@@ -6,13 +6,14 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/17 15:53:39 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/02/17 20:08:53 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= cub3D
-CC			= clang 
-CFLAGS		= -Wall -Wextra -Werror -MMD -MP -g
+NAME = cub3D
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -std=gnu2x \
+		 -fsanitize=address,leak,undefined
 
 SRC_DIR		= src
 OBJ_DIR		= .obj
@@ -33,54 +34,61 @@ SRC_FILES	= main.c \
 	raycasting/raycasting_utils.c \
 	raycasting/printing.c \
 	raycasting/print_textures.c \
-	raycasting/cleanup.c
+	raycasting/cleanup.c \
+	threads/run.c \
+	threads/init.c \
+	threads/destroy.c \
+	threads/add.c
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEP			:= $(OBJ:.o=.d)
 
-LIBFT = libft/libft.a
+LIBFT = lib/libft/libft.a
 
 UNAME		:= $(shell uname)
 ifeq ($(UNAME), Linux)
-	MLX_DIR		= mlx_linux
+	MLX_DIR		= lib/mlx_linux
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 else ifeq ($(UNAME), Darwin)
-	MLX_DIR		= mlx_opengl
+	MLX_DIR		= lib/mlx_opengl
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 else
 	$(error "Unsupported OS: $(UNAME)")
 endif
 
+.PHONY: all
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@echo "Compiling $< -> $@"
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(MLX_DIR) -c $< -o $@ -MMD
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -Ilib/libft/ -I$(MLX_DIR) -c $< -o $@ -MMD
 
 $(LIBFT):
 	@echo "Compiling Libft..."
-	@$(MAKE) -s -C libft
+	@$(MAKE) -s -C lib/libft
 
 $(MLX_LIB):
 	@echo "Compiling mlx_lib..."
-	@$(MAKE) -s -C $(MLX_DIR)
+	@$(MAKE) -s CC=$(CC) -C $(MLX_DIR)
 
 $(NAME) : $(LIBFT) $(MLX_LIB) $(OBJ)
 	@echo "Compiling Cub3D..."
 	@$(CC) $(CFLAGS) $(OBJ) ${LIBFT} $(MLX_FLAGS) -o $@ 
 	
+.PHONY: clean
 clean:
 	@echo "Cleaning objects..."
 	@rm -rf $(OBJ_DIR)
-	@$(MAKE) clean -s -C libft
+	@$(MAKE) clean -s -C lib/libft
 	@$(MAKE) clean -s -C $(MLX_DIR)
 	@echo "Objects cleaned!"
 
+.PHONY: fclean
 fclean: clean
 	@echo "Cleaning all..."
 	@rm -rf $(NAME)
@@ -88,8 +96,7 @@ fclean: clean
 	@rm -rf ${MLX_LIB}
 	@echo "All cleaned!"
 
+.PHONY: re
 re: fclean all
 
 -include $(DEP)
-
-.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/16 14:51:56 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 15:22:36 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_ray
 typedef struct s_player
 {
 	t_vector	pos;
-	t_vector	dir;
-	t_vector	plane;
+	float		yaw;
+	float		fov;
 }	t_player;
 
 typedef struct s_texture
@@ -98,7 +98,7 @@ t_texture	*get_texture(t_ray *ray, t_game *game);
 int			check_pos(double pos, t_texture *tex);
 int			get_color(t_texture *tex);	
 
-double			find_intersection(t_ray *ray, t_player player);
+double		find_intersection(t_ray *ray, t_player player);
 int			quit_game(t_game *game);
 int			key_press(int key_code, t_game *game);
 
