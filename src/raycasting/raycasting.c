@@ -6,11 +6,12 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 20:07:53 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 19:09:26 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "mlx.h"
 
 static void	find_wall(t_ray *ray, char **map)
 {
@@ -23,13 +24,13 @@ static void	find_wall(t_ray *ray, char **map)
 		{
 			ray->dda.side_x += ray->dda.delta_x;
 			ray->pos_x += ray->dda.step_x;
-			ray->side = 0;
+			ray->side = EAST;
 		}
 		else
 		{
 			ray->dda.side_y += ray->dda.delta_y;
 			ray->pos_y += ray->dda.step_y;
-			ray->side = 1;
+			ray->side = NORTH;
 		}
 		if (ray->pos_y < 0 || ray->pos_y >= get_height(map))
 			wall = 1;
@@ -41,59 +42,46 @@ static void	find_wall(t_ray *ray, char **map)
 	calculate_distances(ray);
 }
 
-static void	init_algo_x(t_ray *ray, t_player *player)
+static void	init_dda(t_ray *ray, t_player *player)
 {
-	ray->dda.delta_x = 1e30;
-	if (ray->dir.x != 0)
+	if (ray->dir.x < 0)
 	{
+		ray->dda.step_x = -1;
 		ray->dda.delta_x = fabs(1.0 / ray->dir.x);
-		if (ray->dir.x < 0)
-		{
-			ray->dda.step_x = -1;
-			ray->dda.side_x = (player->pos.x - ray->pos_x) * ray->dda.delta_x;
-		}
-		else
-		{
-			ray->dda.step_x = 1;
-			ray->dda.side_x = (ray->pos_x + 1.0 - player->pos.x)
-				* ray->dda.delta_x;
-		}
+		ray->dda.side_x = (player->pos.x - ray->pos_x) * ray->dda.delta_x;
 	}
-}
-
-static void	init_algo_y(t_ray *ray, t_player *player)
-{
-	ray->dda.delta_y = 1e30;
-	if (ray->dir.y != 0)
+	else
 	{
+		ray->dda.step_x = 1;
+		ray->dda.delta_x = fabs(1.0 / ray->dir.x);
+		ray->dda.side_x = (ray->pos_x + 1.0 - player->pos.x) * ray->dda.delta_x;
+	}
+	if (ray->dir.y < 0)
+	{
+		ray->dda.step_y = -1;
 		ray->dda.delta_y = fabs(1.0 / ray->dir.y);
-		if (ray->dir.y < 0)
-		{
-			ray->dda.step_y = -1;
-			ray->dda.side_y = (player->pos.y - ray->pos_y) * ray->dda.delta_y;
-		}
-		else
-		{
-			ray->dda.step_y = 1;
-			ray->dda.side_y = (ray->pos_y + 1.0 - player->pos.y)
-				* ray->dda.delta_y;
-		}
+		ray->dda.side_y = (player->pos.y - ray->pos_y) * ray->dda.delta_y;
+	}
+	else
+	{
+		ray->dda.step_y = 1;
+		ray->dda.delta_y = fabs(1.0 / ray->dir.y);
+		ray->dda.side_y = (ray->pos_y + 1.0 - player->pos.y) * ray->dda.delta_y;
 	}
 }
 
 static void	init_ray(t_ray *ray, t_player *player, int x)
 {
-	double	cam;
+	const double	cam = 2.0 * x / (float)WIDTH - 1.0;
+	const double	dir_x = cos(player->yaw);
+	const double	dir_y = sin(player->yaw);
+	const double	plane = tan(player->fov * 0.5);
 
-	if (x < 0 || x >= WIDTH)
-		return ;
-	cam = 2.0 * x / (float)WIDTH - 1.0;
-	ray->dir.x = player->dir.x + cam * player->plane.x;
-	ray->dir.y = player->dir.y + cam * player->plane.y;
+	ray->dir.x = dir_x - dir_y * cam * plane;
+	ray->dir.y = dir_y + dir_x * cam * plane;
 	ray->pos_x = (int)player->pos.x;
 	ray->pos_y = (int)player->pos.y;
-	init_algo_x(ray, player);
-	init_algo_y(ray, player);
+	init_dda(ray, player);
 }
 
 void	raycast(t_game *game)
@@ -109,4 +97,5 @@ void	raycast(t_game *game)
 		print_ray(&ray, game, x);
 		x++;
 	}
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }

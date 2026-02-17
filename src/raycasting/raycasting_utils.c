@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/16 12:28:55 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/17 19:27:49 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void	calculate_distances(t_ray *ray)
 		ray->dist = ray->dda.side_x - ray->dda.delta_x;
 	else
 		ray->dist = ray->dda.side_y - ray->dda.delta_y;
+	if (ray->dist <= 0)
+		ray->dist = 0.0001;
 	calculate_wall_height(ray);
 }

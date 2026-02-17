@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:28:35 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:38:31 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/17 18:50:56 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ void	free_map_and_player(t_data *data)
 	{
 		free_map(data->map);
 		data->map = NULL;
-	}
-	if (data->player_pos)
-	{
-		free(data->player_pos);
-		data->player_pos = NULL;
 	}
 }
 

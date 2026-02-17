@@ -6,15 +6,22 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:38:20 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/17 19:20:54 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+static const char	g_dir_to_char[] = {
+	[EAST] = 'E',
+	[NORTH] = 'N',
+	[WEST] = 'W',
+	[SOUTH] = 'S',
+};
+
 int	flood_fill(t_pos *player_pos, char **map, int i, int j)
 {
-	if (map[i][j] == player_pos->dir)
+	if (map[i][j] == g_dir_to_char[player_pos->dir])
 	{
 		player_pos->x = j;
 		player_pos->y = i;
@@ -29,8 +36,8 @@ int	find_player(t_pos *player_pos, char **map)
 	int	i;
 	int	j;
 
-	if (!player_pos || !player_pos->dir)
-		return (mess_error("Player not found"));
+	// if (!player_pos || !player_pos->dir)
+	// 	return (mess_error("Player not found"));
 	i = 0;
 	while (map[i])
 	{
@@ -54,8 +61,9 @@ int	valid_map(t_data *data)
 	char	**map_cpy;
 
 	i = 0;
-	if (!data->player_pos || !data->player_pos->dir)
-		return (mess_error("No player in map"));
+	// todo check for player existence
+	// if (data->player_pos.dir == DIR_NONE)
+	// 	return (mess_error("No player in map"));
 	height = get_height(data->map);
 	while (i < height)
 	{
@@ -66,7 +74,7 @@ int	valid_map(t_data *data)
 	map_cpy = copy_map(data->map);
 	if (!map_cpy)
 		return (mess_error("Malloc failed"));
-	status = find_player(data->player_pos, map_cpy);
+	status = find_player(&data->player_pos, map_cpy);
 	free_map(map_cpy);
 	return (status);
 }

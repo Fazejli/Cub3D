@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:38:11 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/17 19:24:22 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,21 @@ int	is_valid_char(char c)
 		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
+enum e_dir	g_char_to_dir[] = {
+['N'] = NORTH,
+['W'] = WEST,
+['S'] = SOUTH,
+['E'] = EAST,
+};
+
 int	check_player_pos(t_data *data, char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		if (data->player_pos && data->player_pos->dir)
-			return (mess_error("Multiple players"));
-		data->player_pos = malloc(sizeof(t_pos));
-		if (!data->player_pos)
-			return (mess_error("Malloc failed"));
-		data->player_pos->dir = c;
-		data->player_pos->x = 0;
-		data->player_pos->y = 0;
+		// todo check for multiple players
+		data->player_pos.dir = g_char_to_dir[(int)c];
+		data->player_pos.x = 0;
+		data->player_pos.y = 0;
 	}
 	return (0);
 }

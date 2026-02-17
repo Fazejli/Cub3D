@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:47:32 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/21 19:10:33 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/17 20:01:59 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,20 @@
 
 # include "mlx.h"
 
+#include <stdint.h>
+
+enum e_dir : uint8_t {
+	EAST,
+	NORTH,
+	WEST,
+	SOUTH,
+};
+
 typedef struct s_pos
 {
-	float	x;
-	float	y;
-	char	dir;
+	float		x;
+	float		y;
+	enum e_dir	dir;
 }	t_pos;
 
 typedef struct s_data
@@ -43,7 +52,7 @@ typedef struct s_data
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
-	t_pos	*player_pos;
+	t_pos	player_pos;
 	int		fd;
 }	t_data;
 

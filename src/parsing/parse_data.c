@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:21:50 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:38:25 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/17 18:46:53 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	init_data(t_data *data)
 	data->floor_color = -1;
 	data->ceiling_color = -1;
 	data->map = NULL;
-	data->player_pos = NULL;
 }
 
 static int	check_file(t_data *data, char *filename)
