@@ -1,23 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_textures.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/18 00:17:03 by smamalig          #+#    #+#             */
+/*   Updated: 2026/02/18 00:37:08 by smamalig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+#include "game.h"
+#include <stdint.h>
+#include <math.h>
 
-int	get_color(t_texture *tex)
+uint32_t	get_color(t_texture *tex)
 {
-	int	offset;
-	int	color;
+	uint32_t	offset;
+	uint32_t	color;
 
-	offset = tex->y * tex->size_len + tex->x * (tex->bpp / 8);
-	color = *(int *)(tex->addr + offset);
+	offset = tex->y * (tex->size_len / (tex->bpp / 8)) + tex->x;
+	color = tex->addr[offset];
 	return (color);
 }
 
-
-int	check_pos(float pos, t_texture *tex)
+uint32_t	check_pos(float pos, t_texture *tex)
 {
 	if (pos < 0)
 		return (0);
-	else if (pos >= tex->height)
+	else if (pos >= (float)tex->height)
 		return (tex->height - 1);
-	return ((int)pos);
+	return ((uint32_t)pos);
 }
 
 float	find_intersection(t_ray *ray, t_player player)
@@ -28,8 +42,7 @@ float	find_intersection(t_ray *ray, t_player player)
 		wall = player.pos.y + ray->dist * ray->dir.y;
 	else
 		wall = player.pos.x + ray->dist * ray->dir.x;
-	wall = wall - (int)wall;
-	return (wall);
+	return (modff(wall, &(float){0}));
 }
 
 t_texture	*get_texture(t_ray *ray, t_game *game)

@@ -6,14 +6,33 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/17 20:08:53 by smamalig         ###   ########.fr        #
+#    Updated: 2026/02/18 00:32:27 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -std=gnu2x \
-		 -fsanitize=address,leak,undefined
+CFLAGS = -Wall -Wextra -Werror -Wpedantic -MMD -MP -std=gnu2x -D_GNU_SOURCE
+CFLAGS_DEBUG = -Og -g3 -Wpacked -Wstrict-prototypes -Wshadow -Wpadded \
+			   -Wconversion -Wmissing-prototypes -Wmissing-declarations \
+			   -Wold-style-definition -Winline -Wsign-conversion -Wundef \
+			   -Wcast-align -Wcast-qual -Wwrite-strings -Wuninitialized \
+			   -Wdouble-promotion -Wfloat-equal -Wvla -Wnull-dereference \
+			   -Wformat=2 -Wredundant-decls -Wmissing-field-initializers \
+			   -Wswitch-enum -Wswitch-default -Wpointer-arith \
+			   -Wbad-function-cast -Wstrict-aliasing=2 -Wreturn-type \
+			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv
+
+CFLAGS_ASAN    = $(CFLAGS_DEBUG) -fsanitize=address,undefined -fno-sanitize-recover=all
+
+CFLAGS_RELEASE = -O2 -fPIE -D_FORTIFY_SOURCE=3 \
+				 -fstack-protector-strong -fstack-clash-protection \
+				 -fcf-protection=full -mtune=native -flto -fno-math-errno \
+				 -fno-trapping-math
+
+# todo: add actual compilation rules
+CFLAGS += $(CFLAGS_ASAN)
 
 SRC_DIR		= src
 OBJ_DIR		= .obj
@@ -52,10 +71,16 @@ ifeq ($(UNAME), Linux)
 	MLX_DIR		= lib/mlx_linux
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+	LDFLAGS		= -pie -flto \
+				  -Wl,-z,relro \
+				  -Wl,-z,now \
+				  -Wl,-z,noexecstack \
+				  -Wl,-z,separate-code
 else ifeq ($(UNAME), Darwin)
 	MLX_DIR		= lib/mlx_opengl
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	LDFLAGS		= -pie
 else
 	$(error "Unsupported OS: $(UNAME)")
 endif
@@ -78,7 +103,7 @@ $(MLX_LIB):
 
 $(NAME) : $(LIBFT) $(MLX_LIB) $(OBJ)
 	@echo "Compiling Cub3D..."
-	@$(CC) $(CFLAGS) $(OBJ) ${LIBFT} $(MLX_FLAGS) -o $@ 
+	@$(CC) $(CFLAGS) $(OBJ) ${LIBFT} $(MLX_FLAGS) $(LDFLAGS) -o $@
 	
 .PHONY: clean
 clean:

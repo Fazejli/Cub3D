@@ -6,11 +6,12 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:21:50 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 18:46:53 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 00:06:36 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
+#include "libft.h"
 
 int	handle_element(t_data *data, char *line, int *count)
 {
@@ -56,8 +57,8 @@ void	init_data(t_data *data)
 	data->t_south = NULL;
 	data->t_west = NULL;
 	data->t_east = NULL;
-	data->floor_color = -1;
-	data->ceiling_color = -1;
+	data->floor_color = -1u;
+	data->ceiling_color = -1u;
 	data->map = NULL;
 }
 

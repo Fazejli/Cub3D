@@ -6,11 +6,14 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:43:26 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/18 00:24:05 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "game.h"
+#include "mlx.h"
+#include <stdlib.h>
 
 int	key_press(int key_code, t_game *game)
 {

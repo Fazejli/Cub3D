@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:37:15 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/17 19:41:32 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 00:25:33 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_threadpool {
 	int				active_workers;
 	int				stop;
 	int				thread_count;
+	char			reserved[4];
 }	t_threadpool;
 
 int		threadpool_init(t_threadpool *pool, int worker_count);

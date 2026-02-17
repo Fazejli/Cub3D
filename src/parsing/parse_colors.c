@@ -6,28 +6,30 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:38:36 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/18 00:09:53 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
+#include "libft.h"
+#include <stdint.h>
 
-int	create_rgb(int r, int g, int b)
+uint32_t	create_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
-	return ((r << 16) | (g << 8) | b);
+	return ((uint32_t)(r << 16u) | (uint32_t)(g << 8u) | b);
 }
 
-int	parse_rgb(char **rgb, int *r, int *g, int *b)
+int	parse_rgb(char **rgb, uint8_t *r, uint8_t *g, uint8_t *b)
 {
 	int	error;
 
-	*r = ft_atoi_rgb(rgb[0], &error);
+	*r = (uint8_t)ft_atoi_rgb(rgb[0], &error);
 	if (error)
 		return (mess_error("Invalid R value"));
-	*g = ft_atoi_rgb(rgb[1], &error);
+	*g = (uint8_t)ft_atoi_rgb(rgb[1], &error);
 	if (error)
 		return (mess_error("Invalid G value"));
-	*b = ft_atoi_rgb(rgb[2], &error);
+	*b = (uint8_t)ft_atoi_rgb(rgb[2], &error);
 	if (error)
 		return (mess_error("Invalid B value"));
 	return (0);
@@ -36,9 +38,9 @@ int	parse_rgb(char **rgb, int *r, int *g, int *b)
 int	extract_color(t_data *data, char *line, char type)
 {
 	char	**color;
-	int		r;
-	int		g;
-	int		b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 	int		i;
 
 	i = 0;
@@ -61,9 +63,9 @@ int	extract_color(t_data *data, char *line, char type)
 
 int	parse_color(t_data *data, char *line, char type)
 {
-	if (type == 'F' && data->floor_color != -1)
+	if (type == 'F' && data->floor_color != -1u)
 		return (mess_error("Duplicate floor color"));
-	if (type == 'C' && data->ceiling_color != -1)
+	if (type == 'C' && data->ceiling_color != -1u)
 		return (mess_error("Duplicate ceiling color"));
 	return (extract_color(data, line, type));
 }

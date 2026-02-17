@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 19:33:35 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 00:23:44 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ typedef struct s_ray
 	int			pos_x;
 	int			pos_y;
 	float		dist;
-	int			line_height;
+	uint32_t	line_height;
 	int			side;
 	t_algo		dda;
-	int			start;
-	int			end;
+	uint32_t	start;
+	uint32_t	end;
 }	t_ray;
 
 typedef struct s_player
@@ -57,19 +57,21 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-	void	*img;
-	char	*addr;
-	int		width;
-	int		height;
-	int		bpp;
-	int		size_len;
-	int		endian;
-	int		x;
-	int		y;
+	void		*img;
+	uint32_t	*addr;
+	uint32_t	width;
+	uint32_t	height;
+	uint32_t	bpp;
+	uint32_t	size_len;
+	uint32_t	endian;
+	uint32_t	x;
+	uint32_t	y;
+	char		reserved[4];
 }	t_texture;
 
 typedef struct s_game
 {
+	t_data		*data;
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -77,19 +79,19 @@ typedef struct s_game
 	int			bpp;
 	int			endian;
 	int			size_len;
-	t_data		*data;
-	t_texture	textures[4];
 	t_player	player;
+	char		reserved[4];
+	t_texture	textures[4];
 }	t_game;
 
 int			init_game(t_game *game, t_data *data);
 int			load_texture(t_game *game, t_texture *tex, char *path);
 void		raycast(t_game *game);
 void		calculate_distances(t_ray *ray);
-void		print_ray(t_ray *ray, t_game *game, int col);
+void		print_ray(t_ray *ray, t_game *game, uint32_t x);
 t_texture	*get_texture(t_ray *ray, t_game *game);
-int			check_pos(float pos, t_texture *tex);
-int			get_color(t_texture *tex);	
+uint32_t	check_pos(float pos, t_texture *tex);
+uint32_t	get_color(t_texture *tex);	
 
 float		find_intersection(t_ray *ray, t_player player);
 int			quit_game(t_game *game);

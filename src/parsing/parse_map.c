@@ -6,11 +6,12 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 19:24:22 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 00:10:19 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
+#include "libft.h"
 
 int	is_valid_char(char c)
 {

@@ -6,35 +6,38 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/15 19:29:22 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/02/18 00:10:39 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
+#include <stddef.h>
+#include <stdint.h>
 
 int	check_all_elements(t_data *data)
 {
 	if (!data->t_north || !data->t_south || !data->t_west || !data->t_east)
 		return (0);
-	if (data->floor_color == -1 || data->ceiling_color == -1)
+	if (data->floor_color == -1u || data->ceiling_color == -1u)
 		return (0);
 	return (1);
 }
 
-char	get_map_char(char **map, int x, int y)
+char	get_map_char(char **map, uint32_t x, uint32_t y)
 {
-	if (y < 0 || !map[y])
+	if (!map[y])
 		return (' ');
-	if (x < 0 || x >= (int)ft_strlen(map[y]))
+	if (x >= (uint32_t)ft_strlen(map[y]))
 		return (' ');
 	return (map[y][x]);
 }
 
-int	flood_fill_check(char **map, int x, int y)
+int	flood_fill_check(char **map, uint32_t x, uint32_t y)
 {
-	char	c;
-	int		height;
-	int		width;
+	char		c;
+	uint32_t	height;
+	uint32_t	width;
 
 	height = get_height(map);
 	width = get_width(map);

@@ -6,11 +6,12 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:24:31 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:39:15 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/18 00:06:59 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../..//include/cub3d.h"
+#include "cub3d.h"
+#include "libft.h"
 
 void	assign_texture(t_data *data, char *path, int type)
 {
@@ -26,10 +27,10 @@ void	assign_texture(t_data *data, char *path, int type)
 
 char	*extract_path(char *line)
 {
-	int		i;
-	int		start;
-	int		end;
-	char	*path;
+	uint32_t	i;
+	uint32_t	start;
+	uint32_t	end;
+	char		*path;
 
 	i = 2;
 	while (ft_isspace(line[i]))

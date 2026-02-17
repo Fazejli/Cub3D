@@ -6,11 +6,12 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:28:35 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 18:50:56 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 00:06:08 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
+#include <stdlib.h>
 
 void	free_temp_map(char **temp, int count)
 {
@@ -52,7 +53,7 @@ void	free_map_and_player(t_data *data)
 	}
 }
 
-void	free_textures(t_data *data)
+static void	free_textures(t_data *data)
 {
 	if (data->t_north)
 	{

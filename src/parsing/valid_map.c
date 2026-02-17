@@ -6,26 +6,27 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 19:20:54 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/17 23:55:34 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include <stdint.h>
 
 static const char	g_dir_to_char[] = {
-	[EAST] = 'E',
-	[NORTH] = 'N',
-	[WEST] = 'W',
-	[SOUTH] = 'S',
+[EAST] = 'E',
+[NORTH] = 'N',
+[WEST] = 'W',
+[SOUTH] = 'S',
 };
 
-int	flood_fill(t_pos *player_pos, char **map, int i, int j)
+static int	flood_fill(t_pos *player_pos, char **map, uint32_t x, uint32_t y)
 {
-	if (map[i][j] == g_dir_to_char[player_pos->dir])
+	if (map[y][x] == g_dir_to_char[player_pos->dir])
 	{
-		player_pos->x = j;
-		player_pos->y = i;
-		if (!flood_fill_check(map, j, i))
+		player_pos->x = (float)x;
+		player_pos->y = (float)y;
+		if (!flood_fill_check(map, x, y))
 			return (mess_error("Map not closed"));
 	}
 	return (0);
@@ -33,43 +34,43 @@ int	flood_fill(t_pos *player_pos, char **map, int i, int j)
 
 int	find_player(t_pos *player_pos, char **map)
 {
-	int	i;
-	int	j;
+	uint32_t	x;
+	uint32_t	y;
 
 	// if (!player_pos || !player_pos->dir)
 	// 	return (mess_error("Player not found"));
-	i = 0;
-	while (map[i])
+	y = 0;
+	while (map[y])
 	{
-		j = 0;
-		while (map[i][j])
+		x = 0;
+		while (map[y][x])
 		{
-			if (flood_fill(player_pos, map, i, j))
+			if (flood_fill(player_pos, map, x, y))
 				return (1);
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (0);
 }
 
 int	valid_map(t_data *data)
 {
-	int		i;
-	int		height;
-	int		status;
-	char	**map_cpy;
+	uint32_t	y;
+	uint32_t	height;
+	int			status;
+	char		**map_cpy;
 
-	i = 0;
+	y = 0;
 	// todo check for player existence
 	// if (data->player_pos.dir == DIR_NONE)
 	// 	return (mess_error("No player in map"));
 	height = get_height(data->map);
-	while (i < height)
+	while (y < height)
 	{
-		if (!data->map[i])
+		if (!data->map[y])
 			return (mess_error("Invalid map"));
-		i++;
+		y++;
 	}
 	map_cpy = copy_map(data->map);
 	if (!map_cpy)

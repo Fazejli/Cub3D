@@ -6,34 +6,34 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 15:39:05 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/18 00:05:46 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../..//include/cub3d.h"
+#include <stdio.h>
+#include "libft.h"
 
-int	mess_error(char *msg)
+int	mess_error(const char *msg)
 {
+	// todo: replace with ft_dprintf
 	if (msg)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putendl_fd(msg, 2);
-	}
+		dprintf(2, "Error %s\n", msg);
 	else
 		perror("Error");
 	return (1);
 }
 
-int	check_arg(char *filename)
+int	check_arg(const char *filename)
 {
-	int	len;
+	size_t	len;
 
 	if (!filename)
-		return (0);
-	len = ft_strlen(filename);
+		return (1);
+	len = __builtin_strlen(filename);
 	if (len < 5)
-		return (0);
+		return (1);
 	if (ft_strncmp(filename + len - 4, ".cub", 4) != 0)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }

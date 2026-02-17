@@ -6,14 +6,14 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 20:12:31 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 00:20:10 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "game.h"
 #include <stdint.h>
 
-void	print_ceiling(t_ray *ray, t_game *game, uint32_t x)
+static void	print_ceiling(t_ray *ray, t_game *game, uint32_t x)
 {
 	uint32_t	color;
 	uint32_t	y;
@@ -29,7 +29,7 @@ void	print_ceiling(t_ray *ray, t_game *game, uint32_t x)
 	}
 }
 
-void	print_floor(t_ray *ray, t_game *game, uint32_t x)
+static void	print_floor(t_ray *ray, t_game *game, uint32_t x)
 {
 	uint32_t	color;
 	uint32_t	y;
@@ -43,25 +43,25 @@ void	print_floor(t_ray *ray, t_game *game, uint32_t x)
 	}
 }
 
-void	print_texture(t_ray *ray, t_game *game, uint32_t x)
+static void	print_texture(t_ray *ray, t_game *game, uint32_t x)
 {
 	t_texture	*tex;
 	uint32_t	y;
-	double		step;
-	double		tex_pos;
+	float		step;
+	float		tex_pos;
 	uint32_t	color;
 
 	y = ray->start;
 	tex = get_texture(ray, game);
 	step = (float)tex->height / (float)ray->line_height;
-	tex_pos = (ray->start - (float)HEIGHT / 2
+	tex_pos = ((float)ray->start - (float)HEIGHT / 2
 			+ (float)ray->line_height / 2) * step;
-	tex->x = find_intersection(ray, game->player) * tex->width;
+	tex->x = (uint32_t)(find_intersection(ray, game->player) * (float)tex->width);
 	while (y <= (uint32_t)ray->end)
 	{
 		if (y >= HEIGHT)
 			break ;
-		tex->y = check_pos(tex_pos, tex);
+		tex->y = (uint32_t)check_pos(tex_pos, tex);
 		color = get_color(tex);
 		game->addr[y * WIDTH + x] = color;
 		tex_pos += step;
@@ -69,9 +69,9 @@ void	print_texture(t_ray *ray, t_game *game, uint32_t x)
 	}
 }
 
-void	print_ray(t_ray *ray, t_game *game, int x)
+void	print_ray(t_ray *ray, t_game *game, uint32_t x)
 {
-	if (x < 0 || x >= WIDTH)
+	if (x >= WIDTH)
 		return ;
 	print_ceiling(ray, game, x);
 	print_floor(ray, game, x);
