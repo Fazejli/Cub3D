@@ -1,5 +1,5 @@
 # Binaries
-cub3d
+cub3D
 *.o
 *.a
 *.out
