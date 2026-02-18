@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/18 00:32:27 by smamalig         ###   ########.fr        #
+#    Updated: 2026/02/18 11:45:59 by mattcarniel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ ifeq ($(UNAME), Linux)
 	MLX_DIR		= lib/mlx_linux
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
-	LDFLAGS		= -pie -flto \
+	LDFLAGS		+= -pie -flto \
 				  -Wl,-z,relro \
 				  -Wl,-z,now \
 				  -Wl,-z,noexecstack \
@@ -80,7 +80,6 @@ else ifeq ($(UNAME), Darwin)
 	MLX_DIR		= lib/mlx_opengl
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-	LDFLAGS		= -pie
 else
 	$(error "Unsupported OS: $(UNAME)")
 endif

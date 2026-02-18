@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                           :+:      :+:    :+:   */
+/*   math_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 18:47:32 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/01/21 19:10:33 by fadzejli         ###   ########.fr       */
+/*   Created: 2026/02/18 11:37:02 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/02/18 11:37:17 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#ifndef MATH_UTILS_H
+# define MATH_UTILS_H
 
-# include "cub3d.h"
-
-# define ARGS_ERROR "Wrong args format.\nExample: ./cub3D filename.cub"
-# define FILE_ERROR "Wrong file format\nExample: ./cub3D filename.cub"
-# define INIT_ERROR "Game init failed"
+# define PI        3.14159265358979323846f
+# define PI_2      (PI / 2.0f)
+# define PI_3_2    (3.0f * PI_2)
 
 #endif

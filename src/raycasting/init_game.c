@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:11:27 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:42:43 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include "mlx.h"
 #include <math.h>
 #include <string.h>
-#include <X11/X.h>
+#include "mlx.h"
+
+#include "math_utils.h"
 
 __attribute__((always_inline))
 static inline void	init_vector(t_vector *vector, float x, float y)
@@ -27,10 +29,10 @@ static inline void	init_vector(t_vector *vector, float x, float y)
 static void	init_player(t_player *player, t_pos *pos)
 {
 	constexpr const float	orientations[]
-		= {0, 3 * M_PI_2f, M_PIf, M_PI_2f};
+		= {0, 3 * PI_2, PI, PI_2};
 
 	init_vector(&player->pos, pos->x + 0.5f, pos->y + 0.5f);
-	player->fov = 90.0f * M_PIf / 180.0f;
+	player->fov = 90.0f * PI / 180.0f;
 	player->yaw = orientations[pos->dir];
 }
 
@@ -68,7 +70,7 @@ int	init_game(t_game *game, t_data *data)
 		return (free_data(data), 1);
 	init_player(&game->player, &data->player_pos);
 	raycast(game);
-	mlx_hook(game->win, DestroyNotify, 0, (t_fn)(intptr_t)quit_game, game);
+	mlx_hook(game->win, ON_DESTROY, 0, (t_fn)(intptr_t)quit_game, game);
 	mlx_key_hook(game->win, (t_fn)(intptr_t)key_press, game);
 	return (0);
 }

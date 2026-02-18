@@ -19,6 +19,13 @@
 # include "parser.h"
 # include <stdint.h>
 
+# if defined(__linux__)
+#  include <X11/X.h>
+#  define ON_DESTROY DestroyNotify
+# elif defined(__APPLE__)
+#  define ON_DESTROY 17
+# endif
+
 enum e_dir : uint8_t {
 	EAST,
 	NORTH,
