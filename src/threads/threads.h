@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:37:15 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 00:25:33 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:48:47 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define THREADS_H
 
 # include <pthread.h>
+# include <stdint.h>
 
-# define MAX_TASKS 64
+# define MAX_TASKS 256
 
 typedef void	(*t_task_fn)(void *);
 

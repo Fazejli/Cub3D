@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 00:17:03 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 00:37:08 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:10:33 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include <stdint.h>
 #include <math.h>
 
-uint32_t	get_color(t_texture *tex)
+uint32_t	get_color(t_texture *tex, uint32_t x, uint32_t y)
 {
 	uint32_t	offset;
 	uint32_t	color;
 
-	offset = tex->y * (tex->size_len / (tex->bpp / 8)) + tex->x;
+	offset = y * (tex->size_len / (tex->bpp / 8)) + x;
 	color = tex->addr[offset];
 	return (color);
 }

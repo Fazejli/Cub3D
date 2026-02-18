@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:14:06 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:26:08 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "mlx.h"
 #include <math.h>
 #include <stdint.h>
+#include <stdio.h>
 
 static void	find_wall(t_ray *ray, char **map)
 {
@@ -89,18 +90,48 @@ static void	init_ray(t_ray *ray, t_player *player, uint32_t x)
 	init_dda(ray, player);
 }
 
-void	raycast(t_game *game)
-{
-	t_ray		ray;
-	uint32_t	x;
+struct s_raycast_task {
+	t_game		*game;
+	uint32_t	x_start;
+	uint32_t	x_end;
+};
 
-	x = 0;
-	while (x < WIDTH)
+static void	raycast_slice(void *arg)
+{
+	struct s_raycast_task	*task;
+	uint32_t				x;
+	t_ray					ray;
+
+	task = arg;
+	x = task->x_start;
+	while (x <= task->x_end)
 	{
-		init_ray(&ray, &game->player, x);
-		find_wall(&ray, game->data->map);
-		print_ray(&ray, game, x);
+		init_ray(&ray, &task->game->player, x);
+		find_wall(&ray, task->game->data->map);
+		print_ray(&ray, task->game, x);
 		x++;
 	}
+}
+
+void	raycast(t_game *game)
+{
+	uint16_t				t;
+	uint32_t				chunk;
+	struct s_raycast_task	tasks[128];
+
+	t = 0;
+	printf("thread count: %i\n", game->pool.thread_count);
+	chunk = (uint32_t)((WIDTH + game->pool.thread_count - 1)
+			/ game->pool.thread_count);
+	while (t < game->pool.thread_count)
+	{
+		tasks[t].x_start = t * chunk;
+		tasks[t].x_end = (t + 1) * chunk - 1;
+		printf("%i %i\n", tasks[t].x_start, tasks[t].x_end);
+		tasks[t].game = game;
+		threadpool_add(&game->pool, raycast_slice, &tasks[t]);
+		t++;
+	}
+	threadpool_run(&game->pool);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }

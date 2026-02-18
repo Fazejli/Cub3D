@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 23:54:39 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:56:15 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # include "cub3d.h"
 # include <stdatomic.h>
 # include <stdint.h>
+# include <stdbool.h>
+# include "../src/threads/threads.h"
 
 # define WIDTH 1920
 # define HEIGHT 1080
+
+# define MAX_THREADS 128
 
 typedef struct s_vector
 {
@@ -67,8 +71,6 @@ typedef struct s_texture
 	uint32_t	bpp;
 	uint32_t	size_len;
 	uint32_t	endian;
-	uint32_t	x;
-	uint32_t	y;
 	char		reserved[4];
 }	t_texture;
 
@@ -101,20 +103,21 @@ typedef struct s_input {
 
 typedef struct s_game
 {
-	t_data		*data;
-	void		*mlx;
-	void		*win;
-	void		*img;
-	uint32_t	*addr;
-	t_gfx		gfx;
-	t_input		input;
-	t_player	player;
-	t_options	opt;
-	int			bpp;
-	int			endian;
-	int			size_len;
-	int			texture_count;
-	t_texture	textures[4];
+	t_data			*data;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	uint32_t		*addr;
+	t_threadpool	pool;
+	t_gfx			gfx;
+	t_input			input;
+	t_player		player;
+	t_options		opt;
+	int				bpp;
+	int				endian;
+	int				size_len;
+	int				texture_count;
+	t_texture		textures[4];
 }	t_game;
 
 void		game_destroy(t_game *game, int exit_code)
@@ -127,7 +130,7 @@ void		calculate_distances(t_ray *ray);
 void		print_ray(t_ray *ray, t_game *game, uint32_t x);
 t_texture	*get_texture(t_ray *ray, t_game *game);
 uint32_t	check_pos(float pos, t_texture *tex);
-uint32_t	get_color(t_texture *tex);	
+uint32_t	get_color(t_texture *tex, uint32_t x, uint32_t y);	
 
 float		find_intersection(t_ray *ray, t_player player);
 int			quit_game(t_game *game);

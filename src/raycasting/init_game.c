@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 19:44:22 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:56:30 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef int	(*t_fn)();
 
 int	init_game(t_game *game, t_data *data)
 {
-	memset(game, 0, sizeof(t_game));
 	game->data = data;
 	game->mlx = mlx_init();
 	if (!game->mlx)

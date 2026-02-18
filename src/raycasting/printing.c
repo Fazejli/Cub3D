@@ -6,11 +6,12 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:20:10 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:12:46 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "mlx.h"
 #include <stdint.h>
 
 static void	print_ceiling(t_ray *ray, t_game *game, uint32_t x)
@@ -47,23 +48,21 @@ static void	print_texture(t_ray *ray, t_game *game, uint32_t x)
 {
 	t_texture	*tex;
 	uint32_t	y;
+	uint32_t	tx;
 	float		step;
 	float		tex_pos;
-	uint32_t	color;
 
 	y = ray->start;
 	tex = get_texture(ray, game);
 	step = (float)tex->height / (float)ray->line_height;
 	tex_pos = ((float)ray->start - (float)HEIGHT / 2
 			+ (float)ray->line_height / 2) * step;
-	tex->x = (uint32_t)(find_intersection(ray, game->player) * (float)tex->width);
+	tx = (uint32_t)(find_intersection(ray, game->player) * (float)tex->width);
 	while (y <= (uint32_t)ray->end)
 	{
 		if (y >= HEIGHT)
 			break ;
-		tex->y = (uint32_t)check_pos(tex_pos, tex);
-		color = get_color(tex);
-		game->addr[y * WIDTH + x] = color;
+		game->addr[y * WIDTH + x] = get_color(tex, tx, check_pos(tex_pos, tex));
 		tex_pos += step;
 		y++;
 	}

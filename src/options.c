@@ -6,11 +6,12 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 15:34:49 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 15:00:36 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:35:50 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "game.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -31,7 +32,7 @@ static int	parse_threads(t_options *opt, const char *value)
 	char		*end;
 
 	threads = strtoul(value, &end, 10);
-	if (threads > 255 || *end != '\0')
+	if (threads > MAX_THREADS || *end != '\0')
 	{
 		dprintf(2, "Error: Invalid thread count (max 255)\n");
 		return (1);
@@ -74,10 +75,9 @@ int	options_init(t_options *opt, int argc, char **argv)
 				break ;
 		if (j == opt_count)
 			return (argv[i + 1] != nullptr);
-		if (!argv[i + 1] || !options[j].parse(opt, argv[i + 1]))
+		if (!argv[i + 1] || options[j].parse(opt, argv[i + 1]))
 			return (1);
 		i += 2;
 	}
-	printf("%s\n", argv[i]);
 	return (argv[i] == nullptr);
 }

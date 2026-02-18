@@ -6,15 +6,18 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:44:44 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 19:47:59 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:56:53 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "game.h"
 #include "threads.h"
 #include "libft.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <unistd.h>
+#include <stdio.h>
 
 static void	*worker_loop(void *arg)
 {
@@ -44,10 +47,27 @@ static void	*worker_loop(void *arg)
 	return (NULL);
 }
 
+static int	get_available_cpus(void)
+{
+	const long	cpu_count = sysconf(_SC_NPROCESSORS_ONLN);
+
+	if (cpu_count == -1 || cpu_count > MAX_THREADS)
+	{
+		dprintf(2, "Warning: multithreading not available\n");
+		return (0);
+	}
+	return ((int)cpu_count);
+}
+
 int	threadpool_init(t_threadpool *pool, int worker_count)
 {
-	int32_t	i;
+	int	i;
 
+	if (worker_count == -1)
+		worker_count = get_available_cpus();
+	if (worker_count == 0)
+		return (1);
+	printf("CPUs: %i\n", worker_count);
 	ft_memset(pool, 0, sizeof(t_threadpool));
 	pool->threads = ft_calloc((size_t)worker_count, sizeof(pthread_t));
 	if (!pool->threads)
