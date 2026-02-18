@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:30:02 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:48:33 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 __attribute__((__noreturn__))
 __attribute__((__destructor__))
-static void	game_destroy(t_game *game, int exit_code)
+void	game_destroy(t_game *game, int exit_code)
 {
 	(void)game;
 	exit(exit_code);

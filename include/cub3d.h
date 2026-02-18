@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:47:32 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:04:55 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:04:04 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 
 # if defined(__linux__)
 #  include <X11/X.h>
-#  define ON_DESTROY DestroyNotify
+
+constexpr int	g_destroy_notify = DestroyNotify;
 # elif defined(__APPLE__)
-#  define ON_DESTROY 17
+
+constexpr int	g_destroy_notify = 17;
 # endif
 
 enum e_dir : uint8_t {

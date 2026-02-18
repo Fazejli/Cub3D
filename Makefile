@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/18 11:45:59 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/02/18 13:49:25 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,10 @@ SRC_FILES	= main.c \
 	threads/run.c \
 	threads/init.c \
 	threads/destroy.c \
-	threads/add.c
+	threads/add.c \
+	hooks/init.c \
+	hooks/mouse.c \
+	hooks/keys.c
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

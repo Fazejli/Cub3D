@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:23:44 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:07:31 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GAME_H
 
 # include "cub3d.h"
+#include <stdatomic.h>
 # include <stdint.h>
 
 # define WIDTH 1920
@@ -69,6 +70,33 @@ typedef struct s_texture
 	char		reserved[4];
 }	t_texture;
 
+typedef struct s_gfx {
+	void	*mlx;
+	void	*win;
+}	t_gfx;
+
+typedef union u_keys {
+	struct s_values {
+		bool	forward : 1;
+		bool	backward : 1;
+		bool	left : 1;
+		bool	right : 1;
+		bool	up : 1;
+		bool	down : 1;
+		bool	yaw_left : 1;
+		bool	yaw_right : 1;
+		bool	pitch_up : 1;
+		bool	pitch_down : 1;
+	
+		int32_t	reserved : 22;
+	}	values;
+	uint32_t	bits;
+}	t_keys;
+
+typedef struct s_input {
+	t_keys	keys;
+}	t_input;
+
 typedef struct s_game
 {
 	t_data		*data;
@@ -76,13 +104,18 @@ typedef struct s_game
 	void		*win;
 	void		*img;
 	uint32_t	*addr;
+	t_gfx		gfx;
+	t_input		input;
 	int			bpp;
 	int			endian;
 	int			size_len;
 	t_player	player;
-	char		reserved[4];
 	t_texture	textures[4];
 }	t_game;
+
+void		game_destroy(t_game *game, int exit_code)
+			__attribute__((noreturn))
+			__attribute__((destructor));
 
 int			init_game(t_game *game, t_data *data);
 int			load_texture(t_game *game, t_texture *tex, char *path);
@@ -96,5 +129,7 @@ uint32_t	get_color(t_texture *tex);
 float		find_intersection(t_ray *ray, t_player player);
 int			quit_game(t_game *game);
 int			key_press(int key_code, t_game *game);
+
+int			hooks_init(t_game *game);
 
 #endif
