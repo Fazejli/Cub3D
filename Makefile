@@ -6,7 +6,11 @@
 #    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2026/02/18 19:52:28 by fadzejli         ###   ########.fr        #
+=======
+#    Updated: 2026/02/18 14:53:20 by smamalig         ###   ########.fr        #
+>>>>>>> f887c5c (feat: implement tiny option parser)
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +26,8 @@ CFLAGS_DEBUG = -Og -g3 -Wpacked -Wshadow -Wpadded \
 			   -Wformat=2 -Wredundant-decls -Wmissing-field-initializers \
 			   -Wswitch-enum -Wswitch-default -Wpointer-arith \
 			   -Wbad-function-cast -Wstrict-aliasing=2 -Wreturn-type \
-			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv
+			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv \
+			   -fstrict-flex-arrays=3
 #-Wstrict-prototypes causing issues with mlx compilation
 
 CFLAGS_ASAN    = $(CFLAGS_DEBUG) -fsanitize=address,undefined -fno-sanitize-recover=all
@@ -61,7 +66,8 @@ SRC_FILES	= main.c \
 	threads/add.c \
 	hooks/init.c \
 	hooks/mouse.c \
-	hooks/keys.c
+	hooks/keys.c \
+	options.c
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -102,7 +108,7 @@ $(LIBFT):
 
 $(MLX_LIB):
 	@echo "Compiling mlx_lib..."
-	@$(MAKE) -s CC=$(CC) -C $(MLX_DIR)
+	@$(MAKE) -s CC=$(CC) -C $(MLX_DIR) 2>/dev/null
 
 $(NAME) : $(LIBFT) $(MLX_LIB) $(OBJ)
 	@echo "Compiling Cub3D..."

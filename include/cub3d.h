@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:47:32 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 13:04:04 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:54:03 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,21 @@ typedef struct s_data
 	int			fd;
 }	t_data;
 
+typedef enum e_render_mode : uint8_t {
+	RENDER_DDA,
+}	t_render_mode;
+
+typedef struct s_options {
+	t_render_mode	mode;
+	char			reserved[1];
+	int16_t			thread_count;
+}	t_options;
+
 /*  Utils   */
 int		check_arg(const char *filename);
 int		mess_error(const char *msg);
+
+int		options_init(t_options *opt, int argc, char **argv);
 
 /* Cleanup  */
 void	free_data(t_data *data);

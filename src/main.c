@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 19:40:33 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:54:55 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include "errors.h"
 #include "mlx.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include "libft.h"
 
 __attribute__((__noreturn__))
-__attribute__((__destructor__))
 void	game_destroy(t_game *game, int exit_code)
 {
 	(void)game;
@@ -35,13 +35,13 @@ int	main(
 	t_data	data;
 
 	ft_memset(&game, 0, sizeof(t_game));
-	// if (cli_init(&game, argc, argv))
-	// 	game_destroy(&game, 1);
-	
+	if (options_init(&game.opt, argc, argv))
+	{
+		dprintf(2, "No options?\n");
+		game_destroy(&game, 1);
+	}
 	// todo: refactor
-	if (argc != 2 || (argc == 2 && !argv[1]))
-		return (mess_error(ARGS_ERROR));
-	if (check_arg(argv[1]))
+	if (check_arg(argv[argc - 1]))
 		return (mess_error(FILE_ERROR));
 	if (parse_data(&data, argv[1]))
 		return (free_data(&data), 1);

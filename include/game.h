@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 19:43:43 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:54:39 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdbool.h>
 
 # include "cub3d.h"
-#include <stdatomic.h>
+# include <stdatomic.h>
 # include <stdint.h>
 
 # define WIDTH 1920
@@ -89,7 +89,7 @@ typedef union u_keys {
 		bool	yaw_right : 1;
 		bool	pitch_up : 1;
 		bool	pitch_down : 1;
-	
+
 		int32_t	reserved : 22;
 	}	values;
 	uint32_t	bits;
@@ -108,16 +108,17 @@ typedef struct s_game
 	uint32_t	*addr;
 	t_gfx		gfx;
 	t_input		input;
+	t_player	player;
+	t_options	opt;
 	int			bpp;
 	int			endian;
 	int			size_len;
-	t_player	player;
+	int			texture_count;
 	t_texture	textures[4];
 }	t_game;
 
 void		game_destroy(t_game *game, int exit_code)
-			__attribute__((noreturn))
-			__attribute__((destructor));
+			__attribute__((noreturn));
 
 int			init_game(t_game *game, t_data *data);
 int			load_texture(t_game *game, t_texture *tex, char *path);
