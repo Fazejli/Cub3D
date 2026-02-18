@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:50:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 14:08:32 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:48:07 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include "hooks.h"
 #include "mlx.h"
-#include <X11/X.h>
-#include <X11/keysym.h>
 #include <stdint.h>
 
 enum e_key_bits : uint8_t {
@@ -31,16 +30,16 @@ enum e_key_bits : uint8_t {
 };
 
 static const int	g_keymap[KEY_COUNT] = {
-[KEY_FORWARD] = XK_w,
-[KEY_BACKWARD] = XK_s,
-[KEY_LEFT] = XK_a,
-[KEY_RIGHT] = XK_d,
-[KEY_UP] = XK_space,
-[KEY_DOWN] = XK_c,
-[KEY_YAW_LEFT] = XK_Left,
-[KEY_YAW_RIGHT] = XK_Right,
-[KEY_PITCH_UP] = XK_Up,
-[KEY_PITCH_DOWN] = XK_Down,
+[KEY_FORWARD] = g_key_w,
+[KEY_BACKWARD] = g_key_s,
+[KEY_LEFT] = g_key_a,
+[KEY_RIGHT] = g_key_d,
+[KEY_UP] = g_key_space,
+[KEY_DOWN] = g_key_c,
+[KEY_YAW_LEFT] = g_key_left,
+[KEY_YAW_RIGHT] = g_key_right,
+[KEY_PITCH_UP] = g_key_up,
+[KEY_PITCH_DOWN] = g_key_down,
 };
 
 static inline void	key_update(uint32_t *bits, int keysym, uint32_t pressed)
@@ -74,9 +73,9 @@ static int	key_release_hook(int keysym, t_game *game)
 
 int	hooks_keys_init(t_game *game)
 {
-	mlx_hook(game->gfx.win, KeyPress, KeyPressMask,
+	mlx_hook(game->gfx.win, g_key_press, g_key_press_mask,
 		(t_hook_fn)(intptr_t)key_press_hook, game);
-	mlx_hook(game->gfx.win, KeyRelease, KeyReleaseMask,
+	mlx_hook(game->gfx.win, g_key_release, g_key_release_mask,
 		(t_hook_fn)(intptr_t)key_release_hook, game);
 	return (0);
 }

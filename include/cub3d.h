@@ -23,9 +23,43 @@
 #  include <X11/X.h>
 
 constexpr int	g_destroy_notify = DestroyNotify;
+constexpr int	g_button_press = ButtonPress;
+constexpr int	g_button_press_mask = ButtonPressMask;
+constexpr int	g_key_press = KeyPress;
+constexpr int	g_key_press_mask = KeyPressMask;
+constexpr int	g_key_release = KeyRelease;
+constexpr int	g_key_release_mask = KeyReleaseMask;
+
+constexpr int	g_key_w = XK_w;
+constexpr int	g_key_s = XK_s;
+constexpr int	g_key_a = XK_a;
+constexpr int	g_key_d = XK_d;
+constexpr int	g_key_space = XK_space;
+constexpr int	g_key_c = XK_c;
+constexpr int	g_key_left = XK_Left;
+constexpr int	g_key_right = XK_Right;
+constexpr int	g_key_up = XK_Up;
+constexpr int	g_key_down = XK_Down;
 # elif defined(__APPLE__)
 
 constexpr int	g_destroy_notify = 17;
+constexpr int	g_button_press = 4;
+constexpr int	g_button_press_mask = 1L << 2;
+constexpr int	g_key_press = 2;
+constexpr int	g_key_press_mask = 1L << 0;
+constexpr int	g_key_release = 3;
+constexpr int	g_key_release_mask = 1L << 1;
+
+constexpr int	g_key_w = 13;
+constexpr int	g_key_s = 1;
+constexpr int	g_key_a = 0;
+constexpr int	g_key_d = 2;
+constexpr int	g_key_space = 49;
+constexpr int	g_key_c = 8;
+constexpr int	g_key_left = 123;
+constexpr int	g_key_right = 124;
+constexpr int	g_key_up = 126;
+constexpr int	g_key_down = 125;
 # endif
 
 enum e_dir : uint8_t {

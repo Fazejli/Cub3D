@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   register.c                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:32:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 14:07:50 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:36:05 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	hooks_init(t_game *game)
 	mlx_hook(game->gfx.win, g_destroy_notify, 0,
 		(t_hook_fn)(intptr_t)game_destroy_hook, game);
 	hooks_keys_init(game);
-	mlx_mouse_hide(game->gfx.mlx, game->gfx.win);
+	mlx_mouse_hide(); // game->gfx.mlx, game->gfx.win
 	hooks_mouse_init(game);
 	return (0);
 }
