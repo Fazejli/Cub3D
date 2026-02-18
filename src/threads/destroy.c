@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:50:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/17 19:52:31 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:48:12 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	threadpool_destroy(t_threadpool *pool)
 	pthread_mutex_unlock(&pool->lock);
 	i = -1;
 	while (++i < pool->thread_count)
-		pthread_join(pool->threads[i], nullptr);
+		pthread_join(pool->threads[i], NULL);
 	pthread_mutex_destroy(&pool->lock);
 	pthread_cond_destroy(&pool->cond);
 	pthread_cond_destroy(&pool->done_cond);

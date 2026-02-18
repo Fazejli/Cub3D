@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 13:04:15 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:44:22 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline void	init_vector(t_vector *vector, float x, float y)
 
 static void	init_player(t_player *player, t_pos *pos)
 {
-	constexpr const float	orientations[]
+	static const float	orientations[]
 		= {0, 3 * PI_2, PI, PI_2};
 
 	init_vector(&player->pos, pos->x + 0.5f, pos->y + 0.5f);

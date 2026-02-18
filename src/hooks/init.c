@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:32:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 14:36:05 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/18 19:50:46 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	hooks_init(t_game *game)
 	mlx_hook(game->gfx.win, g_destroy_notify, 0,
 		(t_hook_fn)(intptr_t)game_destroy_hook, game);
 	hooks_keys_init(game);
-	mlx_mouse_hide(); // game->gfx.mlx, game->gfx.win
+	#if defined(__linux__)
+		mlx_mouse_hide(game->gfx.mlx, game->gfx.win);
+	#elif defined(__APPLE__)
+		mlx_mouse_hide();
+	#endif
 	hooks_mouse_init(game);
 	return (0);
 }

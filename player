@@ -1,0 +1,40 @@
+srcs/raycasting/printing.c:	color = game->data->ceiling_color;
+srcs/raycasting/printing.c:		((uint32_t *)game->addr)[pixel * WIDTH + col] = color;
+srcs/raycasting/printing.c:	color = game->data->floor_color;
+srcs/raycasting/printing.c:		((uint32_t *)game->addr)[pixel * WIDTH + col] = color;
+srcs/raycasting/printing.c:		tex->x = find_intersection(ray, game->player) * tex->width;
+srcs/raycasting/printing.c:		((uint32_t *)game->addr)[i * WIDTH + col] = color;
+srcs/raycasting/raycasting_utils.c:	tex->img = mlx_xpm_file_to_image(game->mlx, path,
+srcs/raycasting/print_textures.c:			return (&game->textures[3]);
+srcs/raycasting/print_textures.c:			return (&game->textures[2]);
+srcs/raycasting/print_textures.c:			return (&game->textures[1]);
+srcs/raycasting/print_textures.c:			return (&game->textures[0]);
+srcs/raycasting/raycasting.c:		init_ray(&ray, &game->player, x);
+srcs/raycasting/raycasting.c:		find_wall(&ray, game->data->map);
+srcs/raycasting/raycasting.c:	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+srcs/raycasting/cleanup.c:		game->player.dir.x
+srcs/raycasting/cleanup.c:		if (game->textures[i].img)
+srcs/raycasting/cleanup.c:			mlx_destroy_image(game->mlx, game->textures[i].img);
+srcs/raycasting/cleanup.c:	if (game->img)
+srcs/raycasting/cleanup.c:		mlx_destroy_image(game->mlx, game->img);
+srcs/raycasting/cleanup.c:	if (game->win)
+srcs/raycasting/cleanup.c:		mlx_destroy_window(game->mlx, game->win);
+srcs/raycasting/cleanup.c:	free_data(game->data);
+srcs/raycasting/init_game.c:	if (load_texture(game, &game->textures[0], data->t_north))
+srcs/raycasting/init_game.c:	if (load_texture(game, &game->textures[1], data->t_south))
+srcs/raycasting/init_game.c:	if (load_texture(game, &game->textures[2], data->t_west))
+srcs/raycasting/init_game.c:	if (load_texture(game, &game->textures[3], data->t_east))
+srcs/raycasting/init_game.c:	game->data = data;
+srcs/raycasting/init_game.c:	game->mlx = mlx_init();
+srcs/raycasting/init_game.c:	if (!game->mlx)
+srcs/raycasting/init_game.c:	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
+srcs/raycasting/init_game.c:	if (!game->win)
+srcs/raycasting/init_game.c:	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+srcs/raycasting/init_game.c:	if (!game->img)
+srcs/raycasting/init_game.c:	game->addr = mlx_get_data_addr(game->img, &game->bpp,
+srcs/raycasting/init_game.c:			&game->size_len, &game->endian);
+srcs/raycasting/init_game.c:	if (!game->addr)
+srcs/raycasting/init_game.c:	init_player(&game->player, data->player_pos);
+srcs/raycasting/init_game.c:	mlx_loop_hook(game->mlx, (int (*)(void *))raycast, game);
+srcs/raycasting/init_game.c:	mlx_hook(game->win, DESTROY_NOTIFY, 0, quit_game, game);
+srcs/raycasting/init_game.c:	mlx_key_hook(game->win, key_press, game);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
+#    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/18 13:49:25 by smamalig         ###   ########.fr        #
+#    Updated: 2026/02/18 19:52:28 by fadzejli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3D
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Wpedantic -MMD -MP -std=gnu2x -D_GNU_SOURCE
-CFLAGS_DEBUG = -Og -g3 -Wpacked -Wstrict-prototypes -Wshadow -Wpadded \
+CFLAGS_DEBUG = -Og -g3 -Wpacked -Wshadow -Wpadded \
 			   -Wconversion -Wmissing-prototypes -Wmissing-declarations \
 			   -Wold-style-definition -Winline -Wsign-conversion -Wundef \
 			   -Wcast-align -Wcast-qual -Wwrite-strings -Wuninitialized \
@@ -23,6 +23,7 @@ CFLAGS_DEBUG = -Og -g3 -Wpacked -Wstrict-prototypes -Wshadow -Wpadded \
 			   -Wswitch-enum -Wswitch-default -Wpointer-arith \
 			   -Wbad-function-cast -Wstrict-aliasing=2 -Wreturn-type \
 			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv
+#-Wstrict-prototypes causing issues with mlx compilation
 
 CFLAGS_ASAN    = $(CFLAGS_DEBUG) -fsanitize=address,undefined -fno-sanitize-recover=all
 
@@ -74,7 +75,7 @@ ifeq ($(UNAME), Linux)
 	MLX_DIR		= lib/mlx_linux
 	MLX_LIB		= $(MLX_DIR)/libmlx.a
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
-	LDFLAGS		+= -pie -flto \
+	LDFLAGS		+= -fPIE -flto \
 				  -Wl,-z,relro \
 				  -Wl,-z,now \
 				  -Wl,-z,noexecstack \

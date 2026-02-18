@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:50:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 14:48:07 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/18 19:51:19 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "mlx.h"
 #include <stdint.h>
 
-enum e_key_bits : uint8_t {
+enum e_key_bits {
 	KEY_FORWARD,
 	KEY_BACKWARD,
 	KEY_LEFT,
