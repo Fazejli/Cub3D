@@ -6,7 +6,7 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 15:26:08 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:59:23 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,25 +113,22 @@ static void	raycast_slice(void *arg)
 	}
 }
 
-void	raycast(t_game *game)
+void	raycast(t_game *g)
 {
 	uint16_t				t;
 	uint32_t				chunk;
 	struct s_raycast_task	tasks[128];
 
 	t = 0;
-	printf("thread count: %i\n", game->pool.thread_count);
-	chunk = (uint32_t)((WIDTH + game->pool.thread_count - 1)
-			/ game->pool.thread_count);
-	while (t < game->pool.thread_count)
+	chunk = (uint32_t)((WIDTH + g->pool.thread_count - 1)
+			/ g->pool.thread_count);
+	while (t < g->pool.thread_count)
 	{
 		tasks[t].x_start = t * chunk;
 		tasks[t].x_end = (t + 1) * chunk - 1;
-		printf("%i %i\n", tasks[t].x_start, tasks[t].x_end);
-		tasks[t].game = game;
-		threadpool_add(&game->pool, raycast_slice, &tasks[t]);
+		tasks[t].game = g;
+		threadpool_add(&g->pool, raycast_slice, &tasks[t]);
 		t++;
 	}
-	threadpool_run(&game->pool);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	threadpool_run(&g->pool);
 }

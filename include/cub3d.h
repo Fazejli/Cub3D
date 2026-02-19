@@ -6,13 +6,14 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:47:32 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 14:54:03 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:56:06 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stddef.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/time.h>
@@ -24,7 +25,6 @@
 #  include <X11/keysym.h>
 
 enum {
-
 	evDestroyNotify = DestroyNotify,
 	evButtonPress = ButtonPress,
 	evButtonPressMask = ButtonPressMask,
@@ -32,7 +32,6 @@ enum {
 	evKeyPressMask = KeyPressMask,
 	evKeyRelease = KeyRelease,
 	evKeyReleaseMask = KeyReleaseMask,
-
 	k_w = XK_w,
 	k_s = XK_s,
 	k_a = XK_a,
@@ -56,7 +55,6 @@ enum {
 	evKeyPressMask = 1L << 0,
 	evKeyRelease = 3,
 	evKeyReleaseMask = 1L << 1,
-
 	k_w = 13,
 	k_s = 1,
 	k_a = 0,
@@ -99,14 +97,18 @@ typedef struct s_data
 	int			fd;
 }	t_data;
 
-typedef enum e_render_mode : uint8_t {
+typedef enum __attribute__((packed)) e_render_mode {
 	RENDER_DDA,
 }	t_render_mode;
 
 typedef struct s_options {
+	const char		**texture_names;
+	uint32_t		texture_count;
+	uint32_t		width;
+	uint32_t		height;
+	int16_t			thread_count;
 	t_render_mode	mode;
 	char			reserved[1];
-	int16_t			thread_count;
 }	t_options;
 
 /*  Utils   */

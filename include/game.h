@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 23:56:15 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:56:02 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 
 # include "cub3d.h"
+# include "../src/gfx/gfx.h"
 # include <stdatomic.h>
 # include <stdint.h>
 # include <stdbool.h>
@@ -74,11 +75,6 @@ typedef struct s_texture
 	char		reserved[4];
 }	t_texture;
 
-typedef struct s_gfx {
-	void	*mlx;
-	void	*win;
-}	t_gfx;
-
 typedef union u_keys {
 	struct s_values {
 		bool	forward : 1;
@@ -110,14 +106,17 @@ typedef struct s_game
 	uint32_t		*addr;
 	t_threadpool	pool;
 	t_gfx			gfx;
+	t_options		opt;
 	t_input			input;
 	t_player		player;
-	t_options		opt;
 	int				bpp;
 	int				endian;
 	int				size_len;
 	int				texture_count;
+	char			reserved[4];
 	t_texture		textures[4];
+	double			last_time;
+	double			delta;
 }	t_game;
 
 void		game_destroy(t_game *game, int exit_code)

@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 23:56:30 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:57:18 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	init_game(t_game *game, t_data *data)
 		return (free_data(data), 1);
 	init_player(&game->player, &data->player_pos);
 	raycast(game);
-	mlx_hook(game->win, g_destroy_notify, 0, (t_fn)(intptr_t)quit_game, game);
+	mlx_hook(game->win, evDestroyNotify, 0, (t_fn)(intptr_t)quit_game, game);
 	mlx_key_hook(game->win, (t_fn)(intptr_t)key_press, game);
 	return (0);
 }

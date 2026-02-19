@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:50:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 19:51:19 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:57:04 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ enum e_key_bits {
 };
 
 static const int	g_keymap[KEY_COUNT] = {
-[KEY_FORWARD] = g_key_w,
-[KEY_BACKWARD] = g_key_s,
-[KEY_LEFT] = g_key_a,
-[KEY_RIGHT] = g_key_d,
-[KEY_UP] = g_key_space,
-[KEY_DOWN] = g_key_c,
-[KEY_YAW_LEFT] = g_key_left,
-[KEY_YAW_RIGHT] = g_key_right,
-[KEY_PITCH_UP] = g_key_up,
-[KEY_PITCH_DOWN] = g_key_down,
+[KEY_FORWARD] = k_w,
+[KEY_BACKWARD] = k_s,
+[KEY_LEFT] = k_a,
+[KEY_RIGHT] = k_d,
+[KEY_UP] = k_space,
+[KEY_DOWN] = k_c,
+[KEY_YAW_LEFT] = k_left,
+[KEY_YAW_RIGHT] = k_right,
+[KEY_PITCH_UP] = k_up,
+[KEY_PITCH_DOWN] = k_down,
 };
 
 static inline void	key_update(uint32_t *bits, int keysym, uint32_t pressed)
@@ -73,10 +73,9 @@ static int	key_release_hook(int keysym, t_game *game)
 
 int	hooks_keys_init(t_game *game)
 {
-	mlx_hook(game->gfx.win, g_key_press, g_key_press_mask,
+	mlx_hook(game->gfx.win, evKeyPress, evKeyPressMask,
 		(t_hook_fn)(intptr_t)key_press_hook, game);
-	mlx_hook(game->gfx.win, g_key_release, g_key_release_mask,
+	mlx_hook(game->gfx.win, evKeyRelease, evKeyReleaseMask,
 		(t_hook_fn)(intptr_t)key_release_hook, game);
 	return (0);
 }
-

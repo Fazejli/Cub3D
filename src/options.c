@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 15:34:49 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 15:35:50 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:41:14 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	parse_threads(t_options *opt, const char *value)
 	threads = strtoul(value, &end, 10);
 	if (threads > MAX_THREADS || *end != '\0')
 	{
-		dprintf(2, "Error: Invalid thread count (max 255)\n");
+		dprintf(2, "Error: Invalid thread count (max %i)\n", MAX_THREADS);
 		return (1);
 	}
 	opt->thread_count = (int16_t)threads;
