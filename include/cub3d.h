@@ -23,44 +23,53 @@
 #  include <X11/X.h>
 #  include <X11/keysym.h>
 
-static const int	g_destroy_notify = DestroyNotify;
-static const int	g_button_press = ButtonPress;
-static const int	g_button_press_mask = ButtonPressMask;
-static const int	g_key_press = KeyPress;
-static const int	g_key_press_mask = KeyPressMask;
-static const int	g_key_release = KeyRelease;
-static const int	g_key_release_mask = KeyReleaseMask;
+enum {
 
-static const int	g_key_w = XK_w;
-static const int	g_key_s = XK_s;
-static const int	g_key_a = XK_a;
-static const int	g_key_d = XK_d;
-static const int	g_key_space = XK_space;
-static const int	g_key_c = XK_c;
-static const int	g_key_left = XK_Left;
-static const int	g_key_right = XK_Right;
-static const int	g_key_up = XK_Up;
-static const int	g_key_down = XK_Down;
+	evDestroyNotify = DestroyNotify,
+	evButtonPress = ButtonPress,
+	evButtonPressMask = ButtonPressMask,
+	evKeyPress = KeyPress,
+	evKeyPressMask = KeyPressMask,
+	evKeyRelease = KeyRelease,
+	evKeyReleaseMask = KeyReleaseMask,
+
+	k_w = XK_w,
+	k_s = XK_s,
+	k_a = XK_a,
+	k_d = XK_d,
+	k_space = XK_space,
+	k_escape = XK_Escape,
+	k_c = XK_c,
+	k_left = XK_Left,
+	k_right = XK_Right,
+	k_up = XK_Up,
+	k_down = XK_Down,
+};
+
 # elif defined(__APPLE__)
 
-static const int	g_destroy_notify = 17;
-static const int	g_button_press = 4;
-static const int	g_button_press_mask = 1L << 2;
-static const int	g_key_press = 2;
-static const int	g_key_press_mask = 1L << 0;
-static const int	g_key_release = 3;
-static const int	g_key_release_mask = 1L << 1;
+enum {
+	evDestroyNotify = 17,
+	evButtonPress = 4,
+	evButtonPressMask = 1L << 2,
+	evKeyPress = 2,
+	evKeyPressMask = 1L << 0,
+	evKeyRelease = 3,
+	evKeyReleaseMask = 1L << 1,
 
-static const int	g_key_w = 13;
-static const int	g_key_s = 1;
-static const int	g_key_a = 0;
-static const int	g_key_d = 2;
-static const int	g_key_space = 49;
-static const int	g_key_c = 8;
-static const int	g_key_left = 123;
-static const int	g_key_right = 124;
-static const int	g_key_up = 126;
-static const int	g_key_down = 125;
+	k_w = 13,
+	k_s = 1,
+	k_a = 0,
+	k_d = 2,
+	k_space = 49,
+	k_esacpe = 53,
+	k_c = 8,
+	k_left = 123,
+	k_right = 124,
+	k_up = 126,
+	k_down = 125,
+};
+
 # endif
 
 enum e_dir {
