@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
+#    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2026/02/18 19:52:28 by fadzejli         ###   ########.fr        #
-=======
-#    Updated: 2026/02/18 14:53:20 by smamalig         ###   ########.fr        #
->>>>>>> f887c5c (feat: implement tiny option parser)
+#    Updated: 2026/02/19 01:11:15 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
