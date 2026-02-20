@@ -6,16 +6,21 @@
 #    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/19 01:11:15 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/20 01:29:09 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3D
+NAME := cub3D
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Wpedantic -MMD -MP -std=gnu2x -D_GNU_SOURCE
-CFLAGS_DEBUG = -Og -g3 -Wpacked -Wshadow -Wpadded \
-			   -Wconversion -Wmissing-prototypes -Wmissing-declarations \
+SRC_DIR := src
+LIB_DIR := lib
+BUILD_DIR := build
+
+CC := cc
+# Add -fenable-matrix ?
+CFLAGS := -Wall -Wextra -Werror -Wpedantic -MMD -MP -std=gnu2x -D_GNU_SOURCE
+CFLAGS_DEBUG := -Og -g3 -Wpacked -Wshadow -Wpadded -Wconversion \
+			   -Wmissing-prototypes -Wmissing-declarations \
 			   -Wold-style-definition -Winline -Wsign-conversion -Wundef \
 			   -Wcast-align -Wcast-qual -Wwrite-strings -Wuninitialized \
 			   -Wdouble-promotion -Wfloat-equal -Wvla -Wnull-dereference \
@@ -24,109 +29,157 @@ CFLAGS_DEBUG = -Og -g3 -Wpacked -Wshadow -Wpadded \
 			   -Wbad-function-cast -Wstrict-aliasing=2 -Wreturn-type \
 			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv \
 			   -fstrict-flex-arrays=3
-#-Wstrict-prototypes causing issues with mlx compilation
+# -Wstrict-prototypes causing issues with mlx compilation
 
-CFLAGS_ASAN    = $(CFLAGS_DEBUG) -fsanitize=address,undefined -fno-sanitize-recover=all
+CFLAGS_SANITIZE := $(CFLAGS_DEBUG) -fsanitize=address,undefined \
+				   -fno-sanitize-recover=all
 
-CFLAGS_RELEASE = -O2 -fPIE -D_FORTIFY_SOURCE=3 \
+CFLAGS_RELEASE := -O2 -fPIE -D_FORTIFY_SOURCE=3 -DNDEBUG \
 				 -fstack-protector-strong -fstack-clash-protection \
 				 -fcf-protection=full -mtune=native -flto -fno-math-errno \
-				 -fno-trapping-math
+				 -fno-trapping-math -funroll-loops -fmerge-all-constants \
+				 -fstrict-aliasing -fstrict-enums
 
-# todo: add actual compilation rules
-CFLAGS += $(CFLAGS_ASAN)
+ifeq ($(MODE), release)
+	CFLAGS += $(CFLAGS_RELEASE)
+else ifeq ($(MODE), debug)
+	CFLAGS += $(CFLAGS_DEBUG)
+else ifeq ($(MODE), sanitize)
+	CFLAGS += $(CFLAGS_SANITIZE)
+else
+	MODE=default
+endif
 
-SRC_DIR		= src
-OBJ_DIR		= .obj
-INC_DIR		= include
+ROOT_DIR := $(BUILD_DIR)/$(MODE)
+OBJ_DIR := $(ROOT_DIR)/obj
 
-SRC_FILES	= main.c \
-	utils/errors.c \
-	parsing/parsing_cleanup.c \
-	parsing/parse_data.c \
-	parsing/parse_textures.c \
-	parsing/parse_colors.c \
-	parsing/parse_map.c \
-	parsing/valid_map.c \
-	parsing/valid_map_utils.c \
-	parsing/parse_utils.c \
-	raycasting/init_game.c \
-	raycasting/raycasting.c \
-	raycasting/raycasting_utils.c \
-	raycasting/printing.c \
-	raycasting/print_textures.c \
-	raycasting/cleanup.c \
-	threads/run.c \
-	threads/init.c \
-	threads/destroy.c \
-	threads/add.c \
-	hooks/init.c \
-	hooks/mouse.c \
-	hooks/keys.c \
-	options.c
+SRC_PARSER := $(addprefix parser/, parsing_cleanup.c parse_data.c parse_map.c \
+			  parse_textures.c parse_colors.c valid_map.c valid_map_utils.c \
+			  parse_utils.c)
+SRC_THREADS := $(addprefix threads/, init.c destroy.c run.c add.c)
+SRC_HOOKS := $(addprefix hooks/, init.c mouse.c keys.c)
+SRC_UTILS := $(addprefix utils/, errors.c)
+SRC_RAYCASTING := $(addprefix raycasting/, init_game.c raycasting.c cleanup.c \
+				  raycasting_utils.c printing.c print_textures.c)
 
-SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
-OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-DEP			:= $(OBJ:.o=.d)
+SRC_FILES	= $(SRC_PARSER) $(SRC_THREADS) $(SRC_HOOKS) $(SRC_UTILS) \
+			  $(SRC_RAYCASTING) main.c options.c
 
-LIBFT = lib/libft/libft.a
+SRCS := $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+
+OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+DEPS := $(OBJ:.o=.d)
+
+LIBFT_DIR := $(LIB_DIR)/libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+LDFLAGS := -L$(LIBFT_DIR) -lft
 
 UNAME		:= $(shell uname)
 ifeq ($(UNAME), Linux)
-	MLX_DIR		= lib/mlx_linux
-	MLX_LIB		= $(MLX_DIR)/libmlx.a
-	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
-	LDFLAGS		+= -fPIE -flto \
-				  -Wl,-z,relro \
-				  -Wl,-z,now \
-				  -Wl,-z,noexecstack \
-				  -Wl,-z,separate-code
+	LIBMLX_DIR	:= $(LIB_DIR)/mlx_linux
+	LIBMLX		:= $(LIBMLX_DIR)/libmlx.a
+	LDFLAGS		+= -L$(LIBMLX_DIR) -lmlx -lXext -lX11 -lm -lz -fPIE -flto \
+				   -Wl,-z,relro \
+				   -Wl,-z,now \
+				   -Wl,-z,noexecstack \
+				   -Wl,-z,separate-code
 else ifeq ($(UNAME), Darwin)
-	MLX_DIR		= lib/mlx_opengl
-	MLX_LIB		= $(MLX_DIR)/libmlx.a
-	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	LIBMLX_DIR	:= $(LIB_DIR)/mlx_opengl
+	LIBMLX		:= $(LIBMLX_DIR)/libmlx.a
+	LDFLAGS		+= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 else
 	$(error "Unsupported OS: $(UNAME)")
 endif
 
+INCLUDES := -Iinclude -Isrc -I$(LIBFT_DIR) -I$(LIBMLX_DIR)
+
 .PHONY: all
 all: $(NAME)
+	@$(MAKE) postbuild --no-print-directory
+
+
+.PHONY: default
+default: all
+
+
+.PHONY: release
+release:
+	@$(MAKE) MODE=release --no-print-directory
+
+
+.PHONY: debug
+debug:
+	@$(MAKE) MODE=debug --no-print-directory
+
+
+.PHONY: sanitize
+sanitize:
+	@$(MAKE) MODE=sanitize --no-print-directory
+
+
+.PHONY: bonus
+bonus: release
+
+.PHONY: postbuild
+postbuild:
+	cp -f $(ROOT_DIR)/$(NAME) $(NAME)
+
+
+$(NAME): libs
+	@$(MAKE) $(ROOT_DIR)/$(NAME) --no-print-directory
+
+
+$(ROOT_DIR)/$(NAME): $(OBJS)
+	@mkdir -p $(dir $@)
+	@echo "Compiling Cub3D..."
+	@$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@echo "Compiling $< -> $@"
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -Ilib/libft/ -I$(MLX_DIR) -c $< -o $@ -MMD
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -MMD
 
-$(LIBFT):
-	@echo "Compiling Libft..."
-	@$(MAKE) -s -C lib/libft
 
-$(MLX_LIB):
-	@echo "Compiling mlx_lib..."
-	@$(MAKE) -s CC=$(CC) -C $(MLX_DIR) 2>/dev/null
+.PHONY: libs
+libs:
+	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory 2>/dev/null
+	@$(MAKE) CC=$(CC) -C $(LIBMLX_DIR) --no-print-directory 2>/dev/null
 
-$(NAME) : $(LIBFT) $(MLX_LIB) $(OBJ)
-	@echo "Compiling Cub3D..."
-	@$(CC) $(CFLAGS) $(OBJ) ${LIBFT} $(MLX_FLAGS) $(LDFLAGS) -o $@
-	
+
+.PHONY: norm
+norm:
+	echo $(SRCS) | xargs -n1 -P1 norminette
+
+
+.PHONY: tidy
+tidy:
+	echo $(SRCS) | xargs -n1 -P$(shell nproc) clang-tidy -p .
+
+
 .PHONY: clean
 clean:
 	@echo "Cleaning objects..."
-	@rm -rf $(OBJ_DIR)
-	@$(MAKE) clean -s -C lib/libft
-	@$(MAKE) clean -s -C $(MLX_DIR)
+	@$(MAKE) clean -C $(LIBFT_DIR) --no-print-directory
+	@$(MAKE) clean -C $(LIBMLX_DIR) --no-print-directory
+	@rm -rf $(BUILD_DIR)
 	@echo "Objects cleaned!"
+
 
 .PHONY: fclean
 fclean: clean
 	@echo "Cleaning all..."
 	@rm -rf $(NAME)
-	@rm -rf ${LIBFT}
-	@rm -rf ${MLX_LIB}
+	@rm -rf $(LIBFT)
+	@rm -rf $(LIBMLX)
 	@echo "All cleaned!"
 
-.PHONY: re
-re: fclean all
 
--include $(DEP)
+.PHONY: re
+re: fclean
+	@make all --no-print-directory
+
+
+-include $(DEPS)
