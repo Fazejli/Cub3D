@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gfx.h                                              :+:      :+:    :+:   */
+/*   options.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 13:11:57 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 13:52:52 by smamalig         ###   ########.fr       */
+/*   Created: 2026/02/20 13:37:42 by smamalig          #+#    #+#             */
+/*   Updated: 2026/02/20 13:38:57 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GFX_H
-# define GFX_H
+#ifndef OPTIONS_H
+# define OPTIONS_H
 
 # include <stdint.h>
-# include "image.h"
-# include "options/options.h"
 
-typedef struct s_gfx {
-	void		*mlx;
-	void		*win;
-}	t_gfx;
+typedef struct s_options {
+	const char		**texture_names;
+	uint32_t		texture_count;
+	uint32_t		width;
+	uint32_t		height;
+	int16_t			thread_count;
+	char			reserved[2];
+}	t_options;
 
-int		gfx_init(t_gfx *gfx, const t_options *opt);
-void	gfx_deinit(t_gfx *gfx);
-
-void	gfx_present(const t_gfx *gfx, const t_image *img);
-void	gfx_loop(t_gfx *gfx, int (*fn)(void), void *userdata);
-
-int		gfx_image_create(const t_gfx *gfx, t_image *img,
-			uint32_t width, uint32_t height);
+int	options_init(t_options *opt, int argc, char **argv);
 
 #endif

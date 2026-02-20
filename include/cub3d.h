@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:47:32 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/19 18:56:06 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:39:51 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,25 +97,11 @@ typedef struct s_data
 	int			fd;
 }	t_data;
 
-typedef enum __attribute__((packed)) e_render_mode {
-	RENDER_DDA,
-}	t_render_mode;
 
-typedef struct s_options {
-	const char		**texture_names;
-	uint32_t		texture_count;
-	uint32_t		width;
-	uint32_t		height;
-	int16_t			thread_count;
-	t_render_mode	mode;
-	char			reserved[1];
-}	t_options;
 
 /*  Utils   */
 int		check_arg(const char *filename);
 int		mess_error(const char *msg);
-
-int		options_init(t_options *opt, int argc, char **argv);
 
 /* Cleanup  */
 void	free_data(t_data *data);

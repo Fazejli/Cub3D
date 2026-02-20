@@ -3,33 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/20 14:00:46 by smamalig         ###   ########.fr       */
+/*   Created: 2026/02/20 13:19:13 by smamalig          #+#    #+#             */
+/*   Updated: 2026/02/20 13:19:36 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include "gfx.h"
-#include <stdio.h>
+#include "world.h"
 
-int	gfx_init(t_gfx *gfx, const t_options *opt)
+int	world_buffer_init(t_world_buffer *wb)
 {
-	gfx->mlx = mlx_init();
-	if (!gfx->mlx)
-	{
-		// todo: print error
-		return (1);
-	}
-	printf("%ux%u\n", opt->width, opt->height);
-	gfx->win = mlx_new_window(gfx->mlx, (int)opt->width, (int)opt->height,
-			(char *)(intptr_t)"Cub3D");
-	if (!gfx->win)
-	{
-		// todo: print error
-		return (1);
-	}
-	// todo: load textures
+	(void)wb;
 	return (0);
 }

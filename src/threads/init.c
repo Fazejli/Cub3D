@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:44:44 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 23:56:53 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:27:16 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	threadpool_init(t_threadpool *pool, int worker_count)
 	{
 		if (pthread_create(&pool->threads[i], NULL, worker_loop, pool) != 0)
 		{
-			threadpool_destroy(pool);
+			threadpool_deinit(pool);
 			return (1);
 		}
 		pool->thread_count++;

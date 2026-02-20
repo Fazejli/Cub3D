@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:37:15 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 15:48:47 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:43:52 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ typedef struct s_threadpool {
 int		threadpool_init(t_threadpool *pool, int worker_count);
 void	threadpool_add(t_threadpool *pool, t_task_fn fn, void *arg);
 void	threadpool_run(t_threadpool *pool);
-void	threadpool_destroy(t_threadpool *pool);
+void	threadpool_deinit(t_threadpool *pool);
 
 #endif

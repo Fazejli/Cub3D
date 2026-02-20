@@ -3,33 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/20 14:00:46 by smamalig         ###   ########.fr       */
+/*   Created: 2026/02/20 12:31:29 by smamalig          #+#    #+#             */
+/*   Updated: 2026/02/20 14:00:57 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include "gfx.h"
-#include <stdio.h>
+#include "engine.h"
+#include "libft.h"
+#include "physics/physics.h"
+#include "renderer/renderer.h"
 
-int	gfx_init(t_gfx *gfx, const t_options *opt)
+int	engine_init(t_engine *e)
 {
-	gfx->mlx = mlx_init();
-	if (!gfx->mlx)
+	e->physics.world_buffer = &e->world_buffer;
+	e->renderer.world_buffer = &e->world_buffer;
+	e->renderer.gfx = &e->gfx;
+	if (gfx_init(&e->gfx, &e->opt)
+		|| world_buffer_init(&e->world_buffer)
+		|| physics_init(&e->physics)
+		|| renderer_init(&e->renderer, &e->opt))
 	{
-		// todo: print error
+		engine_deinit(e);
 		return (1);
 	}
-	printf("%ux%u\n", opt->width, opt->height);
-	gfx->win = mlx_new_window(gfx->mlx, (int)opt->width, (int)opt->height,
-			(char *)(intptr_t)"Cub3D");
-	if (!gfx->win)
-	{
-		// todo: print error
-		return (1);
-	}
-	// todo: load textures
 	return (0);
 }

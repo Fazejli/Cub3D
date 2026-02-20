@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:02:18 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/18 11:52:39 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/20 12:31:10 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 
 # include <stdint.h>
 
-typedef struct s_image
-{
-	void	*data;
-	char	*addr;
-	int		pxl_w;
-	int		pxl_h;
-	int		bits_per_pxl;
-	int		line_length;
-	int		endian;
-}			t_image;
+typedef struct s_image {
+	void		*ptr;
+	uint32_t	*data;
+	uint32_t	width; // investigate the usefulness (vs linesz)
+	uint32_t	height;
+	uint32_t	bpp;
+	uint32_t	linesz;
+}	t_image;
 
 void		set_pixel(uint32_t x, uint32_t y, uint32_t color, t_image *img);
 void		add_pixel(uint32_t x, uint32_t y, uint32_t color, t_image *img);

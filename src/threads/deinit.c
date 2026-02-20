@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:50:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/18 19:48:12 by fadzejli         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:44:02 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-void	threadpool_destroy(t_threadpool *pool)
+void	threadpool_deinit(t_threadpool *pool)
 {
 	int32_t	i;
 
