@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
+#    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/20 14:27:36 by smamalig         ###   ########.fr        #
+#    Updated: 2026/02/20 14:45:55 by mattcarniel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ ifeq ($(UNAME), Linux)
 else ifeq ($(UNAME), Darwin)
 	LIBMLX_DIR	:= $(LIB_DIR)/mlx_opengl
 	LIBMLX		:= $(LIBMLX_DIR)/libmlx.a
-	LDFLAGS		+= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	LDFLAGS		+= -L$(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 else
 	$(error "Unsupported OS: $(UNAME)")
 endif
@@ -147,7 +147,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@echo "Compiling $< -> $@"
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -MMD
-
 
 .PHONY: libs
 libs:
