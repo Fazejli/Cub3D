@@ -6,7 +6,7 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:10:38 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/19 13:56:02 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 01:59:03 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include <stdbool.h>
 
 # include "cub3d.h"
-# include "../src/gfx/gfx.h"
+# include "gfx/gfx.h"
 # include <stdatomic.h>
 # include <stdint.h>
 # include <stdbool.h>
-# include "../src/threads/threads.h"
+# include "threads/threads.h"
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -129,7 +129,7 @@ void		calculate_distances(t_ray *ray);
 void		print_ray(t_ray *ray, t_game *game, uint32_t x);
 t_texture	*get_texture(t_ray *ray, t_game *game);
 uint32_t	check_pos(float pos, t_texture *tex);
-uint32_t	get_color(t_texture *tex, uint32_t x, uint32_t y);	
+uint32_t	get_color(t_texture *tex, uint32_t x, uint32_t y);
 
 float		find_intersection(t_ray *ray, t_player player);
 int			quit_game(t_game *game);

@@ -6,15 +6,13 @@
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/19 18:57:18 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 01:57:20 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "game.h"
 #include "mlx.h"
-#include <math.h>
-#include <string.h>
 #include "mlx.h"
 
 #include "math_utils.h"

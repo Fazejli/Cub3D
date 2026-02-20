@@ -6,11 +6,11 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/17 23:55:34 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 01:56:59 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 #include <stdint.h>
 
 static const char	g_dir_to_char[] = {

@@ -6,11 +6,11 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:05:46 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 01:57:41 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../..//include/cub3d.h"
+#include "cub3d.h"
 #include <stdio.h>
 #include "libft.h"
 

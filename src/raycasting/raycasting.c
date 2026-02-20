@@ -6,17 +6,15 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/19 13:59:23 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 01:57:31 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 #include "game.h"
-#include "mlx.h"
 #include <math.h>
 #include <stdint.h>
-#include <stdio.h>
 
 static void	find_wall(t_ray *ray, char **map)
 {

@@ -6,12 +6,11 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 16:12:46 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/20 01:57:25 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 #include <stdint.h>
 
 static void	print_ceiling(t_ray *ray, t_game *game, uint32_t x)
