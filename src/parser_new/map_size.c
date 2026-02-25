@@ -6,11 +6,11 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 02:33:24 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 03:03:24 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 03:18:30 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mapping_internal.h"
+#include "mapping_internal.h"
 
 static t_vec3u	get_line_bounds(const char *line)
 {

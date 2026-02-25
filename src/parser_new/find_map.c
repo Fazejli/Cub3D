@@ -6,13 +6,13 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 02:52:17 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 02:53:16 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 03:18:39 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 
-#include "../mapping_internal.h"
+#include "mapping_internal.h"
 
 const char	*find_map(t_file file)
 {

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:45:50 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 02:56:04 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 03:18:33 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 
-#include "../mapping_internal.h"
+#include "mapping_internal.h"
 
 static bool	is_valid_name(const char *path) //here or before ?
 {

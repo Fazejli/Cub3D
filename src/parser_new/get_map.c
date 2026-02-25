@@ -6,14 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:10:35 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 03:04:24 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 03:18:36 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "../mapping.h"
-#include "../mapping_internal.h"
+#include "mapping.h"
+#include "mapping_internal.h"
 
 static void	fill_map(char *map_data, const char *map_start, t_vec3u size)
 {
