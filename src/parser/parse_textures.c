@@ -6,12 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:24:31 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:06:59 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 03:56:27 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
+
+#include "utils/error.h"
 
 void	assign_texture(t_data *data, char *path, int type)
 {
@@ -64,15 +66,15 @@ int	parse_single_texture(t_data *data, char *line, int type)
 	int		fd;
 
 	if (check_duplicate_texture(data, type))
-		return (mess_error("Duplicate texture"));
+		return (print_error(loc(F, L), ERR_BAD_TEXTURE, 1)); // duplicate error to be added
 	path = extract_path(line);
 	if (!path || !*path)
-		return (mess_error("Path extraction failed"));
+		return (print_error(loc(F, L), ERR_UNKNOWN, 99));  //path extraction error to be added
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
 		free(path);
-		return (mess_error("Texture file not found"));
+		return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //no texture file error to be added
 	}
 	close(fd);
 	assign_texture(data, path, type);
@@ -89,5 +91,5 @@ int	parse_textures(t_data *data, char *line, int type)
 		return (parse_color(data, line, 'C'));
 	else if (type == 7)
 		return (0);
-	return (mess_error("Invalid element's identifier"));
+	return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //invalid identifier error to be added
 }

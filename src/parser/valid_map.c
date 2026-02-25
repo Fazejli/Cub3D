@@ -6,12 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:26:09 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/20 01:56:59 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 04:07:12 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdint.h>
+
+#include "utils/error.h"
 
 static const char	g_dir_to_char[] = {
 [EAST] = 'E',
@@ -27,7 +29,7 @@ static int	flood_fill(t_pos *player_pos, char **map, uint32_t x, uint32_t y)
 		player_pos->x = (float)x;
 		player_pos->y = (float)y;
 		if (!flood_fill_check(map, x, y))
-			return (mess_error("Map not closed"));
+			return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //map not closed
 	}
 	return (0);
 }
@@ -69,12 +71,12 @@ int	valid_map(t_data *data)
 	while (y < height)
 	{
 		if (!data->map[y])
-			return (mess_error("Invalid map"));
+			return (print_error(loc(F, L), ERR_MAP, 1));
 		y++;
 	}
 	map_cpy = copy_map(data->map);
 	if (!map_cpy)
-		return (mess_error("Malloc failed"));
+		return (print_error(loc(F, L), ERR_PERROR, errno));
 	status = find_player(&data->player_pos, map_cpy);
 	free_map(map_cpy);
 	return (status);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:19:42 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 04:08:25 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #include "game.h"
 #include "mlx.h"
 
+#include "utils/error.h"
+
 int	load_texture(t_game *game, t_texture *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(game->mlx, path,
 			(int *)&tex->width, (int *)&tex->height);
 	if (!tex->img)
-		return (mess_error("Failed to load texture"));
+		return (print_error(loc(F, L), ERR_PERROR, errno));
 	tex->addr = (uint32_t *)(void *)mlx_get_data_addr(tex->img,
 			(int *)&tex->bpp, (int *)&tex->size_len, (int *)&tex->endian);
 	return (0);

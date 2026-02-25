@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:25:46 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:10:54 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 03:57:28 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "libft.h"
 #include <stddef.h>
 #include <stdint.h>
+
+#include "utils/error.h"
 
 int	find_type(char *line)
 {
@@ -77,7 +79,7 @@ int	check_empty_lines_after(int fd)
 		if (!ft_is_empty(line))
 		{
 			free(line);
-			return (mess_error("Empty line in map"));
+			return (print_error(loc(F, L), ERR_UNKNOWN, 0)); //to be changed
 		}
 		free(line);
 	}

@@ -6,12 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:21:50 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:06:36 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 04:07:45 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
+
+#include "utils/error.h"
 
 int	handle_element(t_data *data, char *line, int *count)
 {
@@ -41,13 +43,13 @@ int	parse_sections(t_data *data)
 			if (handle_element(data, line, &compt) == -1)
 			{
 				free(line);
-				return (mess_error("Invalid element"));
+				return (print_error(loc(F, L), ERR_UNKNOWN, 99));
 			}
 		}
 		free(line);
 	}
 	if (!check_all_elements(data))
-		return (mess_error("Missing elements."));
+		return (print_error(loc(F, L), ERR_UNKNOWN, 99));
 	return (0);
 }
 
@@ -68,7 +70,7 @@ static int	check_file(t_data *data, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (mess_error(NULL));
+		return (print_error(loc(F, L), ERR_PERROR, errno));
 	data->fd = fd;
 	return (0);
 }
@@ -86,7 +88,7 @@ int	parse_data(t_data *data, char *filename)
 	{
 		line = gnl(data->fd);
 		if (!line)
-			return (mess_error("No map found"));
+			return (print_error(loc(F, L), ERR_UNKNOWN, 99));
 		if (!ft_is_empty(line))
 		{
 			if (parse_map(data, line))

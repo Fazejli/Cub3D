@@ -97,12 +97,6 @@ typedef struct s_data
 	int			fd;
 }	t_data;
 
-
-
-/*  Utils   */
-int		check_arg(const char *filename);
-int		mess_error(const char *msg);
-
 /* Cleanup  */
 void	free_data(t_data *data);
 void	free_map_and_player(t_data *data);

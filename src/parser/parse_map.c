@@ -6,12 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/18 00:10:19 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 04:00:46 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
+
+#include "utils/error.h"
 
 int	is_valid_char(char c)
 {
@@ -73,7 +75,7 @@ int	check_map_line(char *line, t_data *data)
 	while (line[i] && line[i] != '\n')
 	{
 		if (!is_valid_char(line[i]))
-			return (mess_error("Invalid map char"));
+			return (print_error(loc(F, L), ERR_UNKNOWN, 99));
 		if (check_player_pos(data, line[i]))
 			return (1);
 		i++;
@@ -90,10 +92,10 @@ int	parse_map(t_data *data, char *first_line)
 		return (1);
 	temp = malloc(sizeof(char *) * 10000);
 	if (!temp)
-		return (mess_error("Malloc failed"));
+		return (print_error(loc(F, L), ERR_PERROR, errno));
 	temp[0] = ft_strdup(first_line);
 	if (!temp[0])
-		return (free(temp), mess_error("Malloc failed"));
+		return (free(temp), print_error(loc(F, L), ERR_PERROR, errno));
 	if (store_map_lines(data, temp, 1))
 		return (1);
 	data->map = temp;

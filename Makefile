@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
+#    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/25 22:48:56 by fadwa            ###   ########.fr        #
+#    Updated: 2026/02/26 12:15:47 by mattcarniel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC_PARSER		:= $(addprefix parser/, parsing_cleanup.c parse_data.c \
 					valid_map_utils.c parse_utils.c)
 SRC_THREADS		:= $(addprefix threads/, init.c deinit.c run.c add.c)
 SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
-SRC_UTILS		:= $(addprefix utils/, time.c errors.c)
+SRC_UTILS		:= $(addprefix utils/, time.c error.c)
 SRC_RAYCASTING	:= $(addprefix raycasting/, init_game.c raycasting.c cleanup.c \
 					raycasting_utils.c printing.c print_textures.c)
 SRC_MINIMAP		:= $(addprefix minimap/, minimap.c)
