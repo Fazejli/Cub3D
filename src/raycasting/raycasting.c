@@ -6,13 +6,14 @@
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/20 01:57:31 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:53:07 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 #include "game.h"
+#include "minimap/minimap.h"
 #include <math.h>
 #include <stdint.h>
 
@@ -129,4 +130,5 @@ void	raycast(t_game *g)
 		t++;
 	}
 	threadpool_run(&g->pool);
+	draw_minimap(g);
 }

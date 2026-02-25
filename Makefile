@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
+#    By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/24 22:05:32 by smamalig         ###   ########.fr        #
+#    Updated: 2026/02/25 22:48:56 by fadwa            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
 SRC_UTILS		:= $(addprefix utils/, time.c errors.c)
 SRC_RAYCASTING	:= $(addprefix raycasting/, init_game.c raycasting.c cleanup.c \
 					raycasting_utils.c printing.c print_textures.c)
+SRC_MINIMAP		:= $(addprefix minimap/, minimap.c)
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
 SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c render.c)
 SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c update.c)
@@ -70,7 +71,7 @@ SRC_OPTIONS		:= $(addprefix options/, init.c int.c uint.c)
 
 SRC_FILES		:= $(SRC_PARSER) $(SRC_THREADS) $(SRC_ENGINE) $(SRC_RENDERER) \
 					$(SRC_RAYCASTING) $(SRC_HOOKS) $(SRC_UTILS) $(SRC_PHYSICS) \
-					$(SRC_GFX) $(SRC_WORLD) $(SRC_OPTIONS) main.c
+					$(SRC_MINIMAP) $(SRC_GFX) $(SRC_WORLD) $(SRC_OPTIONS) main.c
 
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

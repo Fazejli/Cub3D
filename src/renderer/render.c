@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:14:46 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/25 06:08:42 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:54:51 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "renderer.h"
 #include "world/world.h"
 #include "utils/utils.h"
-#include <bits/time.h>
+#include <time.h>
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>

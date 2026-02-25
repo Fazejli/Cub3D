@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:57:03 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/14 16:37:46 by fadwa            ###   ########.fr       */
+/*   Created: 2026/02/25 12:20:10 by fadzejli          #+#    #+#             */
+/*   Updated: 2026/02/25 22:53:15 by fadwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
 
-# include "cub3d.h"
+#ifndef MINIMAP_H
+#define MINIMAP_H
 
-/* Debug functions */
-void	print_separator(char *title);
-void	debug_textures(t_data *data);
-void	debug_colors(t_data *data);
-void	debug_player(t_player *p);
-void	debug_map(t_data *data);
-void	debug_full(t_data *data, t_game *game);
+#include "cub3d.h"
+# include "game.h"
+
+#define MMP_PIXEL_SIZE 4
+
+void draw_minimap(t_game *game);
 
 #endif
