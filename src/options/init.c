@@ -6,68 +6,79 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:39:13 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 13:57:33 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/24 19:30:41 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "common.h"
 #include "game.h"
+#include "options/options.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 
-static int	parse_threads(t_options *opt, const char *value)
+t_option		g_options[] = {
 {
-	uint64_t	threads;
-	char		*end;
-
-	threads = strtoul(value, &end, 10);
-	if (threads > MAX_THREADS || *end != '\0')
-	{
-		dprintf(2, "Error: Invalid thread count (max %i)\n", MAX_THREADS);
-		return (1);
-	}
-	opt->thread_count = (int16_t)threads;
-	return (0);
+	.name = "--threads",
+	.short_name = "-j",
+	.offset = offsetof(t_options, thread_count),
+	.max = MAX_THREADS,
+	.min = 0,
+	.parse = options_parse_i16,
+}, {
+	.name = "--width",
+	.short_name = "-W",
+	.offset = offsetof(t_options, width),
+	.max = MAX_WIDTH,
+	.min = 1,
+	.parse = options_parse_u32,
+}, {
+	.name = "--height",
+	.short_name = "-H",
+	.offset = offsetof(t_options, height),
+	.max = MAX_HEIGHT,
+	.min = 1,
+	.parse = options_parse_u32,
+}, {
+	.name = "--fps",
+	.short_name = "-f",
+	.offset = offsetof(t_options, fps),
+	.max = MAX_FPS,
+	.min = 0,
+	.parse = options_parse_i16,
 }
-
-struct s_option {
-	const char *const	name;
-	const char *const	short_name;
-	int					(*parse)(t_options *, const char *value);
-}	options[] = {
-	{.name = "--threads", .short_name = "-j", .parse = parse_threads},
 };
 
-static void	init_default_values(t_options *opt)
+static void	init_default_values(t_options *opts)
 {
-	opt->thread_count = -1;
-	opt->width = 800;
-	opt->height = 600;
+	opts->thread_count = -1;
+	opts->width = 800;
+	opts->height = 600;
+	opts->fps = 60;
 }
 
-int	options_init(t_options *opt, int argc, char **argv)
+int	options_init(t_options *opts, int argc, char **argv)
 {
 	int				i;
 	size_t			j;
 	const char		*option;
-	const size_t	opt_count = sizeof(options) / sizeof(struct s_option);
+	const size_t	opt_count = sizeof(g_options) / sizeof(struct s_option);
 
 	i = 1;
-	init_default_values(opt);
+	init_default_values(opts);
 	while (i < argc)
 	{
 		option = argv[i];
 		j = -1lu;
 		while (++j < opt_count)
-			if (strcmp(options[j].name, option) == 0
-				|| strcmp(options[j].short_name, option) == 0)
+			if (strcmp(g_options[j].name, option) == 0
+				|| strcmp(g_options[j].short_name, option) == 0)
 				break ;
 		if (j == opt_count)
 			return (argv[i + 1] != nullptr);
-		if (!argv[i + 1] || options[j].parse(opt, argv[i + 1]))
+		if (!argv[i + 1] || g_options[j].parse(opts, g_options[j], argv[i + 1]))
 			return (1);
 		i += 2;
 	}

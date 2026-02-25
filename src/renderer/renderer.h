@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:16:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 13:50:47 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/24 21:23:19 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "threads/threads.h"
 # include "world/world.h"
 # include <stdatomic.h>
+# include <stdint.h>
 
 typedef struct s_renderer
 {
@@ -31,7 +32,19 @@ typedef struct s_renderer
 	atomic_int		ready_index;
 	int				render_index;
 	// bool MT;
+	int				fps_limit;
+	char			reserved[4];
+	long			frame_time_us;
+	long			next_frame_time;
 }	t_renderer;
+
+typedef struct s_render_task {
+	t_renderer		*renderer;
+	const t_world	*world;
+	t_image			*frame;
+	uint32_t		x_start;
+	uint32_t		x_end;
+}	t_render_task;
 
 int				renderer_init(t_renderer *r, const t_options *opt);
 void			renderer_deinit(t_renderer *r);

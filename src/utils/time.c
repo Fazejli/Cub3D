@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   physics.h                                          :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 14:19:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/24 22:36:27 by smamalig         ###   ########.fr       */
+/*   Created: 2026/02/24 22:01:21 by smamalig          #+#    #+#             */
+/*   Updated: 2026/02/24 22:07:48 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHYSICS_H
-# define PHYSICS_H
+#include <time.h>
+#include "utils.h"
 
-# include "world/world.h"
-# include <pthread.h>
-# include <stdatomic.h>
+long	get_timestamp_us(void)
+{
+	struct timespec	ts;
 
-typedef struct s_physics {
-	t_world_buffer	*world_buffer;
-	pthread_t		thread;
-	atomic_int		ready;
-	char			reserved[4];
-}	t_physics;
-
-int		physics_init(t_physics *p);
-void	physics_deinit(t_physics *p);
-void	physics_update(t_physics *p, float dt);
-
-#endif
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return (ts.tv_sec * 1000000l + ts.tv_nsec / 1000l);
+}

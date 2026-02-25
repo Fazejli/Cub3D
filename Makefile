@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/20 14:45:55 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/02/24 22:05:32 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,15 +58,15 @@ SRC_PARSER		:= $(addprefix parser/, parsing_cleanup.c parse_data.c \
 					valid_map_utils.c parse_utils.c)
 SRC_THREADS		:= $(addprefix threads/, init.c deinit.c run.c add.c)
 SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
-SRC_UTILS		:= $(addprefix utils/, errors.c)
+SRC_UTILS		:= $(addprefix utils/, time.c errors.c)
 SRC_RAYCASTING	:= $(addprefix raycasting/, init_game.c raycasting.c cleanup.c \
 					raycasting_utils.c printing.c print_textures.c)
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
 SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c render.c)
-SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c)
+SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c update.c)
 SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c loop.c)
-SRC_WORLD		:= $(addprefix world/, init.c deinit.c)
-SRC_OPTIONS		:= $(addprefix options/, init.c)
+SRC_WORLD		:= $(addprefix world/, init.c deinit.c snapshot.c)
+SRC_OPTIONS		:= $(addprefix options/, init.c int.c uint.c)
 
 SRC_FILES		:= $(SRC_PARSER) $(SRC_THREADS) $(SRC_ENGINE) $(SRC_RENDERER) \
 					$(SRC_RAYCASTING) $(SRC_HOOKS) $(SRC_UTILS) $(SRC_PHYSICS) \
