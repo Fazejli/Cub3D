@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common.h                                           :+:      :+:    :+:   */
+/*   entity.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 13:28:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/25 10:38:06 by smamalig         ###   ########.fr       */
+/*   Created: 2026/02/25 10:05:44 by smamalig          #+#    #+#             */
+/*   Updated: 2026/02/26 13:08:00 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMON_H
-# define COMMON_H
+#ifndef ENTITY_H
+# define ENTITY_H
 
-// DO NOT CHANGE
-# define FRAMEBUFFER_COUNT 2
-# define WORLD_COUNT 2
+typedef enum e_entity_type {
+	ENTITY_DOOR,
+}	t_entity_type;
 
-# define MAX_FPS 165
-# define PHYSICS_STEP_US 7812 // ~128Hz
+// temp
+typedef struct s_v2f {
+	float	x;
+	float	y;
+}	t_v2f;
 
-# define MAX_WIDTH 2880
-# define MAX_HEIGHT 1920
+typedef struct s_door {
+	float	state;
+}	t_door;
 
-# define MAX_ENTITIES 32
+typedef struct s_player
+{
+	t_v2f	pos;
+	float	yaw;
+	float	fov;
+}	t_player;
+
+typedef struct __attribute__((aligned(8))) s_entity
+{
+	int		type;
+	t_v2f	pos;
+
+	union {
+		t_door	door;
+	};
+}	t_entity;
 
 #endif

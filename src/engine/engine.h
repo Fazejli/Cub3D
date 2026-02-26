@@ -6,14 +6,13 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:08 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 13:37:35 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 09:54:38 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENGINE_H
 # define ENGINE_H
 
-# include "cub3d.h"
 # include "gfx/gfx.h"
 # include "world/world.h"
 # include "physics/physics.h"

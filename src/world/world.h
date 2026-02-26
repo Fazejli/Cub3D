@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:54 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/24 21:31:26 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:08:16 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,14 @@
 # define WORLD_H
 
 # include "common.h"
+# include "world/entity.h"
 # include <stdatomic.h>
-
-// temp
-typedef struct s_v2f {
-	float	x;
-	float	y;
-}	t_v2f;
-
-typedef struct s_player
-{
-	t_v2f	pos;
-	float	yaw;
-	float	fov;
-}	t_player;
 
 typedef struct __attribute__((aligned(8))) s_world {
 	t_player	player;
+	t_entity	entities[MAX_ENTITIES];
+	int			entity_count;
+	char		reserved[4];
 }	t_world;
 
 typedef struct s_world_buffer {

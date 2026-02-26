@@ -6,12 +6,11 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:31:29 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 14:00:57 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/25 07:06:15 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
-#include "libft.h"
 #include "physics/physics.h"
 #include "renderer/renderer.h"
 
