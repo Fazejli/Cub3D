@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:28:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/25 10:38:06 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:08:31 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // DO NOT CHANGE
 # define FRAMEBUFFER_COUNT 2
-# define WORLD_COUNT 2
+# define WORLD_COUNT 3
 
 # define MAX_FPS 165
 # define PHYSICS_STEP_US 7812 // ~128Hz

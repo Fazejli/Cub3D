@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 13:11:57 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/26 13:14:28 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/26 13:26:18 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ typedef struct s_image {
 // uint32_t	blend_colors(uint32_t src_c, uint32_t dst_c, float t);
 
 // void		clear_image(t_image *img);
-// void		free_image(void *mlx, t_image *img);
+void		free_image(void *mlx, t_image *img);
 // t_image		*make_blank_image(void *mlx, int width, int height);
-// t_image		*get_image_from_xpm(void *mlx, char *file);
+t_image		*get_image_from_xpm(void *mlx, char *file);
 
 int		gfx_init(t_gfx *gfx, const t_options *opt);
 void	gfx_deinit(t_gfx *gfx);

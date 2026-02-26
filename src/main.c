@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/25 04:09:44 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/26 13:27:46 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,42 @@
 
 #include "cub3d.h"
 #include "game.h"
-#include "mlx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "libft.h"
-#include "threads/threads.h"
-#include "utils/error.h"
+#include "gfx/gfx.h"
+#include "engine/engine.h"
+#include "renderer/renderer.h"
 
 __attribute__((__noreturn__))
-void	game_destroy(t_game *game, int exit_code)
+void	game_destroy(t_game *g, int exit_code)
 {
-	(void)game;
+	gfx_deinit(&g->gfx);
 	exit(exit_code);
 }
 
-static bool	check_arg(const char *arg)
-{
-	size_t	len;
+#define MOVE_STEP 0.01f
+#define ROT_STEP 0.01f
 
-	if (!arg)
-		return (true);
-	len = ft_strlen(arg);
-	if (len < 5)
-		return (true);
-	return (ft_strncmp(arg + len - 4, ".cub", 4) != 0);
+__attribute__((unused))
+static int	loop2(t_engine *e)
+{
+	renderer_render(&e->renderer);
+	gfx_present(&e->gfx, renderer_get_ready_frame(&e->renderer));
+	return (0);
 }
 
-int	main(
-	__attribute__((unused)) int argc,
-	__attribute__((unused)) char **argv)
+int	main(int argc, char **argv)
 {
-	t_game	game;
-	t_data	data;
+	t_engine	engine;
 
-	ft_memset(&game, 0, sizeof(t_game));
-	if (options_init(&game.opt, argc, argv))
+	if (options_init(&engine.opt, argc, argv))
 	{
-		print_error(loc(F, L), ERR_INVALID_OPT, 1);
-		game_destroy(&game, 1);
+		dprintf(2, "No options?\n");
+		// game_destroy(&game, 1);
 	}
-	if (threadpool_init(&game.pool, game.opt.thread_count))
-	{
-		print_error(loc(F, L), ERR_BAD_THREAD, 1);
-		game_destroy(&game, 1);
-	}
-	// todo: refactor
-	if (check_arg(argv[argc - 1]))
-		return (print_error(loc(F, L), ERR_INVALID_NAME, 1));
-	if (parse_data(&data, argv[argc - 1]))
-		return (free_data(&data), 1);
-	if (init_game(&game, &data))
-		return (print_error(loc(F, L), ERR_PERROR, 1));
-	mlx_loop(game.mlx);
-	free_data(&data);
+	// todo check 0 threads
+	engine_init(&engine);
+	// hooks_init(&game);
+	gfx_loop(&engine.gfx, (int (*)(void))(intptr_t)loop2, &engine);
 	return (0);
 }

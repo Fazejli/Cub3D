@@ -6,7 +6,7 @@
 /*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:19:13 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 13:19:36 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:46:48 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	world_buffer_init(t_world_buffer *wb)
 {
-	(void)wb;
+	wb->ready_index = 1;
+	wb->write_index = 0;
 	return (0);
 }

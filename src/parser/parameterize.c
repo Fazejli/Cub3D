@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:51:24 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/26 12:32:06 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/26 13:24:24 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mapping.h"
-#include "../utils/error.h"
+#include "utils/error.h"
+#include "gfx/gfx.h"
 
-typedef struct	s_params
+typedef struct s_params
 {
 	t_image		*textures[4];
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
 	t_error		error;
 }	t_params;
-
 
 typedef struct s_p_addr
 {
@@ -54,7 +53,7 @@ static t_p_addr	validate_params(const char *data)
 {
 	t_p_addr	p;
 	size_t		size;
-	
+
 	if (!data)
 		return ((t_p_addr){.error = ERR_UNKNOWN}); //error to be added
 	size = strlen(data);
@@ -67,7 +66,6 @@ static t_p_addr	validate_params(const char *data)
 	if (!p.north_wall || !p.south_wall || !p.west_wall || !p.east_wall
 		|| !p.floor_color || !p.ceiling_color)
 		return ((t_p_addr){.error = ERR_UNKNOWN}); //error to be added
-	
 	return (p);
 }
 
@@ -127,7 +125,7 @@ uint32_t	get_color(const char *path)
 	g = atoi(path);
 	while (*path && *path != '\n' && *path != ',')
 		path++;
-	while (*path && *path != '\n' && *path == ',')	
+	while (*path && *path != '\n' && *path == ',')
 		path++;
 	b = atoi(path);
 	return (r << 16 | g << 8 | b);

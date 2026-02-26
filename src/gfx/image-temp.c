@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:02:10 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/26 12:50:14 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/26 13:26:33 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "image.h"
+#include "gfx.h"
 
 void	clear_image(t_image *img)
 {

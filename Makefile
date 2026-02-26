@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/26 13:13:48 by smamalig         ###   ########.fr        #
+#    Updated: 2026/02/26 13:49:11 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,17 +53,16 @@ endif
 ROOT_DIR := $(BUILD_DIR)/$(MODE)
 OBJ_DIR := $(ROOT_DIR)/obj
 
-SRC_PARSER		:= $(addprefix parser/, parse.c map_size.c find_map.c char_checks.c)
+SRC_PARSER		:= $(addprefix parser/, parse.c map_size.c find_map.c char_checks.c \
+					parameterize.c)
 SRC_THREADS		:= $(addprefix threads/, init.c deinit.c run.c add.c)
 SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
 SRC_UTILS		:= $(addprefix utils/, time.c error.c file.c)
-SRC_RAYCASTING	:= $(addprefix raycasting/, init_game.c raycasting.c cleanup.c \
-					raycasting_utils.c printing.c print_textures.c)
 SRC_MINIMAP		:= $(addprefix minimap/, minimap.c)
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
 SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c render.c)
 SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c update.c)
-SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c loop.c)
+SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c loop.c image-temp.c)
 SRC_WORLD		:= $(addprefix world/, init.c deinit.c snapshot.c)
 SRC_OPTIONS		:= $(addprefix options/, init.c int.c uint.c)
 
@@ -74,7 +73,7 @@ SRC_FILES		:= $(SRC_PARSER) $(SRC_THREADS) $(SRC_ENGINE) $(SRC_RENDERER) \
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
-DEPS := $(OBJ:.o=.d)
+DEPS := $(OBJS:.o=.d)
 
 LIBFT_DIR := $(LIB_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a

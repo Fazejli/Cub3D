@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:14:46 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/26 13:15:03 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/26 13:49:53 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,59 +53,57 @@ static void	find_wall(t_ray *ray, char **map)
 	calculate_distances(ray);
 }
 
-static void	init_dda(t_ray *ray, const t_player *player)
+static void	init_dda(t_ray *ray, const t_player player)
 {
 	if (ray->dir.x < 0)
 	{
 		ray->dda.step_x = -1;
 		ray->dda.delta_x = fabsf(1.0f / ray->dir.x);
-		ray->dda.side_x = (player->pos.x - (float)ray->pos_x) * ray->dda.delta_x;
+		ray->dda.side_x = (player.pos.x - (float)ray->pos_x) * ray->dda.delta_x;
 	}
 	else
 	{
 		ray->dda.step_x = 1;
 		ray->dda.delta_x = fabsf(1.0f / ray->dir.x);
-		ray->dda.side_x = ((float)ray->pos_x + 1.0f - player->pos.x) * ray->dda.delta_x;
+		ray->dda.side_x = ((float)ray->pos_x + 1.0f - player.pos.x) * ray->dda.delta_x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->dda.step_y = -1;
 		ray->dda.delta_y = fabsf(1.0f / ray->dir.y);
-		ray->dda.side_y = (player->pos.y - (float)ray->pos_y) * ray->dda.delta_y;
+		ray->dda.side_y = (player.pos.y - (float)ray->pos_y) * ray->dda.delta_y;
 	}
 	else
 	{
 		ray->dda.step_y = 1;
 		ray->dda.delta_y = fabsf(1.0f / ray->dir.y);
-		ray->dda.side_y = ((float)ray->pos_y + 1.0f - player->pos.y) * ray->dda.delta_y;
+		ray->dda.side_y = ((float)ray->pos_y + 1.0f - player.pos.y) * ray->dda.delta_y;
 	}
 }
 
-static void	init_ray(t_ray *ray, const t_player *player, uint32_t x)
+static void	init_ray(t_ray *ray, const t_player player, uint32_t x)
 {
 	const float	cam = 2.0f * (float)x / (float)WIDTH - 1.0f;
-	const float	dir_x = cosf(player->yaw);
-	const float	dir_y = sinf(player->yaw);
-	const float	plane = tanf(player->fov * 0.5f);
+	const float	dir_x = cosf(player.yaw);
+	const float	dir_y = sinf(player.yaw);
+	const float	plane = tanf(player.fov * 0.5f);
 
 	ray->dir.x = dir_x - dir_y * cam * plane;
 	ray->dir.y = dir_y + dir_x * cam * plane;
-	ray->pos_x = (int)player->pos.x;
-	ray->pos_y = (int)player->pos.y;
+	ray->pos_x = (int)player.pos.x;
+	ray->pos_y = (int)player.pos.y;
 	init_dda(ray, player);
 }
 
-static void	render_slice(void *arg)
+static void	render_slice(t_render_task *task)
 {
-	t_render_task	*task;
 	uint32_t		x;
 	t_ray			ray;
 
-	task = (t_render_task *)arg;
 	x = task->x_start;
 	while (x <= task->x_end)
 	{
-		init_ray(&ray, &task->world->player, x);
+		init_ray(&ray, task->world->player, x);
 		x++;
 	}
 }
@@ -131,7 +129,8 @@ static void	renderer_dispatch_tasks(t_renderer *r)
 		tasks[t].x_end = (t + 1) * chunk - 1;
 		if (tasks[t].x_end >= frame->width)
 			tasks[t].x_end = frame->width - 1;
-		threadpool_add(&r->pool, render_slice, &tasks[t]);
+		threadpool_add(&r->pool, (void (*)(void *))(intptr_t)render_slice,
+			&tasks[t]);
 		t++;
 	}
 	threadpool_run(&r->pool);
