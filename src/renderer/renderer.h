@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:16:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/24 21:23:19 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:14:56 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "common.h"
 # include "gfx/gfx.h"
-# include "image.h"
 # include "options/options.h"
 # include "threads/threads.h"
 # include "world/world.h"

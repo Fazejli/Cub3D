@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:11:20 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/25 05:31:23 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:14:45 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
+#include "gfx/gfx.h"
 #include "renderer.h"
 #include <stdatomic.h>
 
