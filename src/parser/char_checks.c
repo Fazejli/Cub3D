@@ -6,13 +6,13 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 02:30:40 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 02:35:39 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 11:09:11 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
-bool	is_eol(char c)
+bool	is_whitespace(char c)
 {
 	return (c == '\n' || c == '\0');
 }

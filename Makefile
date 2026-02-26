@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/02/26 12:15:47 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/02/26 13:13:48 by smamalig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BUILD_DIR := build
 
 CC := cc
 # Add -fenable-matrix ?
-CFLAGS := -Wall -Wextra -Werror -Wpedantic -MMD -MP -std=gnu2x -D_GNU_SOURCE
+CFLAGS := -Wall -Wextra -Werror -Wpedantic -MMD -MP -std=gnu2x -D_GNU_SOURCE -g3
 CFLAGS_DEBUG := -Og -g3 -Wpacked -Wshadow -Wpadded -Wconversion \
 			   -Wmissing-prototypes -Wmissing-declarations \
 			   -Wold-style-definition -Winline -Wsign-conversion -Wundef \
@@ -53,12 +53,10 @@ endif
 ROOT_DIR := $(BUILD_DIR)/$(MODE)
 OBJ_DIR := $(ROOT_DIR)/obj
 
-SRC_PARSER		:= $(addprefix parser/, parsing_cleanup.c parse_data.c \
-					parse_map.c parse_textures.c parse_colors.c valid_map.c \
-					valid_map_utils.c parse_utils.c)
+SRC_PARSER		:= $(addprefix parser/, parse.c map_size.c find_map.c char_checks.c)
 SRC_THREADS		:= $(addprefix threads/, init.c deinit.c run.c add.c)
 SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
-SRC_UTILS		:= $(addprefix utils/, time.c error.c)
+SRC_UTILS		:= $(addprefix utils/, time.c error.c file.c)
 SRC_RAYCASTING	:= $(addprefix raycasting/, init_game.c raycasting.c cleanup.c \
 					raycasting_utils.c printing.c print_textures.c)
 SRC_MINIMAP		:= $(addprefix minimap/, minimap.c)

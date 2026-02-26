@@ -6,14 +6,15 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:10:35 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 03:18:36 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 11:19:14 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 
-#include "mapping.h"
-#include "mapping_internal.h"
+#include "utils/vectors.h"
+#include "parser.h"
 
 static void	fill_map(char *map_data, const char *map_start, t_vec3u size)
 {
@@ -26,11 +27,11 @@ static void	fill_map(char *map_data, const char *map_start, t_vec3u size)
 	while (height < size.z)
 	{
 		line = 0;
-		while (!is_eol(ptr[line]) && size.x > line)
+		while (!is_whitespace(ptr[line]) && size.x > line)
 			line++;
-		while (!is_eol(ptr[line]) && size.y + 1 >= line)
+		while (!is_whitespace(ptr[line]) && size.y + 1 >= line)
 			*(map_data++) = ptr[line++];
-		while (!is_eol(ptr[line]))
+		while (!is_whitespace(ptr[line]))
 			line++;
 		ptr += line;
 		if (*ptr == '\n')
@@ -42,6 +43,7 @@ static void	fill_map(char *map_data, const char *map_start, t_vec3u size)
 		height++;
 	}
 }
+
 static uint32_t	find_player(t_map map)
 {
 	uint32_t	i;
@@ -119,72 +121,33 @@ static bool	is_enclosed_by_walls(t_map map)
 	return (true);
 }
 
-#include <stdio.h>
-
-t_map	get_map(const char *file_path)
+int	get_map(const char *file_path, t_map *map)
 {
 	t_file		file;
-	t_map		map;
 	const char	*map_start;
 
 	file = map_file(file_path);
-	if (file.error != ERR_NONE)
-	{
-		dprintf(2, "Could not map file\n");
-		return ((t_map){.error = file.error});
-	}
-	if (!file.data || file.size <= 0)
-	{
-		dprintf(2, "Invalid file to get map from\n");
-		unmap_file(&file);
-		return ((t_map){.error = ERR_UNKNOWN}); //error to be added
-	}
+	if (!file.data)
+		return (1);
 	map_start = find_map(file);
 	if (!map_start)
 	{
 		dprintf(2, "Could not find map start\n");
 		unmap_file(&file);
-		return ((t_map){.error = ERR_MAP}); //error to be added
+		return (1);
 	}
-	map = extract_map(map_start);
+	*map = extract_map(map_start);
 	unmap_file(&file);
-	if (map.error)
+	if (map->error)
 	{
 		dprintf(2, "Could not extract map\n");
-		return ((t_map){.error = ERR_PERROR});
+		return (1);
 	}
-	if (!is_enclosed_by_walls(map))
+	if (!is_enclosed_by_walls(*map))
 	{
 		dprintf(2, "Map is not enclosed by walls\n");
-		free(map.data);
-		return ((t_map){.error = ERR_MAP});
+		free(map->data);
+		return (1);
 	}
-	return (map);
+	return (0);
 }
-
-// #include <unistd.h>
-
-// int	main(int argc, char **argv)
-// {
-// 	t_map	map;
-
-// 	if (argc != 2)
-// 		return (dprintf(2, "Invalid args\n"));
-
-// 	map = get_map(argv[1]);
-// 	if (map.error != ERR_NONE)
-// 		return (dprintf(2, "Could not get map\n"));
-
-// 	size_t	i = 0;
-// 	printf("Map specs : width %u, height %u\n\n", map.width, map.height);
-// 	printf("Map data full dump [%s]:\n", map.data);
-// 	while (map.data[i])
-// 	{
-// 		write(1, &map.data[i], map.width);
-// 		write(1, "\n", 1);
-// 		i += map.width;
-// 	}
-	
-// 	free(map.data);
-// 	return (0);
-// }

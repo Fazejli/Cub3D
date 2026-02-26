@@ -6,11 +6,11 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 02:33:24 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 03:18:30 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/02/25 11:18:52 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mapping_internal.h"
+#include "parser.h"
 
 static t_vec3u	get_line_bounds(const char *line)
 {
@@ -19,12 +19,11 @@ static t_vec3u	get_line_bounds(const char *line)
 	size_t		col;
 	bool		has_map_char;
 
-
 	line_bounds = (t_vec3u){UINT32_MAX, 0, 0};
 	ptr = line;
 	col = 0;
 	has_map_char = false;
-	while (!is_eol(ptr[col]))
+	while (!is_whitespace(ptr[col]))
 	{
 		if (is_map_char(ptr[col]))
 		{
@@ -54,7 +53,7 @@ static uint32_t	get_map_height(const char *map_start)
 	while (map_start[col])
 	{
 		has_map_char = false;
-		while (!is_eol(map_start[col]))
+		while (!is_whitespace(map_start[col]))
 		{
 			if (is_map_char(map_start[col]))
 				has_map_char = true;
