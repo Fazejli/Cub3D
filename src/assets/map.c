@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_checks.c                                      :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 02:30:40 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 11:09:11 by smamalig         ###   ########.fr       */
+/*   Created: 2026/03/16 12:44:57 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 19:48:56 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
-bool	is_whitespace(char c)
-{
-	return (c == '\n' || c == '\0');
-}
+#include "assets/assets.h"
 
-bool	is_walkable(char c)
+t_tile	*map_tile_at(t_assets *assets, size_t x, size_t y)
 {
-	return (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
-bool	is_map_char(char c)
-{
-	return (is_walkable(c) || c == '1');
+	if (x >= assets->map.width || y >= assets->map.height)
+		return (NULL);
+	return (&assets->tiles[assets->map.data[y * assets->map.width + x]]);
 }

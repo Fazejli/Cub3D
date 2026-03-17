@@ -5,69 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/25 04:06:06 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/03/12 14:29:31 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 11:45:34 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
 #include <stdint.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <string.h>
 
-#include "utils/error.h"
+#include "utils/t_str.h"
 
-uint32_t	create_rgb(uint8_t r, uint8_t g, uint8_t b)
+#include "parser_internal.h"
+
+#include <stdio.h>
+
+static int	add_tile_color(t_assets *a, t_str key, t_str option, t_str value)
 {
-	return ((uint32_t)(r << 16u) | (uint32_t)(g << 8u) | b);
-}
+	uint32_t	rgb;
+	t_tile		*tile;
+	uint32_t	dir;
 
-int	parse_rgb(char **rgb, uint8_t *r, uint8_t *g, uint8_t *b)
-{
-	int	error;
-
-	*r = (uint8_t)ft_atoi_rgb(rgb[0], &error);
-	if (error)
-		return (1);
-	*g = (uint8_t)ft_atoi_rgb(rgb[1], &error);
-	if (error)
-		return (1);
-	*b = (uint8_t)ft_atoi_rgb(rgb[2], &error);
-	if (error)
-		return (1);
+	tile = &a->tiles[(unsigned char)key.ptr[0] - 32];
+	if (tile == NULL)
+		return (dprintf(2, "Colors: tile '%c' has not been initialized\n", *key.ptr), 1);
+	dir = parse_dir_option(option);
+	if (dir >= DIR_COUNT)
+		return (dprintf(2, "Colors: orientation not valid: [%.*s]\n", (int)option.len, option.ptr), 1);
+	if (tile->colors[dir] != 0)
+		return (dprintf(2, "Colors: color for tile '%c' already has previous attribution\n", *key.ptr), 1);
+	rgb = parse_rgb(value);
+	if (!rgb)
+		return (dprintf(2, "Colors: invalid color for tile '%c': [%.*s]\n", *key.ptr, (int)value.len, value.ptr), 1);
+	tile->colors[dir] = rgb;
 	return (0);
 }
 
-int	extract_color(t_data *data, char *line, char type)
+static int add_asset_color(t_assets *a, t_str key, t_str option, t_str value)
 {
-	char	**color;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	int		i;
+	(void)option; //asset colors do not support options yet
 
-	i = 0;
-	while (line[i] == type || ft_isspace(line[i]))
-		i++;
-	color = ft_split(&line[i], ',');
-	if (!color || !color[0] || !color[1] || !color[2])
-		return (free_split(color), print_error(loc(F, L), ERR_BAD_CLR_FORMAT, 1));
-	if (color[3])
-		return (free_split(color), print_error(loc(F, L), ERR_UNKNOWN, 99));
-	if (parse_rgb(color, &r, &g, &b))
-		return (free_split(color), 1);
-	free_split(color);
-	if (type == 'F')
-		data->floor_color = create_rgb(r, g, b);
+	uint32_t	*color;
+	uint32_t	rgb;
+
+	if (key.len < 2)
+		return (dprintf(2, "Colors: key not valid: [%.*s]\n", (int)key.len, key.ptr), 1);
+	if (key.len == 7 && strncmp(key.ptr, "ceiling", 7) == 0)
+		color = &a->ceiling;
+	else if (key.len == 5 && strncmp(key.ptr, "floor", 5) == 0)
+		color = &a->floor;
 	else
-		data->ceiling_color = create_rgb(r, g, b);
+		return (dprintf(2, "Colors: could not find valid color address: [%.*s]\n", (int)key.len, key.ptr), 1);
+
+	if (*color != 0)
+		return (dprintf(2, "Colors: color for asset '%.*s' already has previous attribution.\n", (int)key.len, key.ptr), 1);
+	rgb = parse_rgb(value);
+	if (!rgb)
+		return (dprintf(2, "Colors: invalid color for asset '%.*s': [%.*s]\n", (int)key.len, key.ptr, (int)value.len, value.ptr), 1);
+	*color = rgb;
 	return (0);
 }
 
-int	parse_color(t_data *data, char *line, char type)
+int	parse_colors(t_assets *a, t_parser p)
 {
-	if (type == 'F' && data->floor_color != -1u)
-		return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //duplicates
-	if (type == 'C' && data->ceiling_color != -1u)
-		return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //duplicates
-	return (extract_color(data, line, type));
+	t_str		line;
+	t_str		key;
+	t_str		value;
+	t_str		option;
+	int			status;
+
+	while (next_line(&p, &line, true, true))
+	{
+		if (line.len == 0)
+			continue;
+		if (!split_key_value(line, &key, &value))
+			return (1); //error
+		if (key.len == 0 || value.len == 0)
+			return (1); //error, key and value must be non-empty
+		split_key_option(key, &key, &option);
+		if(is_tile_key(key))
+			status = add_tile_color(a, key, option, value);
+		else
+			status = add_asset_color(a, key, option, value);
+		if (status)
+			return (status);
+	}
+	return (0);
 }

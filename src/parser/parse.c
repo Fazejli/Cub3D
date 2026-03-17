@@ -1,153 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.c                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 17:10:35 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 11:19:14 by smamalig         ###   ########.fr       */
+/*   Created: 2026/03/11 16:26:02 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 11:40:25 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+
+#include "parser_internal.h"
+
 #include <stdio.h>
 
-#include "utils/vectors.h"
-#include "parser.h"
-
-static void	fill_map(char *map_data, const char *map_start, t_vec3u size)
+t_section	g_sections[] = {
 {
-	const char	*ptr;
-	size_t		line;
-	size_t		height;
+	.name = "TILES",
+	.len = 5,
+	.parse = parse_tiles,
+	.validate = validate_tiles,
+}, {
+	.name = "TEXTURES",
+	.len = 8,
+	.parse = parse_textures,
+	.validate = validate_textures,
+}, {
+	.name = "COLORS",
+	.len = 6,
+	.parse = parse_colors,
+	.validate = validate_colors,
+}, {
+	.name = "MAP",
+	.len = 3,
+	.parse = parse_map,
+	.validate = validate_map,
+}
+};
 
-	ptr = map_start;
-	height = 0;
-	while (height < size.z)
-	{
-		line = 0;
-		while (!is_whitespace(ptr[line]) && size.x > line)
-			line++;
-		while (!is_whitespace(ptr[line]) && size.y + 1 >= line)
-			*(map_data++) = ptr[line++];
-		while (!is_whitespace(ptr[line]))
-			line++;
-		ptr += line;
-		if (*ptr == '\n')
-			ptr++;
-		while (size.x > line++)
-			continue ;
-		while (size.y + 1 >= line++)
-			*(map_data++) = ' ';
-		height++;
-	}
+static int	is_section(t_str str)
+{
+	return (str.len >= 3 && str.ptr[0] == '[' && str.ptr[str.len - 1] == ']');
 }
 
-static uint32_t	find_player(t_map map)
+static int	get_section_fns(t_str str, t_parse_fn *p, t_validate_fn *v)
 {
-	uint32_t	i;
-	bool		found;
+	size_t			i;
+	const size_t	section_count = sizeof(g_sections) / sizeof(t_section);
 
 	i = 0;
-	found = false;
-	while (i < map.width * map.height)
+	while (i < section_count)
 	{
-		if (map.data[i] == 'N' || map.data[i] == 'S'
-			|| map.data[i] == 'E' || map.data[i] == 'W')
+		if (g_sections[i].len == str.len
+			&& strncmp(str.ptr, g_sections[i].name, g_sections[i].len))
 		{
-			if (found)
-				return (UINT32_MAX);
-			found = true;
+			*p = g_sections[i].parse;
+			*v = g_sections[i].validate;
+			break ;
 		}
 		i++;
 	}
-	if (!found)
-		return (UINT32_MAX);
-	return (i);
+	if (i == section_count)
+		return (dprintf(2, "Could not find valid section: [%.*s]\n", (int)str.len, str.ptr), 1);
+	return (0);
 }
 
-static t_map	extract_map(const char *map_start)
+int	parse_assets(t_assets *assets, const char *data, size_t size)
 {
-	t_map		map;
-	t_vec3u		size;
-	uint32_t	width;
+	t_parser		p;
+	t_str			line;
+	t_parser		s;
+	t_parse_fn		parse;
+	t_validate_fn	validate;
 
-	map = (t_map){0};
-	size = get_map_size(map_start);
-	if (size.z == 0 || size.x > size.y)
-		return ((t_map){.error = ERR_MAP});
-	width = size.y - size.x + 1; //rm 1 ?
-	map.data = malloc(width * size.z + 1);
-	if (!map.data)
-		return ((t_map){.error = ERR_PERROR});
-	fill_map(map.data, map_start, size);
-	map.width = width;
-	map.height = size.z;
-	map.player = find_player(map);
-	if (map.player == UINT32_MAX)
+	p = (t_parser){data, data + size};
+	while (next_line(&p, &line, true, true))
 	{
-		free(map.data);
-		return ((t_map){.error = ERR_MAP});
-	}
-	map.error = ERR_NONE;
-	return (map);
-}
-
-static bool	is_enclosed_by_walls(t_map map)
-{
-	size_t	i;
-	size_t	x;
-	size_t	y;
-
-	i = 0;
-	while (i < map.width * map.height)
-	{
-		x = i % map.width;
-		y = i / map.width;
-		if (is_walkable(map.data[i]))
-		{
-			if (x == 0 || x == map.width - 1
-				|| y == 0 || y == map.height - 1)
-				return (false);
-			if (!is_map_char(map.data[i - 1])
-				|| !is_map_char(map.data[i + 1])
-				|| !is_map_char(map.data[i - map.width])
-				|| !is_map_char(map.data[i + map.width]))
-				return (false);
-		}
-		i++;
-	}
-	return (true);
-}
-
-int	get_map(const char *file_path, t_map *map)
-{
-	t_file		file;
-	const char	*map_start;
-
-	file = map_file(file_path);
-	if (!file.data)
-		return (1);
-	map_start = find_map(file);
-	if (!map_start)
-	{
-		dprintf(2, "Could not find map start\n");
-		unmap_file(&file);
-		return (1);
-	}
-	*map = extract_map(map_start);
-	unmap_file(&file);
-	if (map->error)
-	{
-		dprintf(2, "Could not extract map\n");
-		return (1);
-	}
-	if (!is_enclosed_by_walls(*map))
-	{
-		dprintf(2, "Map is not enclosed by walls\n");
-		free(map->data);
-		return (1);
+		if (!is_section(line))
+			continue;
+		line.ptr += 2;
+		line.len -= 2;
+		if (get_section_fns(line, &parse, &validate))
+			return (1); //error, unknown section
+		s = (t_parser){p.cur, p.cur};
+		while (next_line(&p, &line, true, true) && !is_section(line))
+			s.end = p.cur;
+		if (parse(assets, s) || validate(assets))
+			return (1);
+		if (is_section(line))
+			p.cur = line.ptr;
 	}
 	return (0);
 }

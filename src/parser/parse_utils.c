@@ -5,108 +5,71 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:25:46 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/25 03:57:28 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/03/09 09:47:06 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 11:46:54 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
+#include <stdbool.h>
 #include <stddef.h>
-#include <stdint.h>
 
-#include "utils/error.h"
+#include "utils/t_str.h"
 
-int	find_type(char *line)
+#include "parser_internal.h"
+
+#include "utils/t_str.h"
+
+bool	next_line(t_parser *p, t_str *line, bool do_front, bool do_back)
 {
-	int	i;
+	const char	*start;
 
-	i = 0;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	if (ft_strncmp(&line[i], "NO ", 3) == 0)
-		return (1);
-	if (ft_strncmp(&line[i], "SO ", 3) == 0)
-		return (2);
-	if (ft_strncmp(&line[i], "WE ", 3) == 0)
-		return (3);
-	if (ft_strncmp(&line[i], "EA ", 3) == 0)
-		return (4);
-	if (ft_strncmp(&line[i], "F ", 2) == 0)
-		return (5);
-	if (ft_strncmp(&line[i], "C ", 2) == 0)
-		return (6);
-	return (0);
+	if (p->cur >= p->end)
+		return (false);
+	start = p->cur;
+	while (p->cur < p->end && *p->cur != '\n')
+		p->cur++;
+	line->ptr = start;
+	line->len = p->cur - start;
+	if (p->cur < p->end)
+		p->cur++;
+	if (do_front)
+		front_trim_str(line);
+	if (do_back)
+		back_trim_str(line);
+	return (true);
 }
 
-uint32_t	get_width(char **map)
+bool	is_tile_key(t_str key)
 {
-	uint32_t	max_width;
-	uint32_t	width;
-	uint32_t	i;
-
-	max_width = 0;
-	i = 0;
-	while (map[i])
-	{
-		width = (uint32_t)ft_strlen(map[i]);
-		if (width > max_width)
-			max_width = width;
-		i++;
-	}
-	return (max_width);
+	return (key.len == 1
+		&& (key.ptr[0] >= 32 && key.ptr[0] <= 126)
+		&& key.ptr[0] != ' '
+		&& key.ptr[0] != '='
+		&& key.ptr[0] != ':'
+		&& key.ptr[0] != '['
+		&& key.ptr[0] != ']');
 }
 
-uint32_t	get_height(char **map)
+uint32_t parse_dir_option(t_str option)
 {
-	uint32_t	i;
+	static const t_dir tiles['z' - 'a' + 1] = {
+		['n' - 'a'] = DIR_NORTH,
+		['s' - 'a'] = DIR_SOUTH,
+		['w' - 'a'] = DIR_WEST,
+		['e' - 'a'] = DIR_EAST,
+		['d' - 'a'] = DIR_DEFAULT,
+	};
 
-	i = 0;
-	while (map[i])
-		i++;
-	return (i);
-}
+	char	c;
 
-int	check_empty_lines_after(int fd)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = gnl(fd);
-		if (!line)
-			return (0);
-		if (!ft_is_empty(line))
-		{
-			free(line);
-			return (print_error(loc(F, L), ERR_UNKNOWN, 0)); //to be changed
-		}
-		free(line);
-	}
-	return (0);
-}
-
-char	**copy_map(char **map)
-{
-	char		**copy;
-	uint32_t	i;
-	uint32_t	height;
-
-	height = get_height(map);
-	copy = malloc(sizeof(char *) * (height + 1));
-	if (!copy)
-		return (NULL);
-	i = 0;
-	while (i < height)
-	{
-		copy[i] = ft_strdup(map[i]);
-		if (!copy[i])
-		{
-			free_map(copy);
-			return (NULL);
-		}
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
+	if (option.len == 0)
+		return (DIR_DEFAULT);
+	if (option.len > 1)
+		return (DIR_INVALID);
+	c = option.ptr[0];
+	if (c >= 'A' && c <= 'Z')
+		return (tiles[c - 'A']);
+	if (c >= 'a' && c <= 'z')
+		return (tiles[c - 'a']);
+	return (DIR_INVALID);
 }

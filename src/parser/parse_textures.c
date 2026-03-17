@@ -5,91 +5,98 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:24:31 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/25 03:56:27 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/03/11 11:30:34 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 22:32:10 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <string.h>
 
-#include "utils/error.h"
+#include "utils/t_str.h"
 
-void	assign_texture(t_data *data, char *path, int type)
+#include "parser_internal.h"
+
+#include <stdio.h>
+
+#define PATH_SIZE 256
+
+static int	add_tile_texture(t_assets *a, t_str key, t_str option, t_str path)
 {
-	if (type == 1)
-		data->t_north = path;
-	if (type == 2)
-		data->t_south = path;
-	if (type == 3)
-		data->t_west = path;
-	if (type == 4)
-		data->t_east = path;
-}
+	char			buf[PATH_SIZE];
+	t_tile			*tile;
+	uint32_t		dir;
 
-char	*extract_path(char *line)
-{
-	uint32_t	i;
-	uint32_t	start;
-	uint32_t	end;
-	char		*path;
-
-	i = 2;
-	while (ft_isspace(line[i]))
-		i++;
-	start = i;
-	while (line[i] && line[i] != '\n')
-		i++;
-	end = i;
-	while (end > start && ft_isspace(line[end - 1]))
-		end --;
-	path = ft_substr(line, start, end - start);
-	return (path);
-}
-
-int	check_duplicate_texture(t_data *data, int type)
-{
-	if (type == 1 && data->t_north != NULL)
-		return (1);
-	if (type == 2 && data->t_south != NULL)
-		return (1);
-	if (type == 3 && data->t_west != NULL)
-		return (1);
-	if (type == 4 && data->t_east != NULL)
-		return (1);
+	tile = &a->tiles[(unsigned char)key.ptr[0] - 32];
+	if (!tile->flags)
+		return (dprintf(2, "Textures: tile '%c' has not been initialized\n", *key.ptr), 1);
+	dir = parse_dir_option(option);
+	if (dir >= DIR_COUNT || dir == DIR_INVALID)
+		return (dprintf(2, "Textures: orientation not valid: [%.*s]\n", (int)option.len, option.ptr), 1);
+	if (tile->textures[dir] != NULL)
+		return (dprintf(2, "Textures: texture for tile '%c' already has previous attribution\n", *key.ptr), 1);
+	if (path.len >= sizeof(buf))
+		return (dprintf(2, "Textures: path too long: [...%.*s]\n", 13, &path.ptr[path.len - 13]), 1);
+	memcpy(buf, path.ptr, path.len);
+	buf[path.len] = '\0';
+	tile->textures[dir] = get_image_from_xpm(a->mlx, buf);
+	if (tile->textures[dir] == NULL)
+		return (dprintf(2, "Textures: could not load texture: [%.*s]\n", (int)path.len, path.ptr), 1);
 	return (0);
 }
 
-int	parse_single_texture(t_data *data, char *line, int type)
+static int	add_asset_texture(t_assets *a, t_str key, t_str option, t_str path)
 {
-	char	*path;
-	int		fd;
+	(void)option; //asset textures do not support options yet
 
-	if (check_duplicate_texture(data, type))
-		return (print_error(loc(F, L), ERR_BAD_TEXTURE, 1)); // duplicate error to be added
-	path = extract_path(line);
-	if (!path || !*path)
-		return (print_error(loc(F, L), ERR_UNKNOWN, 99));  //path extraction error to be added
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	char	buf[PATH_SIZE];
+	t_image **tex;
+
+	if (key.len < 2)
+		return (dprintf(2, "Textures: key not valid: [%.*s]\n", (int)key.len, key.ptr), 1);
+	if (key.len == 7 && strncmp(key.ptr, "invalid", 7) == 0)
+		tex = &a->invalid;
+	else if (key.len == 6 && strncmp(key.ptr, "skybox", 6) == 0)
+		tex = &a->skybox;
+	else
+		return (dprintf(2, "Textures: could not find valid texture address: [%.*s]\n", (int)key.len, key.ptr), 1);
+	if (*tex != NULL)
+		return (dprintf(2, "Textures: texture for asset '%.*s' already has previous attribution.\n", (int)key.len, key.ptr), 1);
+	if (path.len >= sizeof(buf))
+		return (dprintf(2, "Textures: path too long: [...%.*s]\n", 13, &path.ptr[path.len - 13]), 1);
+	memcpy(buf, path.ptr, path.len);
+	buf[path.len] = '\0';
+	*tex = get_image_from_xpm(a->mlx, buf);
+	if (*tex == NULL)
+		return (dprintf(2, "Textures: could not load texture\'n"), 1);
+	return (0);
+}
+
+int	parse_textures(t_assets *a, t_parser p)
+{
+	t_str		line;
+	t_str		key;
+	t_str		option;
+	t_str		path;
+	int			status;
+
+	while (next_line(&p, &line, true, true))
 	{
-		free(path);
-		return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //no texture file error to be added
+		if (line.len == 0)
+			continue ;
+		if (!split_key_value(line, &key, &path))
+			return (dprintf(2, "Textures: could not find seperate key and value: [%.*s]\n", (int)line.len, line.ptr), 1);
+		if (key.len == 0 || path.len == 0)
+			return (dprintf(2, "Textures: no path or key specified'.\n"), 1);
+		split_key_option(key, &key, &option);
+		if (is_tile_key(key))
+			status = add_tile_texture(a, key, option, path);
+		else
+			status = add_asset_texture(a, key, option, path);
+		if (status)
+			return (status);
 	}
-	close(fd);
-	assign_texture(data, path, type);
 	return (0);
-}
-
-int	parse_textures(t_data *data, char *line, int type)
-{
-	if (type >= 1 && type <= 4)
-		return (parse_single_texture(data, line, type));
-	else if (type == 5)
-		return (parse_color(data, line, 'F'));
-	else if (type == 6)
-		return (parse_color(data, line, 'C'));
-	else if (type == 7)
-		return (0);
-	return (print_error(loc(F, L), ERR_UNKNOWN, 99)); //invalid identifier error to be added
 }

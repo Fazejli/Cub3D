@@ -5,106 +5,113 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 12:23:24 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/02/25 04:00:46 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/03/11 15:41:09 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 11:46:13 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-#include "utils/error.h"
+#include "utils/t_str.h"
+#include "utils/utils.h"
 
-int	is_valid_char(char c)
+#include "parser_internal.h"
+
+#include <stdio.h>
+
+static int	get_map_size(t_parser p, size_t	*width, size_t *height, size_t *offset)
 {
-	return (c == '0' || c == '1' || c == ' '
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
+	t_str	line;
+	size_t	gap;
+	size_t	min_line;
+	size_t	max_line;
 
-enum e_dir	g_char_to_dir[] = {
-['N'] = NORTH,
-['W'] = WEST,
-['S'] = SOUTH,
-['E'] = EAST,
-};
-
-int	check_player_pos(t_data *data, char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	gap = 1;
+	while (next_line(&p, &line, false, false))
 	{
-		// todo check for multiple players
-		data->player_pos.dir = g_char_to_dir[(int)c];
-		data->player_pos.x = 0;
-		data->player_pos.y = 0;
-	}
-	return (0);
-}
-
-int	store_map_lines(t_data *data, char **temp, int i)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = gnl(data->fd);
-		if (!line || ft_is_empty(line))
+		back_trim_str(&line);
+		max_line = line.len;
+		front_trim_str(&line);
+		min_line = max_line - line.len;
+		if (line.len == 0)
 		{
-			if (line && check_empty_lines_after(data->fd))
-			{
-				free(line);
-				return (free_temp_map(temp, i), 1);
-			}
-			free(line);
-			break ;
+			if (*height != 0)
+				gap++;
+			continue ;
 		}
-		temp[i] = ft_strdup(line);
-		if (!temp[i])
-			return (free(line), free_temp_map(temp, i), 1);
-		free(line);
-		i++;
+		if (*offset > min_line)
+			*offset = min_line;
+		if (*width < max_line)
+			*width = max_line;
+		*height += gap;
+		gap = 1;
 	}
-	temp[i] = NULL;
+	*width -= *offset;
+	if (*height == 0 || *width == 0)
+		return (1);
 	return (0);
 }
 
-int	check_map_line(char *line, t_data *data)
+int	populate_map(t_assets *a, t_parser p, size_t offset)
 {
-	int	i;
+	t_str		line;
+	size_t		x;
+	size_t		y;
+	char		tile;
 
-	i = 0;
-	while (line[i] && line[i] != '\n')
+	y = 0;
+	while (next_line(&p, &line, false, true))
 	{
-		if (!is_valid_char(line[i]))
-			return (print_error(loc(F, L), ERR_UNKNOWN, 99));
-		if (check_player_pos(data, line[i]))
-			return (1);
-		i++;
+		if (line.len == 0 && y == 0)
+			continue ;
+		if (line.len > offset)
+		{
+			line.ptr += offset;
+			line.len -= offset;
+		}
+		else
+			line.len = 0;
+		x = 0;
+		while (x < a->map.width)
+		{
+			
+			if (x < line.len)
+				tile = line.ptr[x];
+			else
+			 	tile = ' ';
+			if (!is_printable(tile))
+				return (dprintf(2, "Map: non printable tile found at position x=%zu, y=%zu\n", x, y), 1);
+			if (a->tiles[(uint32_t)tile - 32].flags == TILE_F_NONE)
+				return (dprintf(2, "Map: non valid tile found at position x=%zu, y=%zu: [%c]\n", x, y, tile), 1);
+			a->map.data[y * a->map.width + x] = (uint8_t)tile - 32;
+			x++;
+		}
+		y++;
 	}
 	return (0);
 }
 
-int	parse_map(t_data *data, char *first_line)
+int	parse_map(t_assets *a, t_parser p)
 {
-	char	**temp;
-	int		i;
+	size_t	offset;
 
-	if (check_map_line(first_line, data))
+	a->map.width = 0;
+	a->map.height = 0;
+	offset = SIZE_MAX;
+	if (get_map_size(p, &a->map.width, &a->map.height, &offset))
+		return (dprintf(2, "Map: map size invalid\n"), 1);
+	printf("Width=%zu, Height=%zu, offset=%zu\n", a->map.width, a->map.height, offset);
+	a->map.data = (uint8_t *)malloc(sizeof(uint8_t) * (a->map.width * a->map.height));
+	if (!a->map.data)
 		return (1);
-	temp = malloc(sizeof(char *) * 10000);
-	if (!temp)
-		return (print_error(loc(F, L), ERR_PERROR, errno));
-	temp[0] = ft_strdup(first_line);
-	if (!temp[0])
-		return (free(temp), print_error(loc(F, L), ERR_PERROR, errno));
-	if (store_map_lines(data, temp, 1))
-		return (1);
-	data->map = temp;
-	i = 0;
-	while (data->map[i])
+	if (populate_map(a, p, offset))
 	{
-		if (check_map_line(data->map[i], data))
-			return (1);
-		i++;
+		free(a->map.data);
+		a->map.data = NULL;
+		return (1);
 	}
 	return (0);
 }

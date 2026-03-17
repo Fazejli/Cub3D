@@ -5,50 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 16:51:42 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/02/25 11:18:14 by smamalig         ###   ########.fr       */
+/*   Created: 2026/03/09 09:47:22 by mattcarniel       #+#    #+#             */
+/*   Updated: 2026/03/16 10:52:19 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include <stdint.h>
 # include <stddef.h>
-# include <stdbool.h>
 
-# include "utils/vectors.h"
-# include "utils/utils.h"
+# include "../assets/assets.h"
 
-typedef enum e_error
-{
-	ERR_NONE,
-	ERR_NO_ARGS,
-	ERR_MANY_ARGS,
-	ERR_INVALID_NAME,
-	ERR_MAP,
-	ERR_PERROR,
-	ERR_UNKNOWN,
-	ERR_COUNT
-}	t_error;
-
-typedef struct s_map
-{
-	char		*data;
-	uint32_t	width;
-	uint32_t	height;
-	uint32_t	player;
-	t_error		error;
-}	t_map;
-
-bool		is_whitespace(char c);
-bool		is_walkable(char c);
-bool		is_map_char(char c);
-
-const char	*find_map(t_file file);
-
-t_vec3u		get_map_size(const char *map_start);
-
-int			parser_parse(const char *file_path, t_map *map);
+int	parse_assets(t_assets *assets, const char *data, size_t size);
 
 #endif
