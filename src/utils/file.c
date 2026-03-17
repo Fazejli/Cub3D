@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 11:02:33 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 11:37:14 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:01:25 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	unmap_file(t_file *file)
 {
 	if (!file || !file->data || file->size <= 0)
 		return ;
-	munmap((void *)file->data, file->size);
+	munmap((void *)(size_t)file->data, file->size);
 	memset(file, 0, sizeof(t_file));
 }
 
@@ -52,7 +52,7 @@ t_file	map_file(const char *path)
 	fstat(fd, &st);
 	if (st.st_size <= 0)
 		return ((t_file){.size = 0}); //to be defined in error.h
-	file.data = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	file.data = mmap(NULL, (size_t)st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 	if (file.data == MAP_FAILED)
 		return ((t_file){.size = 0}); //to be defined in error.h
 	close(fd);

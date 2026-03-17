@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:26:08 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 22:43:01 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:14:27 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ typedef enum e_dir
 typedef struct s_tile
 {
 	t_tile_flags	flags;
+	char			reserved[4];
 
 	t_image			*textures[DIR_COUNT];
 	uint32_t		colors[DIR_COUNT];
+
 }	t_tile;
 
 typedef enum e_col_type
@@ -79,11 +81,11 @@ typedef struct s_assets
 	uint32_t	floor;
 	uint32_t	ceiling;
 
-	void		*mlx;
+	t_gfx		*gfx;
 }	t_assets;
 
-void	assets_destroy(t_assets *assets);
 int		assets_init(t_assets *assets, const char *file_path);
+void	assets_deinit(t_assets *assets);
 
 t_tile	*map_tile_at(t_assets *assets, size_t x, size_t y);
 

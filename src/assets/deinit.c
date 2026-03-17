@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   deinit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:35:52 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 20:04:15 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:15:45 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	free_tile_textures(t_assets *a)
 		while (j < DIR_COUNT)
 		{
 			if (a->tiles[i].textures[j])
-				free_image(a->mlx, a->tiles[i].textures[j]);
+				free_image(a->gfx->mlx, a->tiles[i].textures[j]);
 			j++;
 		}
 		i++;
@@ -44,12 +44,12 @@ static void	free_tile_textures(t_assets *a)
 static void	free_asset_textures(t_assets *a)
 {
 	if (a->skybox)
-		free_image(a->mlx, a->skybox);
+		free_image(a->gfx->mlx, a->skybox);
 	if (a->invalid)
-		free_image(a->mlx, a->invalid);
+		free_image(a->gfx->mlx, a->invalid);
 }
 
-void	assets_destroy(t_assets *assets)
+void	assets_deinit(t_assets *assets)
 {
 	if (!assets)
 		return ;

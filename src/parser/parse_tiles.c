@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 11:31:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:43:11 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 11:56:04 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <string.h>
 
+#include "assets/assets.h"
 #include "utils/t_str.h"
 
 #include "parser_internal.h"
@@ -31,14 +32,14 @@ static uint32_t	parse_tile_flags(t_str value)
 	return (TILE_F_NONE);
 }
 
-static bool	add_tile(t_assets *assets, char id, char flags)
+static bool	add_tile(t_assets *assets, char id, t_tile_flags flags)
 {
 	t_tile	*tile;
 
 	if (assets->tiles[(unsigned char)id - 32].flags)
 		return (false); //error: duplicate tile id
 	tile = &assets->tiles[(unsigned char)id - 32];
-	tile->flags = flags;
+	tile->flags = (t_tile_flags)flags;
 	return (true);
 }
 
@@ -46,10 +47,10 @@ static bool	add_tile(t_assets *assets, char id, char flags)
 
 int	parse_tiles(t_assets *a, t_parser p)
 {
-	t_str		line;
-	t_str		key;
-	t_str		value;
-	uint32_t	flags;
+	t_str			line;
+	t_str			key;
+	t_str			value;
+	t_tile_flags	flags;
 
 	while (next_line(&p, &line, true, true))
 	{

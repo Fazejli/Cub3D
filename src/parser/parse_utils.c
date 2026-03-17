@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 09:47:06 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:46:54 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 11:53:52 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	next_line(t_parser *p, t_str *line, bool do_front, bool do_back)
 	while (p->cur < p->end && *p->cur != '\n')
 		p->cur++;
 	line->ptr = start;
-	line->len = p->cur - start;
+	line->len = (size_t)(p->cur - start);
 	if (p->cur < p->end)
 		p->cur++;
 	if (do_front)

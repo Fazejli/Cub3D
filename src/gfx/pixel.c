@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:01:42 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 12:12:54 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:07:35 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,18 @@ void	scale_pixel(uint32_t x, uint32_t y, uint32_t c, uint32_t scale, t_image *ds
 	}
 }
 
-uint32_t	blend_colors(uint32_t src_c, uint32_t dst_c, float t)
+uint32_t	blend_colors(uint32_t src, uint32_t dst, float t)
 {
 	int	r;
 	int	g;
 	int	b;
 
 	if (t <= 0)
-		return (src_c);
+		return (src);
 	if (t >= 1)
-		return (dst_c);
-	r = ((1 - t) * ((src_c >> 16) & 0xFF)) + (t * ((dst_c >> 16) & 0xFF));
-	g = ((1 - t) * ((src_c >> 8) & 0xFF)) + (t * ((dst_c >> 8) & 0xFF));
-	b = ((1 - t) * (src_c & 0xFF)) + (t * (dst_c & 0xFF));
-	return (r << 16 | g << 8 | b);
+		return (dst);
+	r = (int)(((1 - t) * ((src>> 16) & 0xFF)) + (t * ((dst >> 16) & 0xFF)));
+	g = (int)(((1 - t) * ((src >> 8) & 0xFF)) + (t * ((dst >> 8) & 0xFF)));
+	b = (int)(((1 - t) * (src & 0xFF)) + (t * (dst & 0xFF)));
+	return ((uint32_t)(r << 16 | g << 8 | b));
 }

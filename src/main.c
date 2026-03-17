@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/16 22:39:40 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:09:35 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 {
 	t_engine	engine;
 
-	if (!engine_init(&engine, argc, argv))
+	if (engine_init(&engine, argc, argv))
 		return (1);
 	// hooks_init(&game);
 	gfx_loop(&engine.gfx, (int (*)(void))(intptr_t)loop2, &engine);

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 11:30:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 22:32:10 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:15:24 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	add_tile_texture(t_assets *a, t_str key, t_str option, t_str path)
 		return (dprintf(2, "Textures: path too long: [...%.*s]\n", 13, &path.ptr[path.len - 13]), 1);
 	memcpy(buf, path.ptr, path.len);
 	buf[path.len] = '\0';
-	tile->textures[dir] = get_image_from_xpm(a->mlx, buf);
+	tile->textures[dir] = get_image_from_xpm(a->gfx->mlx, buf);
 	if (tile->textures[dir] == NULL)
 		return (dprintf(2, "Textures: could not load texture: [%.*s]\n", (int)path.len, path.ptr), 1);
 	return (0);
@@ -68,7 +68,7 @@ static int	add_asset_texture(t_assets *a, t_str key, t_str option, t_str path)
 		return (dprintf(2, "Textures: path too long: [...%.*s]\n", 13, &path.ptr[path.len - 13]), 1);
 	memcpy(buf, path.ptr, path.len);
 	buf[path.len] = '\0';
-	*tex = get_image_from_xpm(a->mlx, buf);
+	*tex = get_image_from_xpm(a->gfx->mlx, buf);
 	if (*tex == NULL)
 		return (dprintf(2, "Textures: could not load texture\'n"), 1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:25:04 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 22:42:50 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:16:52 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	assets_init(t_assets *assets, const char *file_path)
 {
 	t_file	file;
 
-	memset(assets, 0, sizeof(t_assets));
 	if (!is_valid_name(file_path))
 		return (1);
 	file = map_file(file_path);
@@ -30,7 +29,7 @@ int	assets_init(t_assets *assets, const char *file_path)
 		return (1);
 	if (parse_assets(assets, file.data, file.size))
 	{
-		assets_destroy(assets);
+		assets_deinit(assets);
 		unmap_file(&file);
 		return (1);
 	}

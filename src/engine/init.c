@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:31:29 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/17 11:07:49 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:14:59 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	engine_init(t_engine *e, int argc, char **argv)
 	memset(e, 0, sizeof(t_engine));
 	e->physics.world_buffer = &e->world_buffer;
 	e->renderer.world_buffer = &e->world_buffer;
+	e->assets.gfx = &e->gfx;
 	e->renderer.gfx = &e->gfx;
-	e->assets.mlx = &e->gfx.mlx;
 	if (options_init(&e->opt, argc, argv)
 		|| gfx_init(&e->gfx, &e->opt)
 		|| assets_init(&e->assets, argv[argc - 1])
@@ -32,7 +32,6 @@ int	engine_init(t_engine *e, int argc, char **argv)
 		|| physics_init(&e->physics)
 		|| renderer_init(&e->renderer, &e->opt))
 	{
-		printf("In here\n");
 		engine_deinit(e);
 		return (1);
 	}

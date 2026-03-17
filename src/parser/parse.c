@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 16:26:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:40:25 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 11:53:30 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <string.h>
 
 #include "parser_internal.h"
+
+#include "parser.h"
 
 #include <stdio.h>
 

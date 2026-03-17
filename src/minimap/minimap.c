@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 12:20:10 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/16 19:51:54 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:03:06 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 void	draw_minimap(t_engine *engine)
 {
-	t_map	*map;
-	uint8_t	flags;
-	size_t	x;
-	size_t	y;
+	t_map			*map;
+	t_tile_flags	flags;
+	uint32_t		x;
+	uint32_t		y;
 
 	y = 0;
 	map = &engine->assets.map;

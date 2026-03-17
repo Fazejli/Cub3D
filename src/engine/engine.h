@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:08 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 22:38:50 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 11:59:02 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ typedef struct s_input {
 
 typedef struct s_engine {
 	t_options		opt;
+	t_input			input;
 	t_assets		assets;
 	t_gfx			gfx;
 	t_world_buffer	world_buffer;
 	t_physics		physics;
 	t_renderer		renderer;
-	t_input			input;
-
-	void			*mlx;
 }	t_engine;
 
 int		engine_init(t_engine *e, int argc, char **argv);

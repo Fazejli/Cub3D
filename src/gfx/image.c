@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image-temp.c                                       :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:02:10 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 19:32:34 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:11:53 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_image(void *mlx, t_image *img)
 
 t_image	*get_image_from_xpm(void *mlx, char *file) 
 {
-	t_image	*img = {0};
+	t_image	*img;
 
 	if (!mlx || !file)
 		return (NULL);

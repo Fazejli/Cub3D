@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:41:09 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:46:13 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 11:58:02 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	get_map_size(t_parser p, size_t	*width, size_t *height, size_t *offse
 	return (0);
 }
 
-int	populate_map(t_assets *a, t_parser p, size_t offset)
+static int	populate_map(t_assets *a, t_parser p, size_t offset)
 {
 	t_str		line;
 	size_t		x;

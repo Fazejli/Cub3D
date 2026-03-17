@@ -6,11 +6,13 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:08:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:09:04 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 12:02:11 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
+
+#include "utils.h"
 
 bool	is_whitespace(char c)
 {

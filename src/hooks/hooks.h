@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:37:21 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 12:33:19 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 11:59:58 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "engine/engine.h"
 
+int	hooks_init(t_engine *engine);
 int	hooks_keys_init(t_engine *engine);
 int	hooks_mouse_init(t_engine *engine);
 

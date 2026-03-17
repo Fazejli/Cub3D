@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/03/16 20:10:48 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/03/17 11:47:34 by mattcarniel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ SRC_THREADS		:= $(addprefix threads/, init.c deinit.c run.c add.c)
 SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
 SRC_UTILS		:= $(addprefix utils/, time.c error.c file.c char_checks.c t_str.c)
 SRC_MINIMAP		:= $(addprefix minimap/, minimap.c)
-SRC_ASSETS		:= $(addprefix assets/, init.c destroy.c map.c)
+SRC_ASSETS		:= $(addprefix assets/, init.c deinit.c map.c)
 SRC_PARSER		:= $(addprefix parser/, parse.c parse_utils.c \
 				  parse_tiles.c parse_textures.c parse_rgb.c parse_colors.c parse_map.c \
 				  validate_tiles.c validate_textures.c validate_colors.c validate_map.c)
