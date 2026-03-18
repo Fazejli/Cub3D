@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 15:35:08 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/17 11:59:02 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 15:36:09 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,12 @@
 
 # include "assets/assets.h"
 # include "gfx/gfx.h"
+# include "hooks/hooks.h"
 # include "world/world.h"
 # include "physics/physics.h"
 # include "renderer/renderer.h"
 
 typedef int	(*t_hook_fn)(void);
-
-typedef union u_keys {
-	struct s_values {
-		bool	forward : 1;
-		bool	backward : 1;
-		bool	left : 1;
-		bool	right : 1;
-		bool	up : 1;
-		bool	down : 1;
-		bool	yaw_left : 1;
-		bool	yaw_right : 1;
-		bool	pitch_up : 1;
-		bool	pitch_down : 1;
-
-		int32_t	reserved : 22;
-	}	values;
-	uint32_t	bits;
-}	t_keys;
-
-typedef struct s_input {
-	t_keys	keys;
-}	t_input;
 
 typedef struct s_engine {
 	t_options		opt;

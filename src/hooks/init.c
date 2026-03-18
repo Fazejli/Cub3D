@@ -6,20 +6,24 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:32:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 16:36:07 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 17:27:41 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "mlx.h"
 
-#include "cub3d.h"
 #include "engine/engine.h"
 
-#include "hooks.h"
+#include "hooks_internal.h"
 
-static int	game_destroy_hook(t_engine *e)
+int	game_destroy_hook(t_engine *e)
 {
+	if (!e)
+		return (1);
 	engine_deinit(e);
+	exit(0);
 	return (0);
 }
 
@@ -27,13 +31,20 @@ static int	game_destroy_hook(t_engine *e)
 
 int	hooks_init(t_engine *engine)
 {
-	// if (!game->win)
-	// 	return (1);
-	mlx_hook(engine->gfx.win, evDestroyNotify, 0,
-		(t_hook_fn)(intptr_t)game_destroy_hook, engine);
-	hooks_keys_init(engine);
+	if (!engine || !engine->gfx.win)
+		return (1);
+	if (mlx_hook(
+		engine->gfx.win,
+		evDestroyNotify,
+		0,
+		(t_hook_fn)(intptr_t)game_destroy_hook,
+		engine) < 0)
+		return (1);
+	if (hooks_keys_init(engine))
+		return (1);
 	mlx_mouse_hide(engine->gfx.mlx, engine->gfx.win);
-	hooks_mouse_init(engine);
+	if (hooks_mouse_init(engine))
+		return (1);
 	return (0);
 }
 
@@ -41,13 +52,20 @@ int	hooks_init(t_engine *engine)
 
 int	hooks_init(t_engine *engine)
 {
-	if (!engine->gfx.win)
+	if (!engine || !engine->gfx.win)
 		return (1);
-	mlx_hook(engine->gfx.win, evDestroyNotify, 0,
-		(t_hook_fn)(intptr_t)game_destroy_hook, engine);
-	hooks_keys_init(engine);
+	if (mlx_hook(
+		engine->gfx.win,
+		evDestroyNotify,
+		0,
+		(t_hook_fn)(intptr_t)game_destroy_hook,
+		engine) < 0)
+		return (1);
+	if (hooks_keys_init(engine))
+		return (1); //potential failure
 	mlx_mouse_hide();
-	hooks_mouse_init(engine);
+	if (hooks_mouse_init(engine))
+		return (1);
 	return (0);
 }
 

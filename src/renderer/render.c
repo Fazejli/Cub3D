@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:14:46 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 16:35:47 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 17:50:49 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,6 @@
 #include "utils/utils.h"
 
 #include "renderer_internal.h"
-
-
-//need to rework logic with t_assets func
-//__attribute__((unused))
-// static void	find_wall(t_ray *ray, t_map *map)
-// {
-// 	int	wall;
-
-// 	wall = 0;
-// 	while (!wall)
-// 	{
-// 		if (ray->dda.side_x < ray->dda.side_y)
-// 		{
-// 			ray->dda.side_x += ray->dda.delta_x;
-// 			ray->pos_x += ray->dda.step_x;
-// 			ray->side = DIR_EAST;
-// 		}
-// 		else
-// 		{
-// 			ray->dda.side_y += ray->dda.delta_y;
-// 			ray->pos_y += ray->dda.step_y;
-// 			ray->side = DIR_NORTH;
-// 		}
-// 		if (ray->pos_y < 0 || (uint32_t)ray->pos_y >= map->width)
-// 			wall = 1;
-// 		else if (ray->pos_x < 0
-// 			|| (uint32_t)ray->pos_x >= map->width)
-// 			wall = 1;
-// 		else if (!wall && map[ray->pos_y][ray->pos_x] == '1')
-// 			wall = 1;
-// 	}
-// 	calculate_distances(ray);
-// }
 
 static void	init_dda(t_ray *ray, const t_player player)
 {
@@ -100,15 +67,161 @@ static void	init_ray(t_ray *ray, const t_player player, uint32_t x)
 	init_dda(ray, player);
 }
 
+static int	cast_ray(t_ray *ray, const t_player *p, const t_map *map,
+				const t_tile *tiles, t_hit *hit)
+{
+	int	found = 0;
+
+	while (!found)
+	{
+		if (ray->dda.side_x < ray->dda.side_y)
+		{
+			ray->dda.side_x += ray->dda.delta_x;
+			ray->pos_x += ray->dda.step_x;
+			hit->side = 0;
+		}
+		else
+		{
+			ray->dda.side_y += ray->dda.delta_y;
+			ray->pos_y += ray->dda.step_y;
+			hit->side = 1;
+		}
+
+		/* bounds check */
+		if (ray->pos_x < 0 || ray->pos_x >= (int)map->width
+			|| ray->pos_y < 0 || ray->pos_y >= (int)map->height)
+			return (0);
+
+		hit->tile_id = map->data[ray->pos_y * map->width + ray->pos_x];
+
+		if (tiles[hit->tile_id].flags & TILE_F_RAY_BLOCK)
+			found = 1;
+	}
+
+	/* distance */
+	if (hit->side == 0)
+		hit->dist = (ray->pos_x - p->pos.x
+				+ (1 - ray->dda.step_x) * 0.5f) / ray->dir.x;
+	else
+		hit->dist = (ray->pos_y - p->pos.y
+				+ (1 - ray->dda.step_y) * 0.5f) / ray->dir.y;
+
+	if (hit->dist < 0.001f)
+		hit->dist = 0.001f;
+
+	/* wall hit position */
+	if (hit->side == 0)
+		hit->wall_x = p->pos.y + hit->dist * ray->dir.y;
+	else
+		hit->wall_x = p->pos.x + hit->dist * ray->dir.x;
+
+	hit->wall_x -= floorf(hit->wall_x);
+
+	return (1);
+}
+
+static t_image	*get_wall_texture(const t_tile *tile,
+					const t_ray *ray, int side)
+{
+	t_image	*img;
+
+	if (side == 0)
+	{
+		if (ray->dir.x < 0)
+			img = tile->textures[DIR_EAST];
+		else
+			img = tile->textures[DIR_WEST];
+	}
+	else
+	{
+		if (ray->dir.y < 0)
+			img = tile->textures[DIR_SOUTH];
+		else
+			img = tile->textures[DIR_NORTH];
+	}
+	if (!img)
+		img = tile->textures[DIR_DEFAULT];
+	if (!img)
+		img = tile->textures[DIR_INVALID];
+	return (img);
+}
+
+static void	draw_column(t_render_task *task, uint32_t x,
+					t_ray *ray, t_hit *hit)
+{
+	const t_assets	*assets = task->renderer->assets;
+	const t_tile	*tile = &assets->tiles[hit->tile_id];
+	t_image	*tex = get_wall_texture(tile, ray, hit->side);
+
+	if (!tex)
+		tex = assets->invalid;
+
+	int line_height = (int)(HEIGHT / hit->dist);
+
+	int draw_start = -line_height / 2 + HEIGHT / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+
+	int draw_end = line_height / 2 + HEIGHT / 2;
+	if (draw_end >= HEIGHT)
+		draw_end = HEIGHT - 1;
+
+	/* ceiling */
+	for (int y = 0; y < draw_start; y++)
+		set_pixel(x, y, assets->ceiling, task->frame);
+
+	/* texture X */
+	int tex_x = (int)(hit->wall_x * tex->width);
+
+	if (hit->side == 0 && ray->dir.x > 0)
+		tex_x = tex->width - tex_x - 1;
+	if (hit->side == 1 && ray->dir.y < 0)
+		tex_x = tex->width - tex_x - 1;
+
+	float step = (float)tex->height / (float)line_height;
+	float tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
+
+	for (int y = draw_start; y < draw_end; y++)
+	{
+		int tex_y = (int)tex_pos;
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= (int)tex->height)
+			tex_y = tex->height - 1;
+
+		tex_pos += step;
+
+		uint32_t color = tex->data[tex_y * (tex->linesz / 4) + tex_x];
+
+		if (hit->side == 1)
+			color = (color >> 1) & 0x7F7F7F;
+
+		set_pixel(x, y, color, task->frame);
+	}
+
+	/* floor */
+	for (int y = draw_end; y < HEIGHT; y++)
+		set_pixel(x, y, assets->floor, task->frame);
+}
+
 static void	render_slice(t_render_task *task)
 {
-	uint32_t		x;
-	t_ray			ray;
+	uint32_t	x;
+	t_ray		ray;
+	t_hit		hit;
 
 	x = task->x_start;
 	while (x <= task->x_end)
 	{
 		init_ray(&ray, task->world->player, x);
+		if (cast_ray(&ray,
+				&task->world->player,
+				&task->renderer->assets->map,
+				task->renderer->assets->tiles,
+				&hit))
+		{
+			draw_column(task, x, &ray, &hit);
+		}
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:41:09 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/17 11:58:02 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:40:44 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	parse_map(t_assets *a, t_parser p)
 	offset = SIZE_MAX;
 	if (get_map_size(p, &a->map.width, &a->map.height, &offset))
 		return (dprintf(2, "Map: map size invalid\n"), 1);
-	printf("Width=%zu, Height=%zu, offset=%zu\n", a->map.width, a->map.height, offset);
 	a->map.data = (uint8_t *)malloc(sizeof(uint8_t) * (a->map.width * a->map.height));
 	if (!a->map.data)
 		return (1);

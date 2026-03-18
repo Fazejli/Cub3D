@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:02:10 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/17 12:11:53 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 17:46:42 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "gfx.h"
 
-void	free_image(void *mlx, t_image *img)
+void	gfx_image_destroy(void *mlx, t_image *img)
 {
 	if (!img)
 		return ;
@@ -49,14 +49,18 @@ t_image	*get_image_from_xpm(void *mlx, char *file)
 		&(int){0}
 		);
 	if (!img->data)
-		return (free_image(mlx, img), NULL);
+		return (gfx_image_destroy(mlx, img), NULL);
 	return (img);
 }
 
-int	gfx_image_create(const t_gfx *gfx, t_image *img,
+int	gfx_image_create(void *mlx, t_image *img,
 		uint32_t width, uint32_t height)
 {
-	img->ptr = mlx_new_image(gfx->mlx, (int)width, (int)height);
+	img->ptr = mlx_new_image(
+		mlx,
+		(int)width,
+		(int)height
+		);
 	if (!img->ptr)
 		return (1);
 	img->data = (uint32_t *)(void *)mlx_get_data_addr(

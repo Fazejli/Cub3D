@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:29:31 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:45:34 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:45:12 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "assets/assets.h"
 #include "utils/t_str.h"
 
 #include "parser_internal.h"
@@ -28,7 +29,7 @@ static int	add_tile_color(t_assets *a, t_str key, t_str option, t_str value)
 	uint32_t	dir;
 
 	tile = &a->tiles[(unsigned char)key.ptr[0] - 32];
-	if (tile == NULL)
+	if (tile->flags == TILE_F_NONE)
 		return (dprintf(2, "Colors: tile '%c' has not been initialized\n", *key.ptr), 1);
 	dir = parse_dir_option(option);
 	if (dir >= DIR_COUNT)
@@ -36,7 +37,7 @@ static int	add_tile_color(t_assets *a, t_str key, t_str option, t_str value)
 	if (tile->colors[dir] != 0)
 		return (dprintf(2, "Colors: color for tile '%c' already has previous attribution\n", *key.ptr), 1);
 	rgb = parse_rgb(value);
-	if (!rgb)
+	if (rgb == RGB_ERROR)
 		return (dprintf(2, "Colors: invalid color for tile '%c': [%.*s]\n", *key.ptr, (int)value.len, value.ptr), 1);
 	tile->colors[dir] = rgb;
 	return (0);
@@ -61,7 +62,7 @@ static int add_asset_color(t_assets *a, t_str key, t_str option, t_str value)
 	if (*color != 0)
 		return (dprintf(2, "Colors: color for asset '%.*s' already has previous attribution.\n", (int)key.len, key.ptr), 1);
 	rgb = parse_rgb(value);
-	if (!rgb)
+	if (rgb == RGB_INVALID)
 		return (dprintf(2, "Colors: invalid color for asset '%.*s': [%.*s]\n", (int)key.len, key.ptr, (int)value.len, value.ptr), 1);
 	*color = rgb;
 	return (0);

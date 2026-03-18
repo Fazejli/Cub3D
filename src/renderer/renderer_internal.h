@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 12:38:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 12:42:20 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 17:04:29 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,13 @@ typedef struct s_ray
 	uint32_t	start;
 	uint32_t	end;
 }	t_ray;
+
+typedef struct s_hit
+{
+	uint8_t	tile_id;
+	int		side;
+	float	dist;
+	float	wall_x;
+}	t_hit;
 
 #endif

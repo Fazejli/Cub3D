@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 16:35:52 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/17 12:15:45 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 17:42:51 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	free_tile_textures(t_assets *a)
 		while (j < DIR_COUNT)
 		{
 			if (a->tiles[i].textures[j])
-				free_image(a->gfx->mlx, a->tiles[i].textures[j]);
+				gfx_image_destroy(a->gfx->mlx, a->tiles[i].textures[j]);
 			j++;
 		}
 		i++;
@@ -44,9 +44,9 @@ static void	free_tile_textures(t_assets *a)
 static void	free_asset_textures(t_assets *a)
 {
 	if (a->skybox)
-		free_image(a->gfx->mlx, a->skybox);
+		gfx_image_destroy(a->gfx->mlx, a->skybox);
 	if (a->invalid)
-		free_image(a->gfx->mlx, a->invalid);
+		gfx_image_destroy(a->gfx->mlx, a->invalid);
 }
 
 void	assets_deinit(t_assets *assets)
@@ -55,7 +55,10 @@ void	assets_deinit(t_assets *assets)
 		return ;
 	if (assets->map.data)
 		free(assets->map.data);
-	free_tile_textures(assets);
-	free_asset_textures(assets);
+	if (assets->gfx)
+	{
+		free_tile_textures(assets);
+		free_asset_textures(assets);
+	}
 	memset(assets, 0, sizeof(t_assets));
 }

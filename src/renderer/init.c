@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:44:43 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/25 05:22:48 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:48:41 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,17 @@ static int	renderer_init_framebuffers(t_renderer *r, const t_options *opt)
 	i = 0;
 	while (i < FRAMEBUFFER_COUNT)
 	{
-		// todo cleanup
-		if (gfx_image_create(r->gfx, &r->framebuffers[i], opt->width,
-				opt->height))
+		if (gfx_image_create(
+			r->gfx->mlx, 
+			&r->framebuffers[i],
+			opt->width,
+			opt->height)
+			!= 0)
+		{
+			while (i-- > 0)
+				gfx_image_destroy(r->gfx->mlx, &r->framebuffers[i]);
 			return (1);
+		}
 		i++;
 	}
 	return (0);

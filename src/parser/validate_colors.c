@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:54:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:47:02 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:45:02 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static int	validate_asset_colors(t_assets *a)
 	if (!a->ceiling)
 	{
 		dprintf(2, "Colors: warning: 'ceiling' color not set. Setting to magenta\n");
-		a->ceiling = 255 << 16 | 255;
+		a->ceiling = RGB_INVALID;
 	}
 	if (!a->floor)
 	{
 		dprintf(2, "Colors: warning: 'floor' color not set. Setting to magenta\n");
-		a->floor = 255 << 16 | 255;
+		a->floor = RGB_INVALID;
 	}
 	return (0);
 }

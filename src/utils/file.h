@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:36:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:38:12 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:17:58 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ typedef struct s_file {
 bool	is_valid_name(const char *path);
 
 void	unmap_file(t_file *file);
-t_file	map_file(const char *path);
+int		map_file(t_file *file, const char *path);
 
 #endif

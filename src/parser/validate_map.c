@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:54:41 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/15 10:43:03 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 16:39:37 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	validate_map(t_assets *a)
 		{
 			if (player_found)
 				return (dprintf(2, "Map: Multiple players found\n"), 1);
-			a->map.player = i;
+			a->map.player_pos = i;
 			player_found = true;
 		}
 		if (!is_tile_valid(a, i))

@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:46:03 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/24 22:47:59 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:38:06 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <time.h>
+
 #include "physics.h"
 #include "utils/utils.h"
-#include <time.h>
+#include "world/world.h"
 
 __attribute__((always_inline))
 inline void	sleep_ns(long ns)
@@ -34,13 +37,13 @@ static void	*physics_thread(t_physics *p)
 
 	last_time_us = get_timestamp_us();
 	accumulator = 0.0f;
-	while (1)
+	while (atomic_load(&p->running))
 	{
 		now_us = get_timestamp_us();
 		elapsed_s = (float)(now_us - last_time_us) / 1000000.0f;
 		last_time_us = now_us;
 		accumulator += elapsed_s;
-		while (accumulator >= dt)
+		while (accumulator >= dt && atomic_load(&p->running))
 		{
 			physics_update(p, dt);
 			accumulator -= dt;
@@ -52,7 +55,16 @@ static void	*physics_thread(t_physics *p)
 
 int	physics_init(t_physics *p)
 {
-	atomic_store(&p->ready, 1);
-	return (pthread_create(&p->thread, NULL,
-			(void *(*)(void *))(intptr_t)physics_thread, p));
+	if (!p || !p->world_buffer || !p->input)
+		return (1);
+	world_get_write_snapshot(p->world_buffer);
+	world_get_write_snapshot(p->world_buffer);
+	atomic_store(&p->running, 1);
+	if (pthread_create(
+		&p->thread,
+		NULL,
+		(void *(*)(void *))(intptr_t)physics_thread,
+		p) != 0)
+		return (1); //error: failed to create thread
+	return (0);
 }

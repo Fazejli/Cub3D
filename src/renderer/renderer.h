@@ -6,13 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 20:16:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 12:38:40 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/17 15:31:23 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDERER_H
 # define RENDERER_H
 
+#include "assets/assets.h"
 # include "common.h"
 # include "gfx/gfx.h"
 # include "options/options.h"
@@ -24,6 +25,7 @@
 typedef struct s_renderer
 {
 	const t_gfx		*gfx;
+	const t_assets	*assets;
 	t_world_buffer	*world_buffer;
 	t_image			framebuffers[FRAMEBUFFER_COUNT];
 	t_threadpool	pool;

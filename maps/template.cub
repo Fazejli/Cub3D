@@ -16,8 +16,8 @@ invalid=./textures/invalid.xpm
 
 [COLORS]
 
-ceiling=11,13,54
-floor=0,1,4
+ceiling=0,255,0
+floor=255,255,0
 
 [MAP]
 

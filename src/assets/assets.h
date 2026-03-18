@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:26:08 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/17 12:14:27 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 16:39:13 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdint.h>
 
 # include "../gfx/gfx.h"
-# include "../options/options.h"
 
 typedef enum e_tile_flags
 {
@@ -66,7 +65,7 @@ typedef struct s_map
 	uint8_t		*data;
 	size_t		width;
 	size_t		height;
-	size_t		player;
+	size_t		player_pos;
 }	t_map;
 
 typedef struct s_assets

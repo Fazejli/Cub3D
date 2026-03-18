@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   snapshot.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:26:26 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/26 18:27:01 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/18 16:52:35 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ t_world	*world_get_write_snapshot(t_world_buffer *wb)
 
 void	world_publish_snapshot(t_world_buffer *wb)
 {
-	const int	prev_ready = atomic_load(&wb->ready_index);
+	int	ready_idx;
+	int	next_write;
 
+	if (!wb)
+		return ;
+	ready_idx = atomic_load(&wb->ready_index);
+	next_write = (wb->write_index + 1) % WORLD_COUNT;
+	while (next_write == ready_idx)
+		next_write = (next_write + 1) % WORLD_COUNT;
 	atomic_store(&wb->ready_index, wb->write_index);
-	wb->write_index = (wb->write_index + 1) % WORLD_COUNT;
-	if (wb->write_index == prev_ready)
-		wb->write_index = (wb->write_index + 1) % WORLD_COUNT;
+	wb->write_index = next_write;
 }

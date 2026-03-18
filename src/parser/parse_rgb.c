@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:56:11 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/17 11:57:37 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:45:32 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,21 @@ uint32_t	parse_rgb(t_str value)
 
 	front_trim_str(&value);
 	if (parse_u8(&value, &r))
-		return (0);
+		return (RGB_ERROR);
 	front_trim_str(&value);
 	if (skip_comma(&value))
-		return (0);
+		return (RGB_ERROR);
 	front_trim_str(&value);
 	if (parse_u8(&value, &g))
-		return (0);
+		return (RGB_ERROR);
 	front_trim_str(&value);
 	if (skip_comma(&value))
-		return (0);
+		return (RGB_ERROR);
 	front_trim_str(&value);
 	if (parse_u8(&value, &b))
-		return (0);
+		return (RGB_ERROR);
 	front_trim_str(&value);
 	if (value.len != 0)
-		return (0);
-	if (r == 0 && g == 0 && b == 0)
-		return (1); //return smallest color change value, reserve 0 black as error val
+		return (RGB_ERROR);
 	return ((uint32_t)(r << 16 | g << 8 | b));
 }

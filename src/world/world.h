@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:54 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/26 13:08:16 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:25:16 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define WORLD_H
 
 # include "common.h"
+# include "assets/assets.h"
 # include "world/entity.h"
 # include <stdatomic.h>
 
@@ -30,7 +31,7 @@ typedef struct s_world_buffer {
 	int			write_index;
 }	t_world_buffer;
 
-int				world_buffer_init(t_world_buffer *wb);
+int				world_buffer_init(t_world_buffer *wb, t_assets *a);
 void			world_buffer_deinit(t_world_buffer *wb);
 
 const t_world	*world_get_ready_snapshot(const t_world_buffer *wb);

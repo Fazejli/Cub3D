@@ -6,29 +6,17 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/17 12:09:35 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 10:20:09 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-
-#include "cub3d.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "gfx/gfx.h"
-#include "assets/assets.h"
 #include "engine/engine.h"
 #include "renderer/renderer.h"
-
-// __attribute__((__noreturn__))
-// void	game_destroy(t_game *g, int exit_code)
-// {
-// 	gfx_deinit(&g->gfx);
-// 	exit(exit_code);
-// }
-
-#define MOVE_STEP 0.01f
-#define ROT_STEP 0.01f
 
 __attribute__((unused))
 static int	loop2(t_engine *e)
@@ -44,7 +32,6 @@ int	main(int argc, char **argv)
 
 	if (engine_init(&engine, argc, argv))
 		return (1);
-	// hooks_init(&game);
 	gfx_loop(&engine.gfx, (int (*)(void))(intptr_t)loop2, &engine);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:01:42 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/17 12:07:35 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 17:48:01 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,6 @@ uint32_t	get_pixel(uint32_t x, uint32_t y, t_image *img)
 		return (0);
 	offset = y * (img->linesz / 4) + x;
 	return (*(img->data + offset));
-}
-
-/** 
- * @brief Scales a pixel by a given factor and color values.
- */
-void	scale_pixel(uint32_t x, uint32_t y, uint32_t c, uint32_t scale, t_image *dst)
-{
-	uint32_t	i;
-	uint32_t	j;
-
-	if (!dst || scale <= 0)
-		return ;
-	j = 0;
-	while (j < y + scale)
-	{
-		i = x;
-		while (i < x + scale)
-		{
-			set_pixel(i, j, c, dst);
-			i++;
-		}
-		j++;
-	}
 }
 
 uint32_t	blend_colors(uint32_t src, uint32_t dst, float t)

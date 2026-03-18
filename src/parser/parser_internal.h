@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 10:52:57 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/16 11:41:41 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:45:06 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,22 @@
 
 #include "assets/assets.h"
 
+#define RGB_ERROR	UINT32_MAX
+#define RGB_INVALID	0xFF00FF
+
 typedef struct s_parser
 {
 	const char		*cur;
 	const char		*end;
 }	t_parser;
 
-typedef int (*t_parse_fn)(t_assets *, t_parser);
-typedef int (*t_validate_fn)(t_assets *);
+typedef int	(*t_parse_fn)(t_assets *, t_parser);
+typedef int	(*t_validate_fn)(t_assets *);
+
+typedef struct s_section_fns {
+t_parse_fn		parse;
+t_validate_fn	validate;
+}	t_section_fns;
 
 typedef	struct s_section
 {
@@ -35,6 +43,9 @@ typedef	struct s_section
 	size_t			len;
 	t_parse_fn		parse;
 	t_validate_fn	validate;
+	char			flag;
+
+	char			reserved[7];
 }	t_section;
 
 bool		next_line(t_parser *p, t_str *line, bool front_trim, bool back_trim);

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:37:42 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/26 19:33:30 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 14:08:48 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_options {
 	uint32_t		height;
 	int16_t			thread_count;
 	int16_t			fps;
+	const char		*file_path;
 
 }	t_options;
 

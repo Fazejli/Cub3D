@@ -3,16 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   deinit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smamalig <smamalig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:45:00 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/20 12:45:29 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:43:40 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "gfx/gfx.h"
+
 #include "renderer.h"
+#include "threads/threads.h"
 
 void	renderer_deinit(t_renderer *r)
 {
-	(void)r;
+	int i;
+
+	if (!r)
+		return ;
+	i = 0;
+	while (i < FRAMEBUFFER_COUNT)
+	{
+		gfx_image_destroy(r->gfx->mlx, &r->framebuffers[i]);
+		i++;
+	}
+	threadpool_deinit(&r->pool);
 }
