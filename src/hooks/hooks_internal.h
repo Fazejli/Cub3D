@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:18:33 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/18 17:27:35 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 20:33:16 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ enum {
 	m_left = 1,
 	m_right = 2,
 	m_middle = 3,
-
 };
+
+# endif
 
 enum e_key_bits {
 	KEY_FORWARD,
@@ -109,7 +110,6 @@ static const int	g_keymap[KEY_COUNT] = {
 [KEY_PITCH_DOWN] = k_down,
 [KEY_ESCAPE] = k_escape,
 };
-# endif
 
 int	hooks_keys_init(t_engine *engine);
 int	hooks_mouse_init(t_engine *engine);

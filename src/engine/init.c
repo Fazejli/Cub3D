@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:31:29 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 17:10:12 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 20:36:41 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include "world/world.h"
 #include "physics/physics.h"
 #include "renderer/renderer.h"
-
-#include <stdio.h>
 
 static void	init_engine_pointers(t_engine *e)
 {

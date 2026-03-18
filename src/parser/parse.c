@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 16:26:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/18 14:40:03 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 20:32:36 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 
 #include <stdio.h>
 
-#define	SEC_TILES		1
-#define	SEC_TEXTURES	2
-#define	SEC_COLORS		4
-#define	SEC_MAP			8
-#define SEC_ALL			SEC_TILES \
-						| SEC_TEXTURES \
-						| SEC_COLORS \
-						| SEC_MAP
+enum {
+	SEC_TILES = 1 << 0,
+	SEC_TEXTURES = 1 << 1,
+	SEC_COLORS = 1 << 2,
+	SEC_MAP = 1 << 3,
+	SEC_ALL = 0xf
+};
 
 t_section	g_sections[] = {
 {

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:18:40 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 14:05:14 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 20:35:03 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 #include "gfx.h"
 
+#if defined (__linux__)
 
-#if defined (__LINUX__)
 void	gfx_deinit(t_gfx *gfx)
 {
 	if (!gfx)
@@ -33,7 +33,9 @@ void	gfx_deinit(t_gfx *gfx)
 		gfx->mlx = NULL;
 	}
 }
+
 #elif defined(__APPLE__)
+
 void	gfx_deinit(t_gfx *gfx)
 {
 	if (!gfx)
@@ -46,4 +48,5 @@ void	gfx_deinit(t_gfx *gfx)
 	if (gfx->mlx)
 		gfx->mlx = NULL;
 }
+
 #endif

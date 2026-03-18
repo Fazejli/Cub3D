@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:50:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 16:25:40 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/18 20:33:29 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	key_press_hook(int keysym, int x, int y, t_engine *e)
 	return (0);
 }
 
-static int	key_release_hook(int keysym,, int x, int y, t_engine *e)
+static int	key_release_hook(int keysym, int x, int y, t_engine *e)
 {
 	(void)x;
 	(void)y;
