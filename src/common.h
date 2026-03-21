@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:28:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 12:36:18 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 12:00:58 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,17 @@
 # define MAX_HEIGHT 1920
 
 # define MAX_ENTITIES 32
+
+# define PI			3.14159265358979323846f
+# define PI_2		(PI / 2.0f)
+# define PI_3_2		(3.0f * PI_2)
+
+# define MOVE_SPEED 0.005f
+# define ROT_SPEED	0.005f
+# define MOUSE_SENSITIVITY 0.001f
+# define ZOOM_SPEED	0.05f
+# define FRICTION	0.9f
+
+# define ENTITY_SIZE 0.2f
 
 #endif

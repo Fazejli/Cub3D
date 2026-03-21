@@ -6,9 +6,11 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:19:13 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 16:51:36 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 11:14:12 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <string.h>
 
 #include "assets/assets.h"
 
@@ -19,6 +21,8 @@ static void	set_player(t_world *world, size_t x, size_t y)
 {
 	world->player.pos.x = (float)x + 0.5f;
 	world->player.pos.y = (float)y + 0.5f;
+	world->player.vel.x = 0.0f;
+	world->player.vel.y = 0.0f;
 	world->player.yaw = 0.0f;
 	world->player.fov = 90.0f;
 }

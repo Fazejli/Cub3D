@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/03/20 17:13:20 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/03/21 12:28:38 by mattcarniel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,13 +56,12 @@ OBJ_DIR := $(ROOT_DIR)/obj
 SRC_THREADS		:= $(addprefix threads/, init.c deinit.c run.c add.c)
 SRC_HOOKS		:= $(addprefix hooks/, init.c mouse.c keys.c)
 SRC_UTILS		:= $(addprefix utils/, time.c error.c file.c char_checks.c t_str.c)
-SRC_MINIMAP		:= $(addprefix minimap/, minimap.c)
 SRC_ASSETS		:= $(addprefix assets/, init.c deinit.c map.c)
 SRC_PARSER		:= $(addprefix parser/, parse.c parse_utils.c \
 				  parse_tiles.c parse_textures.c parse_rgb.c parse_colors.c parse_map.c \
 				  validate_tiles.c validate_textures.c validate_colors.c validate_map.c)
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
-SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c column.c column2.c render.c)
+SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c ray.c column.c column2.c minimap.c render.c)
 SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c update.c)
 SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c pixel.c loop.c)
 SRC_WORLD		:= $(addprefix world/, init.c deinit.c snapshot.c)

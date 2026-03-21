@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:37:21 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/20 17:17:14 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 11:22:35 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ typedef union u_keys {
 
 typedef struct s_mouse {
     int32_t		last_x;
-    int32_t		last_y;
+    int32_t		last_z;
     int32_t		delta_x;
-    int32_t		delta_y;
+    int32_t		delta_z;
     uint8_t		left_pressed;
     uint8_t		right_pressed;
     uint8_t		middle_pressed;

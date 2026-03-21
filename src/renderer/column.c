@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:17:19 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/20 17:24:57 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/20 20:11:24 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,26 @@ static void	init_params(t_col_params *p, t_ray *r, t_hit *h, uint32_t height)
 }
 
 
+
 static t_image	*tile_texture_at(const t_tile *tile, t_ray *ray, int side)
 {
 	t_dir	dir;
 
-	if (side == 0)
-	{
-		if (ray->dir.x < 0.0f)
-			dir = DIR_EAST;
-		else
-			dir = DIR_WEST;
-	}
-	else
-	{
-		if (ray->dir.y < 0.0f)
-			dir = DIR_SOUTH;
-		else
-			dir = DIR_NORTH;
-	}
+	dir = (!side << 1) + (ray->dir.e[side] < 0.0f) + 2;
+	// if (side == 0)
+	// {
+	// 	if (ray->dir.x < 0.0f)
+	// 		dir = DIR_EAST;
+	// 	else
+	// 		dir = DIR_WEST;
+	// }
+	// else
+	// {
+	// 	if (ray->dir.y < 0.0f)
+	// 		dir = DIR_SOUTH;
+	// 	else
+	// 		dir = DIR_NORTH;
+	// }
 	if (tile->textures[dir])
 		return (tile->textures[dir]);
 	if (tile->textures[DIR_DEFAULT])
@@ -61,7 +63,7 @@ static t_image	*tile_texture_at(const t_tile *tile, t_ray *ray, int side)
 }
 
 
-void	draw_column(t_render_task *task, uint32_t x, t_ray *ray, t_hit *hit)
+void	draw_column(t_render_task *task, t_ray *ray, t_hit *hit)
 {
 	const t_assets	*assets = task->renderer->assets;
 	const t_tile	*tile = &assets->tiles[hit->tile_id];
@@ -71,7 +73,7 @@ void	draw_column(t_render_task *task, uint32_t x, t_ray *ray, t_hit *hit)
 	if (!p.tex)
 		p.tex = assets->invalid;
 	init_params(&p, ray, hit, task->frame->height);
-	draw_ceiling(task->frame, p, x, assets->ceiling);
-	draw_wall(task->frame, p, x);
-	draw_floor(task->frame, p, x, assets->floor);
+	draw_ceiling(task->frame, p, ray->x, assets->ceiling);
+	draw_wall(task->frame, p, ray->x);
+	draw_floor(task->frame, p, ray->x, assets->floor);
 }

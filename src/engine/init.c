@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:31:29 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/20 18:09:55 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 11:43:48 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	init_engine_pointers(t_engine *e)
 	e->renderer.gfx = &e->gfx;
 	e->renderer.assets = &e->assets;
 	e->physics.input = &e->input;
+	e->physics.assets = &e->assets;
 }
 
 int	engine_init(t_engine *e, int argc, char **argv)

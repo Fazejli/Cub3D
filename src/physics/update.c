@@ -6,16 +6,19 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:49:02 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 17:39:03 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 12:07:05 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include <stdatomic.h>
 #include <stdio.h>
 
+#include "assets/assets.h"
 #include "world/world.h"
 #include "hooks/hooks.h"
 #include "utils/utils.h"
+#include "common.h"
 
 #include "physics.h"
 
@@ -42,22 +45,62 @@ static void	print_steps_per_sec(void)
 
 static void	apply_input(t_world *world, t_input *input)
 {
-	if (input->keys.values.forward)
-		world->player.pos.y += MOVE_SPEED * (1.0f / 128.0f);
-	if (input->keys.values.backward)
-		world->player.pos.y -= MOVE_SPEED * (1.0f / 128.0f);
-	if (input->keys.values.left)
-		world->player.pos.x -= MOVE_SPEED * (1.0f / 128.0f);
-	if (input->keys.values.right)
-		world->player.pos.x += MOVE_SPEED * (1.0f / 128.0f);
-	if (input->keys.values.yaw_left)
-		world->player.yaw -= ROT_SPEED * (1.0f / 128.0f);
-	if (input->keys.values.yaw_right)
-		world->player.yaw += ROT_SPEED * (1.0f / 128.0f);
-	if (input->mouse.delta_x != 0)
-		world->player.yaw += input->mouse.delta_x * MOUSE_SENSITIVITY;
+	t_vec2f	d;
+	float	len;
+
+	d.x = (input->keys.values.forward != 0) * cosf(world->player.yaw)
+		- (input->keys.values.backward != 0) * cosf(world->player.yaw)
+		+ (input->keys.values.left != 0) * sinf(world->player.yaw)
+		- (input->keys.values.right != 0) * sinf(world->player.yaw);
+	d.y = (input->keys.values.forward != 0) * sinf(world->player.yaw)
+		- (input->keys.values.backward != 0) * sinf(world->player.yaw)
+		- (input->keys.values.left != 0) * cosf(world->player.yaw)
+		+ (input->keys.values.right != 0) * cosf(world->player.yaw);
+	len = sqrtf(d.x * d.x + d.y * d.y);
+	if (len > 0.0f)
+	{
+		world->player.vel.x += (d.x / len) * MOVE_SPEED;
+		world->player.vel.y += (d.y / len) * MOVE_SPEED;
+	}
+	world->player.yaw_vel -= (input->keys.values.yaw_left != 0) * ROT_SPEED;
+	world->player.yaw_vel += (input->keys.values.yaw_right != 0) * ROT_SPEED;
+	world->player.yaw_vel +=
+		(input->mouse.delta_x != 0) * input->mouse.delta_x * MOUSE_SENSITIVITY;
 	input->mouse.delta_x = 0;
-	input->mouse.delta_y = 0;
+	input->mouse.delta_z = 0;
+}
+
+static bool	is_solid(t_map *map, t_tile *tiles, float x, float y)
+{
+	if (x < 0.0f || x >= (float)map->width
+		|| y < 0.0f || y >= (float)map->height)
+		return (true);
+	return ((tiles[map->data[(uint32_t)y * map->width + (uint32_t)x]].flags
+			& TILE_F_WALKABLE) == 0);
+}
+
+static void	apply_collisions(t_world *world, t_map *map, t_tile *tiles)
+{
+	t_vec2f	next_pos;
+
+	next_pos.x = world->player.pos.x + world->player.vel.x;
+	next_pos.y = world->player.pos.y + world->player.vel.y;
+	if (is_solid(map, tiles, next_pos.x - ENTITY_SIZE, world->player.pos.y)
+		|| is_solid(map, tiles, next_pos.x + ENTITY_SIZE, world->player.pos.y))
+		world->player.vel.x = 0.0f;
+	if (is_solid(map, tiles, world->player.pos.x, next_pos.y - ENTITY_SIZE)
+		|| is_solid(map, tiles, world->player.pos.x, next_pos.y + ENTITY_SIZE))
+		world->player.vel.y = 0.0f;
+}
+
+static void	apply_inertia(t_world *world)
+{
+	world->player.pos.x += world->player.vel.x;
+	world->player.pos.y += world->player.vel.y;
+	world->player.yaw += world->player.yaw_vel;
+	world->player.vel.x *= FRICTION;
+	world->player.vel.y *= FRICTION;
+	world->player.yaw_vel *= FRICTION;
 }
 
 void	physics_update(t_physics *p, float dt)
@@ -70,6 +113,8 @@ void	physics_update(t_physics *p, float dt)
 	*world = *world_get_ready_snapshot(p->world_buffer);
 	(void)dt;
 	apply_input(world, p->input);
+	apply_collisions(world, &p->assets->map, p->assets->tiles);
+	apply_inertia(world);
 	world_publish_snapshot(p->world_buffer);
 	print_steps_per_sec();
 }

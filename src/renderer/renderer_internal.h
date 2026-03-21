@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 12:38:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/20 17:21:10 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 12:23:54 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,26 @@ typedef struct s_render_task {
 	uint32_t		x_end;
 }	t_render_task;
 
-typedef struct s_algo
+typedef struct s_dda
 {
 	t_vec2f	delta;
 	t_vec2f	side;
 	t_vec2i	step;
-}	t_algo;
+}	t_dda;
 
 typedef struct s_ray
 {
+	t_dda		dda;
 	t_vec2f		dir;
 	t_vec2i		pos;
 	float		dist;
 	uint32_t	line_height;
-	int			side;
-	t_algo		dda;
 	uint32_t	start;
 	uint32_t	end;
+	uint32_t	x;
+	uint8_t		side;
+
+	char		reserved[3];
 }	t_ray;
 
 typedef struct s_hit
@@ -68,10 +71,14 @@ typedef struct s_col_params
 	t_image		*tex;
 }	t_col_params;
 
+void	draw_minimap(t_image *f, const t_world *w, const t_assets *a);
+
+int		cast_ray(t_ray *ray, t_hit *hit, t_render_task *task);
+
 void	draw_ceiling(t_image *f, t_col_params p, uint32_t x, uint32_t color);
 void	draw_floor(t_image *f, t_col_params p, uint32_t x, uint32_t color);
 void	draw_wall(t_image *f, t_col_params p, uint32_t x);
 
-void	draw_column(t_render_task *task, uint32_t x, t_ray *ray, t_hit *hit);
+void	draw_column(t_render_task *task, t_ray *ray, t_hit *hit);
 
 #endif

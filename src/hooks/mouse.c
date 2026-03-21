@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:39:59 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 16:26:19 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 11:23:11 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static int	mouse_move_hook(int x, int y, t_engine *e)
 	if (!e)
 		return (1);
 	dx = (int32_t)x - e->input.mouse.last_x;
-	dy = (int32_t)y - e->input.mouse.last_y;
+	dy = (int32_t)y - e->input.mouse.last_z;
 	e->input.mouse.last_x = x;
-	e->input.mouse.last_y = y;
+	e->input.mouse.last_z = y;
 	e->input.mouse.delta_x = dx;
-	e->input.mouse.delta_y = dy;
+	e->input.mouse.delta_z = dy;
 	return (0);
 }
 

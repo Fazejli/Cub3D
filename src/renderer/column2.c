@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:50:44 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/20 17:52:24 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/20 19:41:22 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static uint32_t	get_tex_x(t_image *tex, t_col_params p)
 {
 	uint32_t	x;
-	float	wall_x;
+	float		wall_x;
 
 	wall_x = p.hit->wall_x;
 	if (wall_x < 0.0f)
@@ -29,12 +29,7 @@ static uint32_t	get_tex_x(t_image *tex, t_col_params p)
 	x = (uint32_t)(wall_x * (float)tex->width);
 	if ((p.hit->side == 0 && p.ray->dir.x > 0)
 		|| (p.hit->side == 1 && p.ray->dir.y < 0))
-	{
-		if (x < tex->width)
 			x = tex->width - x - 1;
-		else
-			x = 0;
-	}
 	return (x);
 }
 
@@ -42,7 +37,7 @@ static uint32_t	get_tex_y(t_image *tex, float tex_pos)
 {
 	if (tex_pos < 0.0f)
 		return (0);
-	else if (tex->height + 1 <= (uint32_t)tex_pos)
+	else if (tex->height <= (uint32_t)tex_pos)
 		return (tex->height - 1);
 	return ((uint32_t)tex_pos);
 }

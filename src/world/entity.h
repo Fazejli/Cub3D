@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:05:44 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 12:41:30 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 11:18:26 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ typedef struct s_door {
 typedef struct s_player
 {
 	t_vec2f	pos;
+	t_vec2f	vel;
 	float	yaw;
+	float	yaw_vel;
 	float	fov;
 }	t_player;
 

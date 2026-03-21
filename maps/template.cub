@@ -3,14 +3,14 @@
 1=wall
 N=player
 0=floor
+2=wall
 
 [TEXTURES]
 
 1:N=./textures/north.xpm
 1:S=./textures/south.xpm
-1:W=./textures/west.xpm
 1:E=./textures/east.xpm
-
+1:W=./textures/west.xpm
 
 invalid=./textures/invalid.xpm
 
@@ -23,7 +23,7 @@ floor=255,255,0
 
 111111111111111111111
 100000000000000000001
-101111111111111111101
+101222222222222222101
 101               101
 101               101
 101               101
