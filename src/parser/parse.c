@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 16:26:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/20 18:09:37 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 15:46:56 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	parse_assets(t_assets *assets, const char *data, size_t size)
 	t_section_fns	f;
 	char			flags;
 
+	flags = 0;
 	p = (t_parser){data, data + size};
 	while (next_line(&p, &line, true, true))
 	{

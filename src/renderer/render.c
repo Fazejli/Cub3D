@@ -6,13 +6,12 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:14:46 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/21 12:28:13 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 15:48:08 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <time.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -22,11 +21,13 @@
 
 #include "renderer_internal.h"
 
-static void	render_slice(t_render_task *task)
+static void	render_slice(void *arg)
 {
-	t_ray		ray;
-	t_hit		hit;
+	t_ray			ray;
+	t_hit			hit;
+	t_render_task	*task;
 
+	task = arg;
 	ray.x = task->x_start;
 	while (ray.x <= task->x_end)
 	{

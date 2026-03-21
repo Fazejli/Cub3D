@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:17:19 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/20 20:11:24 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 15:43:38 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,26 @@
 
 #include "renderer_internal.h"
 #include "utils/vectors.h"
-  
 
 static void	init_params(t_col_params *p, t_ray *r, t_hit *h, uint32_t height)
 {
 	p->ray = r;
 	p->hit = h;
 	p->height = height;
-	p->line_height = (uint32_t)(height / h->dist);
+	p->line_height = (uint32_t)((float)height / h->dist);
 	p->draw_start = 0;
 	p->draw_end = height - 1;
-	if ( p->line_height < height)
+	if (p->line_height < height)
 		p->draw_start = height / 2 - p->line_height / 2;
 	if (p->draw_end < height)
 		p->draw_end = height / 2 + p->line_height / 2;
 }
 
-
-
 static t_image	*tile_texture_at(const t_tile *tile, t_ray *ray, int side)
 {
 	t_dir	dir;
 
-	dir = (!side << 1) + (ray->dir.e[side] < 0.0f) + 2;
+	dir = (t_dir)((!side << 1) + (ray->dir.e[side] < 0.0f) + 2);
 	// if (side == 0)
 	// {
 	// 	if (ray->dir.x < 0.0f)

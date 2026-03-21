@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:49:02 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/21 12:07:05 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 15:45:33 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ static void	apply_input(t_world *world, t_input *input)
 	}
 	world->player.yaw_vel -= (input->keys.values.yaw_left != 0) * ROT_SPEED;
 	world->player.yaw_vel += (input->keys.values.yaw_right != 0) * ROT_SPEED;
-	world->player.yaw_vel +=
-		(input->mouse.delta_x != 0) * input->mouse.delta_x * MOUSE_SENSITIVITY;
+	world->player.yaw_vel
+		+= MOUSE_SENSITIVITY
+		* (float)((input->mouse.delta_x != 0) * input->mouse.delta_x);
 	input->mouse.delta_x = 0;
 	input->mouse.delta_z = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 17:56:20 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/20 20:03:01 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 15:42:54 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	init_ray(t_ray *ray, const t_player p, uint32_t width)
 
 	ray->dir.x = dir_x - dir_y * cam * plane;
 	ray->dir.y = dir_y + dir_x * cam * plane;
-	ray->pos.x = (int32_t)p.pos.x;
-	ray->pos.y = (int32_t)p.pos.y;
+	ray->pos.x = (uint32_t)p.pos.x;
+	ray->pos.y = (uint32_t)p.pos.y;
 	init_dda(ray, p);
 }
 
@@ -77,16 +77,16 @@ int	cast_ray(t_ray *ray, t_hit *hit, t_render_task *task)
 	{
 		hit->side = (ray->dda.side.x > ray->dda.side.y);
 		ray->dda.side.e[hit->side] += ray->dda.delta.e[hit->side];
-		ray->pos.e[hit->side] += ray->dda.step.e[hit->side];
-		if (ray->pos.x < 0 || ray->pos.x >= (int)map->width
-			|| ray->pos.y < 0 || ray->pos.y >= (int)map->height)
+		ray->pos.e[hit->side] += (uint32_t)ray->dda.step.e[hit->side];
+		if (ray->pos.x < 0 || ray->pos.x >= map->width
+			|| ray->pos.y < 0 || ray->pos.y >= map->height)
 			return (1);
 		hit->tile_id = map->data[ray->pos.y * map->width + ray->pos.x];
 		if (tiles[hit->tile_id].flags & TILE_F_RAY_BLOCK)
 			break ;
 	}
-	hit->dist = (ray->pos.e[hit->side] - p.pos.e[hit->side]
-		+ (1 - ray->dda.step.e[hit->side]) * 0.5f) / ray->dir.e[hit->side];
+	hit->dist = ((float)ray->pos.e[hit->side] - p.pos.e[hit->side] + (float)(1
+				- ray->dda.step.e[hit->side]) * 0.5f) / ray->dir.e[hit->side];
 	if (hit->dist < 0.001f)
 		hit->dist = 0.001f;
 	hit->wall_x = p.pos.e[!hit->side] + hit->dist * ray->dir.e[!hit->side];

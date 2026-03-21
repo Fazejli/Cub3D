@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 12:38:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/21 12:23:54 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/21 15:40:19 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_ray
 {
 	t_dda		dda;
 	t_vec2f		dir;
-	t_vec2i		pos;
+	t_vec2u		pos;
 	float		dist;
 	uint32_t	line_height;
 	uint32_t	start;
@@ -66,8 +66,8 @@ typedef struct s_col_params
 	uint32_t	draw_start;
 	uint32_t	draw_end;
 	uint32_t	line_height;
-	t_ray 		*ray;
-	t_hit 		*hit;
+	t_ray		*ray;
+	t_hit		*hit;
 	t_image		*tex;
 }	t_col_params;
 
