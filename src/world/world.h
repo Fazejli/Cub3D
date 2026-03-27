@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:54 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/21 11:13:15 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 14:08:14 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 typedef struct __attribute__((aligned(8))) s_world {
 	t_player	player;
 	t_entity	entities[MAX_ENTITIES];
-	int			entity_count;
+	uint32_t	entity_count;
 	char		reserved[4];
 }	t_world;
 
@@ -36,6 +36,7 @@ void			world_buffer_deinit(t_world_buffer *wb);
 
 const t_world	*world_get_ready_snapshot(const t_world_buffer *wb);
 t_world			*world_get_write_snapshot(t_world_buffer *wb);
+void			world_copy_snapshot(t_world *dst, const t_world *src);
 void			world_publish_snapshot(t_world_buffer *wb);
 
 #endif

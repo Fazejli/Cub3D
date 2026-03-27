@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:26:26 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/18 16:52:35 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 11:15:26 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ const t_world	*world_get_ready_snapshot(const t_world_buffer *wb)
 t_world	*world_get_write_snapshot(t_world_buffer *wb)
 {
 	return (&wb->worlds[wb->write_index]);
+}
+
+void	world_copy_snapshot(t_world *dst, const t_world *src)
+{
+	uint32_t	i;
+
+	dst->player = src->player;
+	dst->entity_count = src->entity_count;
+	i = 0;
+	while (i < src->entity_count)
+	{
+		dst->entities[i] = src->entities[i];
+		i++;
+	}
 }
 
 void	world_publish_snapshot(t_world_buffer *wb)

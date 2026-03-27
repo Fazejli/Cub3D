@@ -6,7 +6,7 @@
 #    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/03/22 18:07:37 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/03/24 11:00:19 by mattcarniel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ SRC_PARSER		:= $(addprefix parser/, parse.c parse_utils.c \
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
 SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c ray.c fog.c \
 				  column.c column2.c minimap.c render.c debug.c)
-SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c update.c debug.c)
+SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c player.c entity.c door.c update.c debug.c)
 SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c pixel.c loop.c)
 SRC_WORLD		:= $(addprefix world/, init.c deinit.c snapshot.c)
 SRC_OPTIONS		:= $(addprefix options/, init.c int.c uint.c debug.c)

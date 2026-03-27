@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:50:19 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/21 21:32:28 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 11:57:39 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	key_press_hook(int keysym, t_engine *e)
 	if (!e)
 		return (1);
 	key_update(&e->input.keys.bits, keysym, 1);
+	if (keysym == k_e)
+		e->input.interact_pressed = true;
 	if (keysym == k_escape)
 		return (game_destroy_hook(e));
 	return (0);

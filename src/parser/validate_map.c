@@ -6,13 +6,14 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:54:41 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 11:32:54 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/25 12:34:20 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "assets/assets.h"
 #include "utils/error.h"
 
 #include "parser_internal.h"
@@ -29,8 +30,10 @@ static bool	is_tile_valid(t_assets *a, size_t i)
 
 	x = i % a->map.width;
 	y = i / a->map.width;
-	return (!(a->tiles[a->map.data[i]].flags & TILE_F_WALKABLE)
-		|| (x != 0 && x != a->map.width - 1 && y != 0 && y != a->map.height - 1
+	if (!(a->tiles[a->map.data[i]].flags & (TILE_F_WALKABLE | TILE_F_ENTITY)))
+		return (true);
+	return ((x != 0 && x != a->map.width - 1
+			&& y != 0 && y != a->map.height - 1
 			&& !(a->tiles[a->map.data[i - 1]].flags & TILE_F_VOID)
 			&& !(a->tiles[a->map.data[i + 1]].flags & TILE_F_VOID)
 			&& !(a->tiles[a->map.data[i - a->map.width]].flags & TILE_F_VOID)

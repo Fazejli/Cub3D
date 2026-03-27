@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:05:44 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/21 15:37:12 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/24 12:19:27 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@
 # include "utils/vectors.h"
 
 typedef enum e_entity_type {
+	ENTITY_NONE,
 	ENTITY_DOOR,
+	ENTITY_UNKNOWN,
 }	t_entity_type;
 
-typedef struct s_door {
-	float	state;
+typedef enum e_door_state {
+	DOOR_CLOSED,
+	DOOR_OPENING,
+	DOOR_OPEN,
+	DOOR_CLOSING,
+}	t_door_state;
+
+typedef struct s_door
+{
+	t_door_state	state;
+	float			offset;
 }	t_door;
 
 typedef struct __attribute__((aligned(8))) s_player
@@ -33,10 +44,10 @@ typedef struct __attribute__((aligned(8))) s_player
 	char	reserved[4];
 }	t_player;
 
-typedef struct __attribute__((aligned(8))) s_entity
+typedef struct __attribute__((aligned(4))) s_entity
 {
-	int		type;
-	t_vec2f	pos;
+	t_entity_type	type;
+	t_vec2f			pos;
 
 	union {
 		t_door	door;

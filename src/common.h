@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:28:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 10:39:35 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/25 18:22:37 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@
 # define FOG_COLOR	0x0
 
 # define ENTITY_SIZE	0.2f
+
+# define INTERACT_DIST	2.0f
+# define DOOR_SPEED		0.0005f
 
 #endif

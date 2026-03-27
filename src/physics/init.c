@@ -6,17 +6,19 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:46:03 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 11:36:52 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/22 20:54:46 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <time.h>
 
-#include "physics.h"
 #include "world/world.h"
 #include "utils/utils.h"
 #include "utils/error.h"
+
+#include "physics.h"
+#include "physics_internal.h"
 
 __attribute__((always_inline))
 inline void	sleep_ns(long ns)

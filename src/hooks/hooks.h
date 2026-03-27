@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:37:21 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 11:36:00 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 12:17:14 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef union u_keys {
 		bool	yaw_right : 1;
 		bool	pitch_up : 1;
 		bool	pitch_down : 1;
+		bool	interact : 1;
 
-		int32_t	reserved : 22;
+		int16_t	reserved : 5;
 	}	values;
 	uint32_t	bits;
 }	t_keys;
@@ -50,6 +51,9 @@ typedef struct s_mouse {
 typedef struct s_input {
 	t_keys	keys;
 	t_mouse	mouse;
+	bool	interact_pressed;
+
+	char	reserved[7];
 }	t_input;
 
 typedef struct s_engine	t_engine;

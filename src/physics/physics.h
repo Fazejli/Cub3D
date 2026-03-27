@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:19:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 18:04:28 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/22 20:50:36 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,5 @@ typedef struct s_physics {
 
 int		physics_init(t_physics *p);
 void	physics_deinit(t_physics *p);
-void	physics_update(t_physics *p, float dt);
-
-void	debug_print_steps_per_sec(void);
 
 #endif

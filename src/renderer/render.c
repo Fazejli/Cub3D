@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:14:46 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 18:06:20 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 13:34:44 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	render_slice(void *arg)
 	ray.x = task->x_start;
 	while (ray.x <= task->x_end)
 	{
+		init_ray(&ray, task->world->player, task->frame->width);
 		if (cast_ray(&ray,
 				&hit,
 				task) == 0)

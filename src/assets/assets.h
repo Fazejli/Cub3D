@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:26:08 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 16:56:11 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 14:10:28 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ typedef enum e_tile_flags
 	TILE_F_SOLID		= 1 << 1,
 	TILE_F_WALKABLE		= 1 << 2,
 	TILE_F_RAY_BLOCK	= 1 << 3,
-	TILE_F_DOOR			= 1 << 4,
-	TILE_F_PLAYER		= 1 << 5,
+	TILE_F_PLAYER		= 1 << 4,
+	TILE_F_ENTITY		= 1 << 6,
 	TILE_F_WALL			= TILE_F_SOLID | TILE_F_RAY_BLOCK,
+	TILE_F_DOOR			= TILE_F_WALL | TILE_F_ENTITY,
 }	t_tile_flags;
 
 typedef enum e_dir

@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 12:38:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 18:06:14 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/25 12:24:40 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ typedef struct s_hit
 {
 	float	dist;
 	float	wall_x;
+	float	offset;
 	int		side;
 	uint8_t	tile_id;
+	bool	is_door;
 
-	char	reserved[3];
+	char	reserved[2];
 }	t_hit;
 
 typedef struct s_col_params
@@ -73,6 +75,7 @@ typedef struct s_col_params
 
 void		draw_minimap(t_image *f, const t_world *w, const t_assets *a);
 
+void		init_ray(t_ray *ray, const t_player p, uint32_t width);
 int			cast_ray(t_ray *ray, t_hit *hit, t_render_task *task);
 
 uint32_t	apply_fog(uint32_t color, float distance);

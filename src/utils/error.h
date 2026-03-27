@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 03:25:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 10:58:10 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 09:53:31 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ typedef enum e_error
 	ERR_IMG_LOAD,
 	ERR_IMG_CREATE,
 	ERR_HOOKS,
+	ERR_ENTITY_LIMIT,
 	WARN_NO_MULTITHREADING,
+	WARN_UNKNOWN_ENTITY,
 	ERR_TILE_DOUBLE_DEF,
 	ERR_TILE_UNKNOWN_FLAG,
 	ERR_TILE_NO_FLAG,

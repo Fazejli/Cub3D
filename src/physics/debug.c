@@ -6,11 +6,11 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 18:02:05 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 18:08:13 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/24 12:20:10 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "physics.h"
+#include "physics_internal.h"
 
 #ifdef DEBUG
 

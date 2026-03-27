@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/22 11:00:14 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 10:25:48 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ const char	*g_error_messages[] = {
 [ERR_IMG_LOAD] = "could not load image",
 [ERR_IMG_CREATE] = "could not create image",
 [ERR_HOOKS] = "could not set hooks",
+[ERR_ENTITY_LIMIT] = "too many entities in map",
 [WARN_NO_MULTITHREADING] = "multithreading not available",
+[WARN_UNKNOWN_ENTITY] = "unknown entity type in map file",
 [ERR_TILE_DOUBLE_DEF] = "tile defined twice in map file",
 [ERR_TILE_UNKNOWN_FLAG] = "unknown tile flag specified in map file",
 [ERR_TILE_NO_FLAG] = "no flags specified for tile in map file",
@@ -85,8 +87,11 @@ const char	*g_error_messages[] = {
 [ERR_MAP_SIZE_INVALID] = "invalid map size",
 [ERR_MAP_NO_TILE] = "no tile defined for character in map",
 [ERR_MAP_NON_PRINTABLE_TILE] = "non-printable character found in map",
+[ERR_MAP_NO_PLAYER] = "no player starting position found in map",
+[ERR_MAP_TOO_MANY_PLAYERS] = "multiple player starting positions found in map",
+[ERR_MAP_BAD_SURROUND] = "map not surrounded by walls",
 [ERR_PERROR] = "system error",
-[ERR_UNKNOWN] = " unknown error",
+[ERR_UNKNOWN] = "unknown error",
 };
 
 static size_t	get_module_name(char *buf, size_t pos, t_module mod)
@@ -104,12 +109,16 @@ static size_t	get_module_name(char *buf, size_t pos, t_module mod)
 
 static size_t	get_message(char *buf, size_t pos, t_module mod, t_error err)
 {
-	size_t	i;
+	const char	*msg;
+	size_t		i;
 
 	i = get_module_name(buf, pos, mod);
 	if (err < ERR_NONE || err > ERR_UNKNOWN)
 		err = ERR_UNKNOWN;
-	i += strlcpy(&buf[i], g_error_messages[err], MSG_LIMIT - i);
+	msg = g_error_messages[err];
+	if (!msg)
+		msg = g_error_messages[ERR_UNKNOWN];
+	i += strlcpy(&buf[i], msg, MSG_LIMIT - i);
 	buf[i++] = '\n';
 	buf[i] = '\0';
 	return (i);

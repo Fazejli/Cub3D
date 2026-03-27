@@ -6,7 +6,7 @@
 /*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:17:19 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 10:41:13 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/25 12:24:12 by mattcarniel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,23 @@
 
 static void	init_params(t_col_params *p, t_ray *r, t_hit *h, uint32_t height)
 {
+	int32_t	visible;
+	int32_t	bottom;
+	int32_t	top;
+
 	p->ray = r;
 	p->hit = h;
 	p->height = height;
 	p->line_height = (uint32_t)((float)height / h->dist);
-	p->draw_start = 0;
-	p->draw_end = height - 1;
-	if (p->line_height < height)
-		p->draw_start = height / 2 - p->line_height / 2;
-	if (p->draw_end < height)
-		p->draw_end = height / 2 + p->line_height / 2;
+	visible = (int32_t)(p->line_height * (1.0f - h->offset));
+	bottom = (int32_t)(height / 2 + p->line_height / 2);
+	top = bottom - visible;
+	if (top < 0)
+		top = 0;
+	if (bottom >= (int32_t)height)
+		bottom = (int32_t)height - 1;
+	p->draw_start = (uint32_t)top;
+	p->draw_end = (uint32_t)bottom;
 }
 
 static t_image	*tile_texture_at(const t_tile *tile, t_ray *ray, int side)
@@ -44,6 +51,31 @@ static t_image	*tile_texture_at(const t_tile *tile, t_ray *ray, int side)
 	return (tile->textures[DIR_INVALID]);
 }
 
+static void	draw_background_column(t_render_task *task, t_ray *ray)
+{
+	const t_assets	*assets = task->renderer->assets;
+	const t_tile	*tile;
+	t_col_params	p;
+	t_hit			bg_hit;
+
+	if (cast_ray(ray, &bg_hit, task))
+	{
+		p.height = task->frame->height;
+		p.draw_start = 0;
+		p.draw_end = task->frame->height - 1;
+		draw_ceiling(task->frame, p, ray->x, assets->ceiling);
+		return ;
+	}
+	tile = &assets->tiles[bg_hit.tile_id];
+	p.tex = tile_texture_at(tile, ray, bg_hit.side);
+	if (!p.tex)
+		p.tex = assets->invalid;
+	init_params(&p, ray, &bg_hit, task->frame->height);
+	draw_ceiling(task->frame, p, ray->x, assets->ceiling);
+	draw_wall(task->frame, p, ray->x);
+	draw_floor(task->frame, p, ray->x, assets->floor);
+}
+
 void	draw_column(t_render_task *task, t_ray *ray, t_hit *hit)
 {
 	const t_assets	*assets = task->renderer->assets;
@@ -53,6 +85,13 @@ void	draw_column(t_render_task *task, t_ray *ray, t_hit *hit)
 	p.tex = tile_texture_at(tile, ray, hit->side);
 	if (!p.tex)
 		p.tex = assets->invalid;
+	if (hit->is_door && hit->offset > 0.0f)
+	{
+		draw_background_column(task, ray);
+		init_params(&p, ray, hit, task->frame->height);
+		draw_wall(task->frame, p, ray->x);
+		return ;
+	}
 	init_params(&p, ray, hit, task->frame->height);
 	draw_ceiling(task->frame, p, ray->x, assets->ceiling);
 	draw_wall(task->frame, p, ray->x);
