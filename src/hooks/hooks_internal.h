@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_internal.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:18:33 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/24 17:09:15 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 15:54:03 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ enum {
 	m_right = 3,
 	m_middle = 2,
 	k_e = XK_e,
+	k_minus = XK_minus,
+	k_equal = XK_equal,
 };
 
 # elif defined(__APPLE__)
@@ -80,6 +82,8 @@ enum {
 	m_right = 2,
 	m_middle = 3,
 	k_e = 14,
+	k_minus = 27,
+	k_equal = 24,
 };
 
 # endif
@@ -96,6 +100,8 @@ enum e_key_bits {
 	KEY_PITCH_UP,
 	KEY_PITCH_DOWN,
 	KEY_INTERACT,
+	KEY_ZOOM_IN,
+	KEY_ZOOM_OUT,
 	KEY_ESCAPE,
 	KEY_COUNT
 };
@@ -112,6 +118,8 @@ static const int	g_keymap[KEY_COUNT] = {
 [KEY_PITCH_UP] = k_up,
 [KEY_PITCH_DOWN] = k_down,
 [KEY_INTERACT] = k_e,
+[KEY_ZOOM_IN] = k_minus,
+[KEY_ZOOM_OUT] = k_equal,
 [KEY_ESCAPE] = k_escape,
 };
 

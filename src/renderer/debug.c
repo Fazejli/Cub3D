@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 18:05:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 18:06:43 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 14:05:21 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # include <stdio.h>
 
-void	debug_print_fps(double now)
+void	debug_print_fps(long now)
 {
 	static long		last_fps_time = 0;
 	static int		frame_count = 0;
@@ -24,20 +24,20 @@ void	debug_print_fps(double now)
 
 	frame_count++;
 	if (last_fps_time == 0)
-		last_fps_time = (long)now;
+		last_fps_time = now;
 	if (now - last_fps_time >= 1000000L)
 	{
 		fps = (double)frame_count * 1000000.0
 			/ (double)(now - last_fps_time);
 		dprintf(2, "FPS: %.2f\n", fps);
 		frame_count = 0;
-		last_fps_time = (long)now;
+		last_fps_time = now;
 	}
 }
 
 #else
 
-void	debug_print_fps(double now)
+void	debug_print_fps(long now)
 {
 	(void)now;
 }

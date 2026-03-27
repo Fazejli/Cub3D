@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/27 10:25:48 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 10:37:56 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include "libft.h"
 
 #include "error.h"
 
@@ -102,7 +103,7 @@ static size_t	get_module_name(char *buf, size_t pos, t_module mod)
 		mod = MOD_UNKNOWN;
 	i = pos;
 	if (mod != MOD_NONE)
-		i += strlcpy(&buf[i], g_module_names[mod], MSG_LIMIT - i);
+		i += ft_strlcpy(&buf[i], g_module_names[mod], MSG_LIMIT - i);
 	buf[i] = '\0';
 	return (i);
 }
@@ -118,7 +119,7 @@ static size_t	get_message(char *buf, size_t pos, t_module mod, t_error err)
 	msg = g_error_messages[err];
 	if (!msg)
 		msg = g_error_messages[ERR_UNKNOWN];
-	i += strlcpy(&buf[i], msg, MSG_LIMIT - i);
+	i += ft_strlcpy(&buf[i], msg, MSG_LIMIT - i);
 	buf[i++] = '\n';
 	buf[i] = '\0';
 	return (i);
@@ -131,7 +132,7 @@ int	print_warning(t_module mod, t_error err, int int_code)
 
 	if (err == ERR_NONE)
 		return (int_code);
-	i = strlcpy(msg, "Warning\n", 9);
+	i = ft_strlcpy(msg, "Warning\n", 9);
 	i = get_message(msg, i, mod, err);
 	write(1, msg, i);
 	return (int_code);
@@ -144,7 +145,7 @@ int	print_error(t_module mod, t_error err, int int_code)
 
 	if (err == ERR_NONE)
 		return (int_code);
-	i = strlcpy(msg, "Error\n", 7);
+	i = ft_strlcpy(msg, "Error\n", 7);
 	if (err == ERR_PERROR)
 	{
 		get_module_name(msg, i, mod);

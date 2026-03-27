@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 12:44:43 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 10:52:12 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/20 12:44:43 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 11:12:55 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
 
 #include "common.h"
 #include "gfx/gfx.h"
@@ -25,15 +27,17 @@ static int	renderer_init_framebuffers(t_renderer *r, const t_options *opt)
 	i = 0;
 	while (i < FRAMEBUFFER_COUNT)
 	{
-		if (gfx_image_create(
+		r->framebuffers[i] = malloc(sizeof(t_image));
+		if (!r->framebuffers[i]
+			|| gfx_image_create(
 				r->gfx->mlx,
-				&r->framebuffers[i],
+				r->framebuffers[i],
 				opt->width,
-				opt->height)
-			!= 0)
+				opt->height) != 0)
 		{
+			free(r->framebuffers[i]);
 			while (i-- > 0)
-				gfx_image_destroy(r->gfx->mlx, &r->framebuffers[i]);
+				gfx_image_destroy(r->gfx->mlx, r->framebuffers[i]);
 			return (print_error(MOD_RENDERER, ERR_IMG_CREATE, 1));
 		}
 		i++;

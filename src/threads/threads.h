@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 19:37:15 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/16 12:35:45 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/17 19:37:15 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 10:46:16 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

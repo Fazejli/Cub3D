@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   physics_internal.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 20:49:25 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/24 14:09:29 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 15:57:25 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef void	(*t_entity_update_fn)(t_world *w,
 									t_input *k,
 									float dt
 									);
+
+void	apply_collisions(t_world *w, t_assets *a);
 
 void	player_update(t_world *world, t_assets *a, t_input *input);
 

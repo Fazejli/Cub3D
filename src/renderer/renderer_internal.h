@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer_internal.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 12:38:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/25 12:24:40 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 14:05:36 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void		draw_wall(t_image *f, t_col_params p, uint32_t x);
 
 void		draw_column(t_render_task *task, t_ray *ray, t_hit *hit);
 
-void		debug_print_fps(double now);
+void		debug_print_fps(long now);
 
 #endif

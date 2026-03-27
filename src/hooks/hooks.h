@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 13:37:21 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/24 12:17:14 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/18 13:37:21 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 16:12:36 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ typedef union u_keys {
 		bool	pitch_up : 1;
 		bool	pitch_down : 1;
 		bool	interact : 1;
+		bool	zoom_in : 1;
+		bool	zoom_out : 1;
 
-		int16_t	reserved : 5;
+		int32_t	reserved : 19;
 	}	values;
 	uint32_t	bits;
 }	t_keys;

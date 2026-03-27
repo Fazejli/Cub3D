@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   physics.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 14:19:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 20:50:36 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/19 14:19:51 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 10:48:09 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

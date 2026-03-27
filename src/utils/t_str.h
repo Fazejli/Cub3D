@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   t_str.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:11:52 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 11:21:35 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 10:31:13 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef T_STR_H
 # define T_STR_H
 
+# include <stdbool.h>
 # include <stddef.h>
 
 typedef struct s_str

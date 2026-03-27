@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 13:39:59 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 11:34:10 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/18 13:39:59 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 14:07:42 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	mouse_move_hook(int x, int y, t_engine *e)
 	e->input.mouse.last_z = y;
 	e->input.mouse.delta_x = dx;
 	e->input.mouse.delta_z = dy;
+	mlx_mouse_move(e->gfx.mlx, e->gfx.win, e->opt.width / 2, e->opt.height / 2);
 	return (0);
 }
 

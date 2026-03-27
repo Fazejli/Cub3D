@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 20:16:51 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 10:52:35 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/19 20:16:51 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 11:07:07 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_renderer
 	const t_gfx		*gfx;
 	const t_assets	*assets;
 	t_world_buffer	*world_buffer;
-	t_image			framebuffers[FRAMEBUFFER_COUNT];
+	t_image			*framebuffers[FRAMEBUFFER_COUNT];
 	t_threadpool	pool;
 
 	atomic_int		ready_index;

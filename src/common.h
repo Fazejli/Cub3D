@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 13:28:34 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/25 18:22:37 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/20 13:28:34 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 16:14:04 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@
 # define MOVE_SPEED			0.005f
 # define ROT_SPEED			0.005f
 # define MOUSE_SENSITIVITY	0.001f
-# define ZOOM_SPEED			0.05f
-# define FRICTION			0.9f
+# define ZOOM_SPEED			0.005f
+# define FOV_MIN			0.5f // ~28.6 degrees
+# define FOV_MAX			2.3f // ~131.8 degrees
+# define FRICTION			0.85f
 
 # define FOG_START	2.0f
 # define FOG_END	10.0f
@@ -42,6 +44,6 @@
 # define ENTITY_SIZE	0.2f
 
 # define INTERACT_DIST	2.0f
-# define DOOR_SPEED		0.0005f
+# define DOOR_SPEED		0.005f
 
 #endif

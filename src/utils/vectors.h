@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 10:55:10 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/22 10:58:54 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/25 10:55:10 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 10:48:20 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

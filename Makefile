@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+         #
+#    By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 18:33:48 by fadzejli          #+#    #+#              #
-#    Updated: 2026/03/24 11:00:19 by mattcarniel      ###   ########.fr        #
+#    Updated: 2026/03/27 16:10:11 by macarnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,7 @@ CFLAGS_DEBUG := -Og -g3 -Wpacked -Wshadow -Wpadded -Wconversion \
 			   -Wformat=2 -Wredundant-decls -Wmissing-field-initializers \
 			   -Wswitch-enum -Wswitch-default -Wpointer-arith \
 			   -Wbad-function-cast -Wstrict-aliasing=2 -Wreturn-type \
-			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv \
-			   -fstrict-flex-arrays=3
+			   -fstack-protector-strong -fno-omit-frame-pointer -ftrapv
 # -Wstrict-prototypes causing issues with mlx compilation
 
 CFLAGS_SANITIZE := $(CFLAGS_DEBUG) -fsanitize=address,undefined \
@@ -63,7 +62,7 @@ SRC_PARSER		:= $(addprefix parser/, parse.c parse_utils.c \
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
 SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c ray.c fog.c \
 				  column.c column2.c minimap.c render.c debug.c)
-SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c player.c entity.c door.c update.c debug.c)
+SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c collisions.c player.c entity.c door.c update.c debug.c)
 SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c pixel.c loop.c)
 SRC_WORLD		:= $(addprefix world/, init.c deinit.c snapshot.c)
 SRC_OPTIONS		:= $(addprefix options/, init.c int.c uint.c debug.c)

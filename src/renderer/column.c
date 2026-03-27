@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   column.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:17:19 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/25 12:24:12 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 15:02:19 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ static void	init_params(t_col_params *p, t_ray *r, t_hit *h, uint32_t height)
 	p->hit = h;
 	p->height = height;
 	p->line_height = (uint32_t)((float)height / h->dist);
-	visible = (int32_t)(p->line_height * (1.0f - h->offset));
-	bottom = (int32_t)(height / 2 + p->line_height / 2);
-	top = bottom - visible;
+	visible = (int32_t)((float)p->line_height * (1.0f - h->offset));
+	top = (int32_t)(height / 2 - p->line_height / 2);
+	bottom = top + visible;
 	if (top < 0)
 		top = 0;
+	if (bottom < 0)
+		bottom = 0;
 	if (bottom >= (int32_t)height)
 		bottom = (int32_t)height - 1;
 	p->draw_start = (uint32_t)top;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 12:20:56 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 18:00:13 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 11:28:09 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #define MM_RADIUS	2.5f
 #define MM_OFFSET	10
 #define MM_WALL		0x00FFFFFF
+#define MM_DOOR		0x00FFFF00
 #define MM_FLOOR	0x00333333
 #define MM_PLAYER	0x00FF0000
 #define MM_OOB		0x00111111
@@ -36,7 +37,11 @@ static uint32_t	get_tile_color(const t_map *map, const t_tile *tiles,
 		|| ty < 0 || ty >= (int32_t)map->height)
 		return (MM_OOB);
 	tile_id = map->data[(uint32_t)ty * map->width + (uint32_t)tx];
-	if (tiles[tile_id].flags & TILE_F_RAY_BLOCK)
+	if (tiles[tile_id].flags & TILE_F_ENTITY)
+		return (MM_DOOR);
+	else if (tiles[tile_id].flags & TILE_F_VOID)
+		return (MM_OOB);
+	else if (tiles[tile_id].flags & TILE_F_SOLID)
 		return (MM_WALL);
 	return (MM_FLOOR);
 }

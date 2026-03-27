@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 13:11:20 by smamalig          #+#    #+#             */
-/*   Updated: 2026/02/26 13:14:45 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/20 13:11:20 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 11:07:53 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ const t_image	*renderer_get_ready_frame(const t_renderer *r)
 {
 	const int	idx = atomic_load(&r->ready_index);
 
-	return (&r->framebuffers[idx]);
+	return (r->framebuffers[idx]);
 }
 
 t_image	*renderer_get_render_frame(t_renderer *r)
 {
-	return (&r->framebuffers[r->render_index]);
+	return (r->framebuffers[r->render_index]);
 }
 
 void	renderer_publish_frame(t_renderer *r)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   snapshot.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 21:26:26 by smamalig          #+#    #+#             */
-/*   Updated: 2026/03/24 11:15:26 by mattcarniel      ###   ########.fr       */
+/*   Created: 2026/02/24 21:26:26 by macarnie          #+#    #+#             */
+/*   Updated: 2026/03/27 10:47:21 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
