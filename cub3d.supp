@@ -6,3 +6,46 @@
    ...
    obj:*/libxcb.so*
 }
+
+{
+   x11_locale_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_Xlc*
+   obj:*/libX11.so*
+}
+
+{
+   x11_xrm_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:Xrm*
+   obj:*/libX11.so*
+}
+
+{
+   x11_quark_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_XrmInternalStringToQuark
+   obj:*/libX11.so*
+}
+
+{
+   xcursor_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libXcursor.so*
+}
+
+{
+   glibc_dl_open
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_*
+}
