@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:37:15 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/27 10:46:16 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/27 16:57:00 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_threadpool {
 	char			reserved[4];
 }	t_threadpool;
 
-int		threadpool_init(t_threadpool *pool, int worker_count);
+int		threadpool_init(t_threadpool *pool, int *worker_count);
 void	threadpool_add(t_threadpool *pool, t_task_fn fn, void *arg);
 void	threadpool_run(t_threadpool *pool);
 void	threadpool_deinit(t_threadpool *pool);

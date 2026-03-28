@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 19:44:44 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/27 10:49:17 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/27 16:56:15 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,21 @@ static int	get_available_cpus(void)
 	return ((int)cpu_count);
 }
 
-int	threadpool_init(t_threadpool *pool, int worker_count)
+int	threadpool_init(t_threadpool *pool, int *worker_count)
 {
 	int	i;
 
-	if (worker_count == -1)
-		worker_count = get_available_cpus();
-	if (worker_count == 0)
-		return (1);
+	if (*worker_count == 0)
+		*worker_count = get_available_cpus();
 	ft_memset(pool, 0, sizeof(t_threadpool));
-	pool->threads = ft_calloc((size_t)worker_count, sizeof(pthread_t));
+	pool->threads = ft_calloc((size_t)(*worker_count), sizeof(pthread_t));
 	if (!pool->threads)
 		return (print_error(MOD_THREADS, ERR_PERROR, 1));
 	pthread_mutex_init(&pool->lock, NULL);
 	pthread_cond_init(&pool->cond, NULL);
 	pthread_cond_init(&pool->done_cond, NULL);
 	i = -1;
-	while (++i < worker_count)
+	while (++i < *worker_count)
 	{
 		if (pthread_create(&pool->threads[i], NULL, worker_loop, pool) != 0)
 		{

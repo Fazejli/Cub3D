@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:39:13 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/27 10:45:50 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:37:17 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_option		g_options[] = {
 	.offset = offsetof(t_options, thread_count),
 	.max = MAX_THREADS,
 	.min = 0,
-	.parse = options_parse_i16,
+	.parse = options_parse_i32,
 }, {
 	.name = "--width",
 	.short_name = "-W",
@@ -54,7 +54,7 @@ t_option		g_options[] = {
 
 static void	init_default_values(t_options *opts)
 {
-	opts->thread_count = -1;
+	opts->thread_count = 0;
 	opts->width = 800;
 	opts->height = 600;
 	opts->fps = 60;
