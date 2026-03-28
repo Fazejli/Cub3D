@@ -43,7 +43,7 @@
 
 # define ENTITY_SIZE	0.2f
 
-# define INTERACT_DIST	2.0f
+# define INTERACT_DIST	0.5f
 # define DOOR_SPEED		0.005f
 
 #endif

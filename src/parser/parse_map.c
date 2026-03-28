@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:41:09 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 11:22:25 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/27 16:41:13 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	populate_map(t_assets *a, t_parser p, size_t offset)
 		offset_str(&line, offset);
 		x = 0;
 		while (x < a->map.width)
-		{	
+		{
 			tile = (x < line.len) * line.ptr[x] + (x >= line.len) * ' ';
 			if (!is_printable(tile))
 				return (print_error(MOD_PARSER, ERR_MAP_NON_PRINTABLE_TILE, 1));

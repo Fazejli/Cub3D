@@ -134,7 +134,7 @@ int	print_warning(t_module mod, t_error err, int int_code)
 		return (int_code);
 	i = ft_strlcpy(msg, "Warning\n", 9);
 	i = get_message(msg, i, mod, err);
-	write(1, msg, i);
+	(void)write(1, msg, i);
 	return (int_code);
 }
 
@@ -154,7 +154,7 @@ int	print_error(t_module mod, t_error err, int int_code)
 	else
 	{
 		i = get_message(msg, i, mod, err);
-		write(2, msg, i);
+		(void)write(2, msg, i);
 	}
 	return (int_code);
 }

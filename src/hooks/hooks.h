@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:37:21 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/27 16:12:36 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:43:15 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ typedef union u_keys {
 		bool	interact : 1;
 		bool	zoom_in : 1;
 		bool	zoom_out : 1;
+		bool	debug : 1;
 
-		int32_t	reserved : 19;
+		int32_t	reserved : 18;
 	}	values;
 	uint32_t	bits;
 }	t_keys;

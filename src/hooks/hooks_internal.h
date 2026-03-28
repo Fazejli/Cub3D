@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:18:33 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/27 15:54:03 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:43:47 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ enum {
 	k_e = XK_e,
 	k_minus = XK_minus,
 	k_equal = XK_equal,
+	k_f3 = XK_F3,
 };
 
 # elif defined(__APPLE__)
@@ -84,6 +85,7 @@ enum {
 	k_e = 14,
 	k_minus = 27,
 	k_equal = 24,
+	k_f3 = 99,
 };
 
 # endif
@@ -103,6 +105,7 @@ enum e_key_bits {
 	KEY_ZOOM_IN,
 	KEY_ZOOM_OUT,
 	KEY_ESCAPE,
+	KEY_DEBUG,
 	KEY_COUNT
 };
 
@@ -121,6 +124,7 @@ static const int	g_keymap[KEY_COUNT] = {
 [KEY_ZOOM_IN] = k_minus,
 [KEY_ZOOM_OUT] = k_equal,
 [KEY_ESCAPE] = k_escape,
+[KEY_DEBUG] = k_f3,
 };
 
 int	hooks_keys_init(t_engine *engine);
