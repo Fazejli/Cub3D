@@ -47,6 +47,10 @@ static void	free_asset_textures(t_assets *a)
 		gfx_image_destroy(a->gfx->mlx, a->skybox);
 	if (a->invalid)
 		gfx_image_destroy(a->gfx->mlx, a->invalid);
+	if (a->floor_tex)
+		gfx_image_destroy(a->gfx->mlx, a->floor_tex);
+	if (a->ceiling_tex)
+		gfx_image_destroy(a->gfx->mlx, a->ceiling_tex);
 }
 
 void	assets_deinit(t_assets *assets)

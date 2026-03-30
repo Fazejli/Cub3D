@@ -35,6 +35,8 @@ static void	assets_tiles_init(t_assets *a)
 		}
 		i++;
 	}
+	a->floor_tex = NULL;
+	a->ceiling_tex = NULL;
 	a->ceiling = RGB_INVALID;
 	a->floor = RGB_INVALID;
 }

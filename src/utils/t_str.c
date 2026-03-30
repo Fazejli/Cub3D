@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:15:09 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/30 20:18:34 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:22:00 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,3 @@ bool	split_option_value(t_str *option, uint32_t *value)
 	*value = (uint32_t)ft_untoi(value_str.ptr, value_str.len);
 	return (true);
 }
-

@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:50:44 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/28 00:26:40 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:22:07 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 
 #include "renderer_internal.h"
 
-static uint32_t	get_tex_x(t_image *tex, t_col_params p)
+static uint32_t	get_tex_x(t_image *tex, t_col_params p, const t_tile *tile)
 {
-	uint32_t	x;
-	float		wall_x;
+	uint32_t		x;
+	float			wall_x;
+	const uint32_t	fc = tile->frame_count[ray_to_dir(p.ray, p.hit->side)];
 
 	wall_x = p.hit->wall_x;
 	if (wall_x < 0.0f)
 		wall_x = 0.0f;
 	else if (wall_x > 1.0f)
 		wall_x = 1.0f;
-	x = (uint32_t)(wall_x * (float)tex->width);
+	x = (uint32_t)(wall_x * (float)(tex->width / fc));
+	x += (p.tick % fc) * tex->width / fc;
 	if ((p.hit->side == 0 && p.ray->dir.x > 0)
 		|| (p.hit->side == 1 && p.ray->dir.y < 0))
 			x = tex->width - x - 1;
@@ -42,33 +44,7 @@ static uint32_t	get_tex_y(t_image *tex, float tex_pos)
 	return ((uint32_t)tex_pos);
 }
 
-void	draw_ceiling(t_image *f, t_col_params p, uint32_t x, uint32_t color)
-{
-	float		dist;
-	uint32_t	i;
-
-	i = 0;
-	while (i < p.draw_start)
-	{
-		dist = (float)p.height / (float)(p.height - 2 * i);
-		set_pixel(x, i++, apply_fog(color, dist), f);
-	}
-}
-
-void	draw_floor(t_image *f, t_col_params p, uint32_t x, uint32_t color)
-{
-	float		dist;
-	uint32_t	i;
-
-	i = p.draw_end;
-	while (i < p.height)
-	{
-		dist = (float)p.height / (float)(2 * i - p.height);
-		set_pixel(x, i++, apply_fog(color, dist), f);
-	}
-}
-
-void	draw_wall(t_image *f, t_col_params p, uint32_t x)
+void	draw_wall(t_image *f, t_col_params p, uint32_t x, const t_tile *tile)
 {
 	t_vec2u		tex_pos;
 	uint32_t	color;
@@ -78,7 +54,7 @@ void	draw_wall(t_image *f, t_col_params p, uint32_t x)
 
 	if (p.line_height == 0)
 		return ;
-	tex_pos.x = get_tex_x(p.tex, p);
+	tex_pos.x = get_tex_x(p.tex, p, tile);
 	step = (float)p.tex->height / (float)p.line_height;
 	tex_idx = ((float)p.draw_start - (float)p.height / 2.0f
 			+ (float)p.line_height / 2.0f) * step

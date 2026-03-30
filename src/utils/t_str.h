@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:11:52 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/30 20:12:06 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:21:48 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdbool.h>
 # include <stddef.h>
-#include <stdint.h>
+# include <stdint.h>
 
 typedef struct s_str
 {

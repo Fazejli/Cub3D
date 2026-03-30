@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:49:02 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/27 10:49:00 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/30 20:33:38 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	physics_update(t_physics *p, float dt)
 	ready = world_get_ready_snapshot(p->world_buffer);
 	world_copy_snapshot(world, ready);
 	(void)dt;
+	world->tick++;
 	player_update(world, p->assets, p->input);
 	entities_update(world, p->input, dt);
 	world_publish_snapshot(p->world_buffer);

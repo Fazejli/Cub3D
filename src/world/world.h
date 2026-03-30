@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:54 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/27 10:46:10 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/30 20:32:39 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct __attribute__((aligned(8))) s_world {
 	t_player	player;
 	t_entity	entities[MAX_ENTITIES];
 	uint32_t	entity_count;
-	char		reserved[4];
+	uint32_t	tick;
 }	t_world;
 
 typedef struct s_world_buffer {

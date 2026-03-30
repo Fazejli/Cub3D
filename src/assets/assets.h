@@ -80,6 +80,8 @@ typedef struct s_assets
 
 	t_image		*invalid;
 	t_image		*skybox;
+	t_image		*floor_tex;
+	t_image		*ceiling_tex;
 
 	uint32_t	floor;
 	uint32_t	ceiling;

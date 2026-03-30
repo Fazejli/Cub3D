@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 12:38:53 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/28 00:27:15 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:22:24 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct s_col_params
 	uint32_t	draw_start;
 	uint32_t	draw_end;
 	uint32_t	line_height;
+	uint32_t	tick;
+	char		reserved[4];
+	t_vec2f		cam_pos;
 	t_ray		*ray;
 	t_hit		*hit;
 	t_image		*tex;
@@ -80,9 +83,13 @@ int			cast_ray(t_ray *ray, t_hit *hit, t_render_task *task);
 
 uint32_t	apply_fog(uint32_t color, float distance);
 
-void		draw_ceiling(t_image *f, t_col_params p, uint32_t x, uint32_t c);
-void		draw_floor(t_image *f, t_col_params p, uint32_t x, uint32_t c);
-void		draw_wall(t_image *f, t_col_params p, uint32_t x);
+void		draw_ceiling(t_image *f, t_col_params p, uint32_t x,
+				const t_assets *a);
+void		draw_floor(t_image *f, t_col_params p, uint32_t x,
+				const t_assets *a);
+void		draw_wall(t_image *f, t_col_params p, uint32_t x,
+				const t_tile *tile);
+t_dir		ray_to_dir(t_ray *ray, int side);
 
 void		draw_column(t_render_task *task, t_ray *ray, t_hit *hit);
 

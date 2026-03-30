@@ -61,7 +61,7 @@ SRC_PARSER		:= $(addprefix parser/, parse.c parse_utils.c \
 				  validate_tiles.c validate_textures.c validate_colors.c validate_map.c)
 SRC_ENGINE		:= $(addprefix engine/, init.c deinit.c)
 SRC_RENDERER	:= $(addprefix renderer/, init.c deinit.c frame.c ray.c fog.c \
-				  column.c column2.c minimap.c render.c debug.c)
+				  column.c column2.c column3.c minimap.c render.c debug.c)
 SRC_PHYSICS		:= $(addprefix physics/, init.c deinit.c collisions.c player.c entity.c door.c update.c debug.c)
 SRC_GFX			:= $(addprefix gfx/, init.c deinit.c present.c image.c pixel.c loop.c)
 SRC_WORLD		:= $(addprefix world/, init.c deinit.c snapshot.c)

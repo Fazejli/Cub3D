@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:17:19 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/30 16:51:07 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:07:56 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ static void	init_params(t_col_params *p, t_ray *r, t_hit *h, uint32_t height)
 	p->draw_end = (uint32_t)bottom;
 }
 
+t_dir	ray_to_dir(t_ray *ray, int side)
+{
+	t_dir	dir;
+
+	dir = (t_dir)((!side << 1) + (ray->dir.e[side] < 0.0f) + 2);
+	return (dir);
+}
+
 static t_image	*tile_texture_at(const t_tile *tile, t_ray *ray, int side)
 {
 	t_dir	dir;
@@ -60,12 +68,15 @@ static void	draw_background_column(t_render_task *task, t_ray *ray)
 	t_col_params	p;
 	t_hit			bg_hit;
 
+	p.ray = ray;
+	p.cam_pos = task->world->player.pos;
+	p.tick = task->world->tick;
 	if (cast_ray(ray, &bg_hit, task))
 	{
 		p.height = task->frame->height;
 		p.draw_start = 0;
 		p.draw_end = task->frame->height;
-		draw_ceiling(task->frame, p, ray->x, assets->ceiling);
+		draw_ceiling(task->frame, p, ray->x, assets);
 		return ;
 	}
 	tile = &assets->tiles[bg_hit.tile_id];
@@ -73,9 +84,9 @@ static void	draw_background_column(t_render_task *task, t_ray *ray)
 	if (!p.tex)
 		p.tex = assets->invalid;
 	init_params(&p, ray, &bg_hit, task->frame->height);
-	draw_ceiling(task->frame, p, ray->x, assets->ceiling);
-	draw_wall(task->frame, p, ray->x);
-	draw_floor(task->frame, p, ray->x, assets->floor);
+	draw_ceiling(task->frame, p, ray->x, assets);
+	draw_wall(task->frame, p, ray->x, tile);
+	draw_floor(task->frame, p, ray->x, assets);
 }
 
 void	draw_column(t_render_task *task, t_ray *ray, t_hit *hit)
@@ -85,17 +96,19 @@ void	draw_column(t_render_task *task, t_ray *ray, t_hit *hit)
 	t_col_params	p;
 
 	p.tex = tile_texture_at(tile, ray, hit->side);
+	p.tick = task->world->tick;
+	p.cam_pos = task->world->player.pos;
 	if (!p.tex)
 		p.tex = assets->invalid;
 	if (hit->is_door && hit->offset > 0.0f)
 	{
 		draw_background_column(task, ray);
 		init_params(&p, ray, hit, task->frame->height);
-		draw_wall(task->frame, p, ray->x);
+		draw_wall(task->frame, p, ray->x, tile);
 		return ;
 	}
 	init_params(&p, ray, hit, task->frame->height);
-	draw_ceiling(task->frame, p, ray->x, assets->ceiling);
-	draw_wall(task->frame, p, ray->x);
-	draw_floor(task->frame, p, ray->x, assets->floor);
+	draw_ceiling(task->frame, p, ray->x, assets);
+	draw_wall(task->frame, p, ray->x, tile);
+	draw_floor(task->frame, p, ray->x, assets);
 }

@@ -65,6 +65,10 @@ static int	add_asset_texture(t_assets *a, t_str key, t_str option, t_str path)
 		tex = &a->invalid;
 	else if (key.len == 6 && strncmp(key.ptr, "skybox", 6) == 0)
 		tex = &a->skybox;
+	else if (key.len == 5 && strncmp(key.ptr, "floor", 5) == 0)
+		tex = &a->floor_tex;
+	else if (key.len == 7 && strncmp(key.ptr, "ceiling", 7) == 0)
+		tex = &a->ceiling_tex;
 	else
 		return (print_error(MOD_PARSER, ERR_TEX_NO_ADDR, 1));
 	if (*tex != NULL)

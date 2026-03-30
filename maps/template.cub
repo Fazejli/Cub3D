@@ -11,18 +11,16 @@ D=door
 
 [TEXTURES]
 
-1:N=./textures/north.xpm
-1:S=./textures/south.xpm
-1:E=./textures/east.xpm
-1:W=./textures/west.xpm
+1:E,16=./textures/slime.xpm
 D=./textures/west.xpm
+floor=./textures/colorstone.xpm
+ceiling=./textures/colorstone.xpm
 
 invalid=./textures/invalid.xpm
 
 [COLORS]
 
 ceiling=0,255,0
-floor=255,255,0
 
 [MAP]
 
