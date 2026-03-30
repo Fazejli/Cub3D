@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:17:19 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/28 00:26:17 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:51:07 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	init_params(t_col_params *p, t_ray *r, t_hit *h, uint32_t height)
 	if (bottom < 0)
 		bottom = 0;
 	if (bottom >= (int32_t)height)
-		bottom = (int32_t)height - 1;
+		bottom = (int32_t)height;
 	p->draw_start = (uint32_t)top;
 	p->draw_end = (uint32_t)bottom;
 }
@@ -64,7 +64,7 @@ static void	draw_background_column(t_render_task *task, t_ray *ray)
 	{
 		p.height = task->frame->height;
 		p.draw_start = 0;
-		p.draw_end = task->frame->height - 1;
+		p.draw_end = task->frame->height;
 		draw_ceiling(task->frame, p, ray->x, assets->ceiling);
 		return ;
 	}

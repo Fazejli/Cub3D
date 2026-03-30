@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 12:20:56 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/28 00:26:57 by smamalig         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:18:02 by smamalig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "renderer_internal.h"
 
 #define MM_SIZE		256
-#define MM_SCALE	25
+#define MM_SCALE	20
 #define MM_WALL		0x00FFFFFF
 #define MM_DOOR		0x00FFFF00
 #define MM_FLOOR	0x00333333
