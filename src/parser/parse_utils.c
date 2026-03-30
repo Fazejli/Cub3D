@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 09:47:06 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 11:28:42 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/30 19:56:20 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	next_line(t_parser *p, t_str *line, bool do_front, bool do_back)
 
 bool	is_tile_key(t_str key)
 {
-	return (key.len == 1
+	return (key.len >= 1 && (key.len == 1 || key.ptr[1] == ',')
 		&& (key.ptr[0] >= 32 && key.ptr[0] <= 126)
 		&& key.ptr[0] != ' '
 		&& key.ptr[0] != '='

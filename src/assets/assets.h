@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assets.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:26:08 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/24 14:10:28 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/30 19:39:39 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_tile
 
 	t_image			*textures[DIR_COUNT];
 	uint32_t		colors[DIR_COUNT];
+	uint32_t		frame_count[DIR_COUNT];
 
 }	t_tile;
 

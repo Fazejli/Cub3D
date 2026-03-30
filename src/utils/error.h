@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 03:25:02 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/24 09:53:31 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/30 20:09:40 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef enum e_error
 	ERR_TEX_NO_ADDR,
 	ERR_TEX_INVALID_KEY,
 	ERR_TEX_INVALID_DIR,
+	ERR_TEX_INVALID_FRAME_COUNT,
 	ERR_TEX_NO_TILE,
 	ERR_TEX_NO_INVALID,
 	WARN_TEX_NO_DIR,

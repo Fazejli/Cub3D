@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 11:30:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 11:25:21 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/30 20:18:50 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ static int	add_tile_texture(t_assets *a, t_str key, t_str option, t_str path)
 	char			buf[PATH_SIZE];
 	t_tile			*tile;
 	uint32_t		dir;
+	uint32_t		frame_count;
 
 	tile = &a->tiles[(unsigned char)key.ptr[0] - 32];
 	if (!tile->flags)
 		return (print_error(MOD_PARSER, ERR_TILE_NO_FLAG, 1));
+	split_option_value(&option, &frame_count);
+	if (frame_count == 0 || frame_count > 128)
+		return (print_error(MOD_PARSER, ERR_TEX_INVALID_FRAME_COUNT, 1));
 	dir = parse_dir_option(option);
 	if (dir >= DIR_COUNT || dir == DIR_INVALID)
 		return (print_error(MOD_PARSER, ERR_TEX_INVALID_DIR, 1));
@@ -45,6 +49,7 @@ static int	add_tile_texture(t_assets *a, t_str key, t_str option, t_str path)
 	tile->textures[dir] = get_image_from_xpm(a->gfx->mlx, buf);
 	if (tile->textures[dir] == NULL)
 		return (print_error(MOD_PARSER, ERR_IMG_LOAD, 1));
+	tile->frame_count[dir] = frame_count;
 	return (0);
 }
 

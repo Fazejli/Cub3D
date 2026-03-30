@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:37:02 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/27 16:15:26 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/30 20:22:49 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "engine/engine.h"
 #include "renderer/renderer.h"
 
-static int	loop2(t_engine *e)
+static int	loop(t_engine *e)
 {
 	renderer_render(&e->renderer);
 	gfx_present(&e->gfx, renderer_get_ready_frame(&e->renderer));
@@ -31,6 +31,6 @@ int	main(int argc, char **argv)
 
 	if (engine_init(&engine, argc, argv))
 		return (1);
-	gfx_loop(&engine.gfx, (int (*)(void))(intptr_t)loop2, &engine);
+	gfx_loop(&engine.gfx, (int (*)(void))(intptr_t)loop, &engine);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 15:37:15 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 19:07:03 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/30 20:15:31 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static void	debug_print_tile(const t_tile *tile, char id)
 {
 	debug_print_id_and_flags(id, tile->flags);
 	if (tile->textures[DIR_DEFAULT])
-		dprintf(2, "~ Base texture defined\n");
+		dprintf(2, "~ Base texture defined, frame count: %d\n", tile->frame_count[DIR_DEFAULT]);
 	if (tile->textures[DIR_NORTH])
-		dprintf(2, "~ North texture defined\n");
+		dprintf(2, "~ North texture defined, frame count: %d\n", tile->frame_count[DIR_NORTH]);
 	if (tile->textures[DIR_SOUTH])
-		dprintf(2, "~ South texture defined\n");
+		dprintf(2, "~ South texture defined, frame count: %d\n", tile->frame_count[DIR_SOUTH]);
 	if (tile->textures[DIR_WEST])
-		dprintf(2, "~ West texture defined\n");
+		dprintf(2, "~ West texture defined, frame count: %d\n", tile->frame_count[DIR_WEST]);
 	if (tile->textures[DIR_EAST])
-		dprintf(2, "~ East texture defined\n");
+		dprintf(2, "~ East texture defined, frame count: %d\n", tile->frame_count[DIR_EAST]);
 	if (tile->colors[DIR_DEFAULT] != RGB_INVALID)
 		dprintf(2, "~ Base color defined: 0x%06X\n", tile->colors[DIR_DEFAULT]);
 	if (tile->colors[DIR_NORTH] != RGB_INVALID)

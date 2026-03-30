@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/27 10:37:56 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/30 20:10:04 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ const char	*g_error_messages[] = {
 [ERR_TEX_NO_ADDR] = "no corresponding address to store texture in map file",
 [ERR_TEX_INVALID_KEY] = "invalid texture key specified in map file",
 [ERR_TEX_INVALID_DIR] = "invalid texture direction specified in map file",
+[ERR_TEX_INVALID_FRAME_COUNT] = "invalid texture frame count in map file",
 [ERR_TEX_NO_TILE] = "no tile defined for texture in map file",
 [ERR_TEX_NO_INVALID] = "no 'invalid' texture defined in map file",
 [WARN_TEX_NO_DIR] = "ray-blocking tile is missing directional texture(s)",
