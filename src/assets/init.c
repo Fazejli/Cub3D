@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:25:04 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/21 20:44:50 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/30 20:26:08 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "assets.h"
 
-static void	assets_colors_init(t_assets *a)
+static void	assets_tiles_init(t_assets *a)
 {
 	size_t	i;
 	size_t	j;
@@ -30,6 +30,7 @@ static void	assets_colors_init(t_assets *a)
 		while (j < DIR_COUNT)
 		{
 			a->tiles[i].colors[j] = RGB_INVALID;
+			a->tiles[i].frame_count[j] = 1;
 			j++;
 		}
 		i++;
@@ -48,7 +49,7 @@ int	assets_init(t_assets *assets, const char *file_path)
 		return (print_error(MOD_ASSETS, ERR_BAD_NAME, 1));
 	if (map_file(&file, file_path))
 		return (1);
-	assets_colors_init(assets);
+	assets_tiles_init(assets);
 	if (parse_assets(assets, file.data, file.size))
 	{
 		assets_deinit(assets);
