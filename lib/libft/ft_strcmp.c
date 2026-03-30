@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deinit.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 13:19:40 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/30 21:36:32 by fadzejli         ###   ########.fr       */
+/*   Created: 2025/04/26 15:20:51 by fadzejli          #+#    #+#             */
+/*   Updated: 2026/03/30 21:38:40 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include "../../lib/libft/libft.h"
+#include "libft.h"
 
-#include "world.h"
-
-void	world_buffer_deinit(t_world_buffer *wb)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (!wb)
-		return ;
-	ft_memset(wb, 0, sizeof(t_world_buffer));
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

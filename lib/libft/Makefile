@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+         #
+#    By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 14:41:02 by fadzejli          #+#    #+#              #
-#    Updated: 2026/03/30 20:07:03 by macarnie         ###   ########.fr        #
+#    Updated: 2026/03/30 21:39:49 by fadzejli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS = ft_isalpha.c \
 	gnl.c	\
 	ft_atoi_rgb.c \
 	ft_untoi.c \
-	ft_free_split.c
+	ft_free_split.c \
+	ft_strcmp.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 INC = libft.h
