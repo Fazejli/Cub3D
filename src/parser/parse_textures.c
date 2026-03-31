@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 11:30:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/30 21:53:03 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/31 14:57:45 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 #include <stdio.h>
 
 #define PATH_SIZE 256
+
+const t_str	g_tex_keys[] = {
+[TEX_INVALID] = {"invalid", 7},
+[TEX_SKYBOX] = {"skybox", 6},
+[TEX_FLOOR] = {"floor", 5},
+[TEX_CEILING] = {"ceiling", 7},
+{NULL, 0}
+};
 
 static int	extract_frame_count(t_str *str, uint32_t *value)
 {
@@ -101,30 +109,28 @@ static int	add_tile_texture(t_assets *a, t_str key, t_str option, t_str path)
 static int	add_asset_texture(t_assets *a, t_str key, t_str option, t_str path)
 {
 	char	buf[PATH_SIZE];
-	t_image	**tex;
+	size_t	i;
 
 	(void)option;
 	if (key.len < 2)
 		return (print_error(MOD_PARSER, ERR_TEX_INVALID_KEY, 1));
-	if (key.len == 7 && ft_strncmp(key.ptr, "invalid", 7) == 0)
-		tex = &a->invalid;
-	else if (key.len == 6 && ft_strncmp(key.ptr, "skybox", 6) == 0)
-		tex = &a->skybox;
-	else if (key.len == 5 && ft_strncmp(key.ptr, "floor", 5) == 0)
-		tex = &a->floor_tex;
-	else if (key.len == 7 && ft_strncmp(key.ptr, "ceiling", 7) == 0)
-		tex = &a->ceiling_tex;
-	else
-		return (print_error(MOD_PARSER, ERR_TEX_NO_ADDR, 1));
-	if (*tex != NULL)
+	i = TEX_INVALID;
+	while (g_tex_keys[i].ptr)
+	{
+		if (g_tex_keys[i].len == key.len
+			&& strncmp(key.ptr, g_tex_keys[i].ptr, key.len) == 0)
+			break ;
+		i++;
+	}
+	if (a->asset_tex[i] != NULL)
 		return (print_error(MOD_PARSER, ERR_TEX_DOUBLE_DEF, 1));
 	if (path.len >= sizeof(buf))
 		return (print_error(MOD_PARSER, ERR_TEX_PATH_TOO_LONG, 1));
 	ft_memcpy(buf, path.ptr, path.len);
 	buf[path.len] = '\0';
-	*tex = get_image_from_xpm(a->gfx->mlx, buf);
-	if (*tex == NULL)
-		return (print_error(MOD_PARSER, ERR_PERROR, 1));
+	a->asset_tex[i] = get_image_from_xpm(a->gfx->mlx, buf);
+	if (a->asset_tex[i] == NULL)
+		return (print_error(MOD_PARSER, ERR_IMG_LOAD, 1));
 	return (0);
 }
 
