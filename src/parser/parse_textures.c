@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 11:30:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/31 14:57:45 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/31 19:51:43 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include "utils/t_str.h"
 #include "utils/error.h"
-#include "../../lib/libft/libft.h"
+#include "libft.h"
 #include "parser_internal.h"
 
 #include <stdio.h>
@@ -118,7 +118,7 @@ static int	add_asset_texture(t_assets *a, t_str key, t_str option, t_str path)
 	while (g_tex_keys[i].ptr)
 	{
 		if (g_tex_keys[i].len == key.len
-			&& strncmp(key.ptr, g_tex_keys[i].ptr, key.len) == 0)
+			&& ft_strncmp(key.ptr, g_tex_keys[i].ptr, key.len) == 0)
 			break ;
 		i++;
 	}

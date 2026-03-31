@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mattcarniel <mattcarniel@student.42.fr>    +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 16:56:47 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/22 19:05:45 by mattcarniel      ###   ########.fr       */
+/*   Updated: 2026/03/31 19:46:04 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 void	debug_print_options(t_options *options)
 {
-	dprintf(2, "\t\t- OPTIONS -\n\n");
-	dprintf(2, "- File path: %s\n", options->file_path);
-	dprintf(2, "- Width: %u\n", options->width);
-	dprintf(2, "- Height: %u\n", options->height);
-	dprintf(2, "- Thread count: %d\n", options->thread_count);
-	dprintf(2, "- FPS: %d\n\n", options->fps);
+	printf("\t\t- OPTIONS -\n\n");
+	printf("- File path: %s\n", options->file_path);
+	printf("- Width: %u\n", options->width);
+	printf("- Height: %u\n", options->height);
+	printf("- Thread count: %d\n", options->thread_count);
+	printf("- FPS: %d\n\n", options->fps);
 }
 
 #else

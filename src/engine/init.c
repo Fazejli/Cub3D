@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:31:29 by macarnie          #+#    #+#             */
-/*   Updated: 2026/03/30 19:55:24 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/03/31 19:45:57 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 static void	debug_print_engine(t_engine *e)
 {
-	dprintf(2, "\n\t=== Engine Debug Info ===\n");
+	printf("\n\t=== Engine Debug Info ===\n");
 	debug_print_options(&e->opt);
 	debug_print_assets(&e->assets);
-	dprintf(2, "\n\t=========================\n");
+	printf("\n\t=========================\n");
 }
 
 #else

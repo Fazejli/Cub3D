@@ -19,18 +19,18 @@ D=door
 1=./textures/concrete_wall/cw_a.xpm
 2=./textures/concrete_wall/cw_b.xpm
 3=./textures/concrete_wall/cw_c.xpm
+4=./textures/concrete_wall/cw_d.xpm
 5=./textures/concrete_wall/cw_e.xpm
 6=./textures/concrete_wall/cw_f.xpm
 F,4=./textures/fan.xpm
-D=./textures/vlad.xpm
+D=./textures/east.xpm
 floor=./textures/floor_metal.xpm
-ceiling=./textures/vlad.xpm
 
 invalid=./textures/invalid.xpm
 
 [COLORS]
 
-ceiling=0,255,0
+ceiling=30,30,30
 
 [MAP]
 

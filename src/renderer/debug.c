@@ -6,7 +6,7 @@
 /*   By: macarnie <macarnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 18:05:34 by mattcarniel       #+#    #+#             */
-/*   Updated: 2026/03/27 14:05:21 by macarnie         ###   ########.fr       */
+/*   Updated: 2026/03/31 19:45:50 by macarnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	debug_print_fps(long now)
 	{
 		fps = (double)frame_count * 1000000.0
 			/ (double)(now - last_fps_time);
-		dprintf(2, "FPS: %.2f\n", fps);
+		printf("FPS: %.2f\n", fps);
 		frame_count = 0;
 		last_fps_time = now;
 	}
