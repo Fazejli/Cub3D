@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fadwa <fadwa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fadzejli <fadzejli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 19:05:30 by fadzejli          #+#    #+#             */
-/*   Updated: 2026/03/31 15:13:22 by fadwa            ###   ########.fr       */
+/*   Updated: 2026/03/31 18:43:01 by fadzejli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #define MSG_LIMIT			126
 
-#define MSG_USAGE			"Usage: <./cub3D filename.cub> [OPTIONS]"
+#define MSG_USAGE			"Usage: <./cub3D filename.cub [OPTIONS]...>"
 #define MSG_HELP			"For help, run: <./cub3D --help> or <./cub3D -h>"
 
 const char	*g_module_names[] = {
